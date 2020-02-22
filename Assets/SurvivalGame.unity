@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 219027726}
   - component: {fileID: 219027725}
   - component: {fileID: 219027724}
+  - component: {fileID: 219027731}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -477,6 +478,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torqueMultiplier: 5
+--- !u!114 &219027731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219027723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1294849d6ff8a40a522864d4c6a623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyGlass: {fileID: 360376081}
+  normal: {r: 0.9686275, g: 0.44705886, b: 0, a: 0.8509804}
+  middle: {r: 0.21176472, g: 0.9490197, b: 0.09019608, a: 0.8509804}
+  powerfull: {r: 0.6901961, g: 0.10588236, b: 0.10588236, a: 0.8509804}
+  startColor: {r: 0.30980393, g: 0.3019608, b: 0.5058824, a: 0.8509804}
 --- !u!1 &224035142
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +741,7 @@ GameObject:
   - component: {fileID: 360376080}
   - component: {fileID: 360376081}
   m_Layer: 0
-  m_Name: WhiteCircle
+  m_Name: EnergyGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +799,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 85655f7598725df47895f46b03e926ca, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3161113, g: 0.305773, b: 0.547, a: 0.84705883}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -28,10 +28,12 @@ public class Player_Shoot : MonoBehaviour {
 	private Rigidbody2D rb;
 	public float recoilForce, speedLimit;
 	public bool recoilCall;
+	Player_Gfxs gfxs;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		canShoot = true;
+		gfxs = GetComponent<Player_Gfxs>();
 	}
 
 	
@@ -80,11 +82,14 @@ public class Player_Shoot : MonoBehaviour {
 			chargedTime = Time.time;
 			ShootCharging = true;
 			SetShootingParticle(true);
+			//Arkadaki cam küreyi doldurur
+			gfxs.CallSetEnergyGlass();
 		}
 
 		if( ( Input.GetMouseButtonUp(0)/*  || touch.phase == TouchPhase.Ended  */)  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
 		{
 			ShootCharging = false;
+			gfxs.CallSetEnergyGlassToNormal();
 			if( GetComponent<Player>().isThereActivePowerUp == false )
 			{
 				canRecoil = true;
@@ -103,23 +108,19 @@ public class Player_Shoot : MonoBehaviour {
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
 				var projectile = Instantiate(normalProjectile,mouthPos,Quaternion.identity);
-				state = State.NormalShot;
 				NormalShoot(projectile,Direction.normalized);
+				
 			}
 			else if( Time.time - chargedTime >= MiddleShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit )
 			{
 				var projectile = Instantiate(middleProjectile,mouthPos,Quaternion.identity);
-				state = State.MiddleShot;
 				MiddleShoot(projectile,Direction.normalized);
 			}
 			else if( Time.time - chargedTime >= PowerfulShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit + 2f )
 			{
 				var projectile = Instantiate(powerfulProjectile,mouthPos,Quaternion.identity);
-				state = State.PowerfulShoot;
 				PowerfulShoot(projectile,Direction.normalized);
-				
 			}
-			state = State.justShooted;
 			SetShootingParticle(false);
 		}
 		if(Time.time - chargedTime >= PowerfulShootTimeLimit + 2f && ShootCharging)
@@ -136,7 +137,7 @@ public class Player_Shoot : MonoBehaviour {
 		projectile.transform.localScale *= NormalShootSize; ///Size
 
 		LastShootTime = Time.time;
-		
+		state = State.NormalShot;
 		recoilCall = true;
 	}
 	void MiddleShoot(  GameObject projectile,Vector2 ShootVelocity )
@@ -148,6 +149,7 @@ public class Player_Shoot : MonoBehaviour {
 		projectile.transform.localScale *= MiddleShootSize; ///Size
 
 		LastShootTime = Time.time;
+		state = State.MiddleShot;
 		recoilCall = true;
 	}
 	void PowerfulShoot(  GameObject projectile,Vector2 ShootVelocity )
@@ -161,6 +163,7 @@ public class Player_Shoot : MonoBehaviour {
 		FindObjectOfType<Camera_Shake>().Call_Shake(.7f,.2f);///Shakes Camera
 
 		LastShootTime = Time.time;
+		state = State.PowerfulShoot;
 		recoilCall = true;
 	}
 	public void Recoil()
@@ -226,5 +229,5 @@ public class Player_Shoot : MonoBehaviour {
 }
 public enum State////player moving or stoped or something else
 {
-	Static,NormalShot,MiddleShot,PowerfulShoot,justShooted
+	Static,NormalShot,MiddleShot,PowerfulShoot
 }

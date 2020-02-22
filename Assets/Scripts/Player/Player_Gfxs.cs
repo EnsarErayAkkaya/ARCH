@@ -6,44 +6,60 @@ public class Player_Gfxs : MonoBehaviour
 {
     public SpriteRenderer energyGlass;
     Player_Shoot player_Shoot;
-    public Color normal,middle,powerfull;
+    public Color normal,middle,powerfull,startColor;
     void Start()
     {
         player_Shoot = GetComponent<Player_Shoot>();
     }
+    public void CallSetEnergyGlass()
+    {
+        StartCoroutine( SetEnergyGlass() );
+    }
     IEnumerator SetEnergyGlass()
     {
         float t = 0.0f;
-        Color startColor = energyGlass.GetComponent<MeshRenderer>().material.color;
-        while(t < 1.0f)
+        while(t < player_Shoot.PowerfulShootTimeLimit + 2f)
         {
+            Debug.Log(energyGlass.GetComponent<SpriteRenderer>().color+ " set");
+            if(player_Shoot.ShootCharging == false)
+                break;
+            
             t += Time.deltaTime * (Time.timeScale / 1);
-            if(player_Shoot.state == State.NormalShot)
+            if( t <= player_Shoot.MiddleShootTimeLimit)
             {
-                energyGlass.GetComponentInChildren<MeshRenderer>().material.color 
-                    = Color.Lerp(energyGlass.GetComponentInChildren<MeshRenderer>().material.color, normal, t);
+                energyGlass.GetComponent<SpriteRenderer>().color 
+                    = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, normal, t);
             }
-            else if(player_Shoot.state == State.MiddleShot)
+            else if(t > player_Shoot.MiddleShootTimeLimit && t <= player_Shoot.PowerfulShootTimeLimit)
             {
-                energyGlass.GetComponentInChildren<MeshRenderer>().material.color 
-                    = Color.Lerp(energyGlass.GetComponentInChildren<MeshRenderer>().material.color, middle, t);
+                energyGlass.GetComponent<SpriteRenderer>().color 
+                    = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, middle, t);
             }
-            else if(player_Shoot.state == State.PowerfulShoot)
+            else if(t > player_Shoot.PowerfulShootTimeLimit && t <= player_Shoot.PowerfulShootTimeLimit + 2)
             {
-                energyGlass.GetComponentInChildren<MeshRenderer>().material.color 
-                    = Color.Lerp(energyGlass.GetComponentInChildren<MeshRenderer>().material.color, powerfull, t);
+                energyGlass.GetComponent<SpriteRenderer>().color 
+                    = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, powerfull, t);
             }
             yield return 0;
         }
+        CallSetEnergyGlassToNormal();
     }
-    public IEnumerator lerpColor(GameObject _gameObject, Color _targetColor)
+    public void CallSetEnergyGlassToNormal()
+    {
+        StartCoroutine( SetEnergyGlassToNormal() );
+    }
+    IEnumerator SetEnergyGlassToNormal()
     {
         float t = 0.0f;
-        while (t < 1.0f)
+        while(t < 1.0f)
         {
-            Color currentColor = _gameObject.GetComponentInChildren<MeshRenderer>().material.color;
+            Debug.Log(energyGlass.GetComponent<SpriteRenderer>().color+ " deset");
+            if(player_Shoot.ShootCharging == true)
+                break;
+
             t += Time.deltaTime * (Time.timeScale / 1);
-            _gameObject.GetComponentInChildren<MeshRenderer>().material.color = Color.Lerp(_gameObject.GetComponentInChildren<MeshRenderer>().material.color, _targetColor, t);
+            energyGlass.GetComponent<SpriteRenderer>().color 
+                = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, startColor, t);
             yield return 0;
         }
     }
