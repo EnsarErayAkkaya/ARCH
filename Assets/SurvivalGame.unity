@@ -1615,6 +1615,12 @@ MonoBehaviour:
     pitch: 1.8
     loop: 0
     source: {fileID: 0}
+  - name: NormalShot
+    clip: {fileID: 8300000, guid: 4601f8519ed0eda408070c45762df4a0, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &1209084772
 Transform:
   m_ObjectHideFlags: 0

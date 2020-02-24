@@ -108,6 +108,7 @@ public class Player_Shoot : MonoBehaviour {
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
 				var projectile = Instantiate(normalProjectile,mouthPos,Quaternion.identity);
+				FindObjectOfType<AudioManager>().Play( "NormalShot" );
 				NormalShoot(projectile,Direction.normalized);
 				
 			}
