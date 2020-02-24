@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class JustWall : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
+         if(other.gameObject.CompareTag("Player"))
+		{
+            ///Stop the player
+            other.gameObject.GetComponent<Player_Shoot>().canRecoil = false;
+        }
         if(other.gameObject.CompareTag("Projectile"))
 		{
             if(other.gameObject.GetComponent<Projectile>() != null)
@@ -18,15 +23,6 @@ public class JustWall : MonoBehaviour
             {
                 other.gameObject.GetComponent<Enemy_Projectile>().DestroyProjectile();
             }
-        }
-    }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-         if(other.gameObject.CompareTag("Player"))
-		{
-            ///Stop the player
-            other.gameObject.GetComponent<Player_Shoot>().canRecoil = false;
-
         }
     }
    

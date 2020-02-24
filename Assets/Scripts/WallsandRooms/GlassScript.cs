@@ -13,7 +13,7 @@ public class GlassScript : MonoBehaviour
         brokenGlass.SetActive(false);
         brokenGlass2.SetActive(false);
     }
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Projectile"))
 		{
