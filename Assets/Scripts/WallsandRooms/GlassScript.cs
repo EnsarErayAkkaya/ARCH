@@ -35,15 +35,17 @@ public class GlassScript : MonoBehaviour
     {
         if( glassHealth == 2 )
         {
+            FindObjectOfType<AudioManager>().Play( "GlassCrack" );
             brokenGlass.SetActive(true);
         }
         if( glassHealth == 1 )
         {
+            FindObjectOfType<AudioManager>().Play( "GlassCrack" );
             brokenGlass2.SetActive(true);
         }
         else if( glassHealth == 0 )
         {
-            FindObjectOfType<AudioManager>().Play( "GlassCrack" );
+            FindObjectOfType<AudioManager>().Play( "GlassBreak" );
 
             CreateGlassPieces();
 

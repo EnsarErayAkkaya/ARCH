@@ -1603,10 +1603,16 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: GlassCrack
+  - name: GlassBreak
     clip: {fileID: 8300000, guid: a3ece5c407281ed41a2952f7c6db3ada, type: 3}
     volume: 0.5
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GlassCrack
+    clip: {fileID: 8300000, guid: a3ece5c407281ed41a2952f7c6db3ada, type: 3}
+    volume: 0.2
+    pitch: 1.8
     loop: 0
     source: {fileID: 0}
 --- !u!4 &1209084772
