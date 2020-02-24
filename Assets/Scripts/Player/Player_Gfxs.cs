@@ -20,7 +20,6 @@ public class Player_Gfxs : MonoBehaviour
         float t = 0.0f;
         while(t < player_Shoot.PowerfulShootTimeLimit + 2f)
         {
-            Debug.Log(energyGlass.GetComponent<SpriteRenderer>().color+ " set");
             if(player_Shoot.ShootCharging == false)
                 break;
             
@@ -53,7 +52,6 @@ public class Player_Gfxs : MonoBehaviour
         float t = 0.0f;
         while(t < 1.0f)
         {
-            Debug.Log(energyGlass.GetComponent<SpriteRenderer>().color+ " deset");
             if(player_Shoot.ShootCharging == true)
                 break;
 

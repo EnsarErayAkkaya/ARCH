@@ -6,19 +6,6 @@ public class ReflectorWall : MonoBehaviour
 {
     public bool right,left,bottom,top;
     public bool damagePassanger;
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.CompareTag("Projectile"))
-		{
-            other.gameObject.GetComponent<Rigidbody2D>().velocity = Reflect_Projectile( other.gameObject.GetComponent<Rigidbody2D>().velocity );
-            if(other.gameObject.GetComponent<Projectile>() != null)
-            {
-                other.gameObject.GetComponent<Projectile>().Bomb();
-            }
-            //other.gameObject.GetComponent<Projectile>().DestroyProjectile();
-        }
-    }
     void OnCollisionEnter2D(Collision2D other)
     {
          if(other.gameObject.CompareTag("Player"))
@@ -30,7 +17,15 @@ public class ReflectorWall : MonoBehaviour
             }            ///Stop the player
             other.gameObject.GetComponent<Player_Shoot>().canRecoil = false;
         }
-        
+         if(other.gameObject.CompareTag("Projectile"))
+		{
+            other.gameObject.GetComponent<Rigidbody2D>().velocity = Reflect_Projectile( other.gameObject.GetComponent<Rigidbody2D>().velocity );
+            if(other.gameObject.GetComponent<Projectile>() != null)
+            {
+                other.gameObject.GetComponent<Projectile>().Bomb();
+            }
+            //other.gameObject.GetComponent<Projectile>().DestroyProjectile();
+        }
     }
     
 

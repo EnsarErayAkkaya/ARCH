@@ -28,10 +28,6 @@ public class Throver_Wall : MonoBehaviour
                 other.gameObject.GetComponent<AddForceToWall>().AddForce = true;    
             }  
         }
-	}
-   
-    void OnTriggerEnter2D(Collider2D other)
-    {
         if(other.gameObject.CompareTag("Projectile"))
 		{
             if(other.gameObject.GetComponent<Projectile>() != null)
@@ -45,7 +41,7 @@ public class Throver_Wall : MonoBehaviour
                 other.gameObject.GetComponent<Enemy_Projectile>().DestroyProjectile();
             }
         }
-    }
+	}
 
     public Vector2 ThrowPlayer(GameObject other)
     {

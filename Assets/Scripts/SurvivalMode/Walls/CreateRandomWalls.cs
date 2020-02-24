@@ -23,7 +23,7 @@ public class CreateRandomWalls : MonoBehaviour
         
         for (int i = 0; i < wallCount; i++)
         {
-            int k = Random.Range( 0, walls.Count );
+            int k = ChooseWallType();
             GameObject wall = Instantiate( walls[k], ChooseRandomLocation(), Quaternion.identity );
             
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
@@ -40,7 +40,27 @@ public class CreateRandomWalls : MonoBehaviour
         }
     }
 
-    public void ChooseWallCount()
+    int ChooseWallType()
+    {
+        float val = Random.Range(0f,1f);
+        if(val <= .4f)
+        {
+            return 0;
+        }
+        else if( val > .4f && val <= .6f)
+        {
+            return 1; 
+        }
+        else if(val > .6f && val <= 1 )
+        {
+            return 2;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    void ChooseWallCount()
     {
         if( survivalManager.waveIndex < 5 && radius <= 60 )
         {
