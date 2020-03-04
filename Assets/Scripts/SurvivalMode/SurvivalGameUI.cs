@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SurvivalGameUI : GameUI
 {
-    public TextMeshProUGUI timeText,scoreText,startText;
+    public TextMeshProUGUI timeText,scoreText,startText,shrinkText;
     public Button nextButton;
     SurvivalGameManager survivalManager;
     void Start()
@@ -21,13 +21,14 @@ public class SurvivalGameUI : GameUI
             startText.gameObject.SetActive(true);
             if(Input.GetMouseButton(0))
             {
-                survivalManager.StartOrGoNextGame();
+                survivalManager.StartGame();
                 startText.gameObject.SetActive(false);
+                if(survivalManager.willRoomScale)
+                    shrinkText.gameObject.SetActive(true);
             }
         }
         if(!survivalManager.gameStopped && survivalManager.isGameStarted)
-        {
-            survivalManager.gameTime += Time.deltaTime; 
+        { 
             timeText.text = survivalManager.gameTime.ToString("#.#");   
         }
     }

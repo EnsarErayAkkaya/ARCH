@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/SurvivalGame.unity
+    guid: fb905667505d6544d82bd8b6ba918a53
+  m_configObjects: {}
