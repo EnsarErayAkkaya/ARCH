@@ -20,8 +20,8 @@ public class Enemy_Projectile : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
         Destroy(gameObject,lifeTime);
     }
-   
-    void OnTriggerEnter2D(Collider2D other)
+
+    void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {

@@ -906,6 +906,7 @@ RectTransform:
   - {fileID: 1146835633}
   - {fileID: 2098014756}
   - {fileID: 7791231}
+  - {fileID: 1279603308}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -931,6 +932,7 @@ MonoBehaviour:
   timeText: {fileID: 1889835685}
   scoreText: {fileID: 224035144}
   startText: {fileID: 1146835634}
+  shrinkText: {fileID: 1279603310}
   nextButton: {fileID: 2098014753}
 --- !u!1 &497918945
 GameObject:
@@ -1603,9 +1605,21 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: GlassCrack
+  - name: GlassBreak
     clip: {fileID: 8300000, guid: a3ece5c407281ed41a2952f7c6db3ada, type: 3}
     volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GlassCrack
+    clip: {fileID: 8300000, guid: a3ece5c407281ed41a2952f7c6db3ada, type: 3}
+    volume: 0.2
+    pitch: 1.8
+    loop: 0
+    source: {fileID: 0}
+  - name: NormalShot
+    clip: {fileID: 8300000, guid: 4601f8519ed0eda408070c45762df4a0, type: 3}
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -2116,12 +2130,198 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255683760}
   m_CullTransparentMesh: 0
+--- !u!1 &1279603307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1279603308}
+  - component: {fileID: 1279603311}
+  - component: {fileID: 1279603310}
+  - component: {fileID: 1279603309}
+  m_Layer: 5
+  m_Name: Shirink Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1279603308
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279603307}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 469211332}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 28.4, y: -112.3}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1279603309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279603307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a07b8a6aaa31a14c9cdcf4735d58162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeOutTime: 3
+--- !u!114 &1279603310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279603307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'This Room Will Shrink
+
+    Be Careful!'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278255604
+  m_fontColor: {r: 0.9597633, g: 1, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_outlineColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_textAlignment: 514
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_firstOverflowCharacterIndex: 22
+  m_linkedTextComponent: {fileID: 0}
+  m_isLinkedTextComponent: 0
+  m_isTextTruncated: 0
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_ignoreRectMaskCulling: 0
+  m_ignoreCulling: 1
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_firstVisibleCharacter: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -127.59538, y: 0, z: -74.55876, w: 0}
+  m_textInfo:
+    textComponent: {fileID: 1279603310}
+    characterCount: 33
+    spriteCount: 0
+    spaceCount: 5
+    wordCount: 6
+    linkCount: 0
+    lineCount: 2
+    pageCount: 1
+    materialCount: 1
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_spriteAnimator: {fileID: 0}
+  m_hasFontAssetChanged: 0
+  m_subTextObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1279603311
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279603307}
+  m_CullTransparentMesh: 0
 --- !u!1 &1305459206 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5613111206290300671, guid: 239ec3d704bbfc94d9f267152d1c18a4,
     type: 3}
   m_PrefabInstance: {fileID: 1791732082}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1305459207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305459206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c712c8f223f435439525e34c41492f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleSpeed: 1
+  scaleDuration: 20
+  minScale: {x: 10, y: 10}
 --- !u!1 &1365509740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,8 +2669,12 @@ MonoBehaviour:
   room: {fileID: 1305459206}
   gameRadius: 45
   gameTime: 0
+  scaleDownStartTime: 30
+  roomScaleDownChance: 0.9
   gameStopped: 0
   isGameStarted: 0
+  roomClosing: 0
+  willRoomScale: 0
   waveIndex: 0
 --- !u!4 &1410600286
 Transform:
@@ -7667,7 +7871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAIIezfEO9bWgIAAAAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVEtz2jAQ/iuMzk3GJqEkvbUOIT3kMSGdXHwR0hprkCWPHgGS4b93JcvYpSeWb7/d/fYhfxGhbAvMabM0gj9qDuTHhASbfJsMzgfY041WK/EJPeddcFcHEo2cV+qERjwPYVY34IxgP9VGBnKGoFei0qZZ8A0U2jqLcEWlBXQZ7UK0QuhrQvb4c3EbQg5oTefB+kTrNpsc0WSgHJiBml3OEvX6cjbPsixP/I7uFZO0aYEH7UNUnvUF0IpEhX0lTsjAtJTCJlHEHdrYdEFb67ElJHBBscmoJL+8QqAGsaldkDwOf64qCy7NwNDDnTA4rS4v+aW7ETbUbjttH1T6UGmWT6OqLunjf/6LPLoro5uHvm7Xk6sF277SA6PWjWY8hu9G0uOIdlRu6VrCew3qSS+N9oqj0xkfQr2F6d3w99RaUQPbDngn9Qz07WhTaeL9QkMPx9j9vpCiWcdlXnfASuo48XgHYHA3v1FwvBKbUiAaVPyx8EY343NKjnthrENX6lIFeWvtTaCSRZxZ6Ma7QhsFEU6iW1BUusMLpnHnKzzzjcqeee5peDipePL17+EsJMIDP8vOXC96d1qWrfXuEWz97J0UCgbRwfGEcyq0Ut2FjWfSh628qSgbhW284P+eFmGz71O6nl6xm3mG1vxineU31ww4nc1hyq5yEm9PKOyTypdOaBoPbk0NyRXeWf89mSwNbeO1c0N3S/HZ6LFAoSq9YgZAPXcpTsrBYBV8mHzBBU5oBc4JFRdOvkoiNdsCL081y9jqYu8MLYcsJWnFh3YBKUkRvyAlOZLjX1BLAwQUAAAICAAACCHssVBCBWsAAAB3AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9Kz0FFQSi9KLMgoBgoYgjilmSkgdrRSsqmZUWKSkXGyhbkBkGWum2RgaGGSnJqSaGqeapRsbKgUC1RfUlmQ6peYmwrRE5BYkpGWmZeSmZeu516UmeIOMlopthYAUEsBAi0AFAAACAgAAAgh7N8Q71taAgAAAAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7LFQQgVrAAAAdwAAAAkAJAAAAAAAAAAAAAAApwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABdAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAYIezfEO9bWgIAAAAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVEtz2jAQ/iuMzk3GJqEkvbUOIT3kMSGdXHwR0hprkCWPHgGS4b93JcvYpSeWb7/d/fYhfxGhbAvMabM0gj9qDuTHhASbfJsMzgfY041WK/EJPeddcFcHEo2cV+qERjwPYVY34IxgP9VGBnKGoFei0qZZ8A0U2jqLcEWlBXQZ7UK0QuhrQvb4c3EbQg5oTefB+kTrNpsc0WSgHJiBml3OEvX6cjbPsixP/I7uFZO0aYEH7UNUnvUF0IpEhX0lTsjAtJTCJlHEHdrYdEFb67ElJHBBscmoJL+8QqAGsaldkDwOf64qCy7NwNDDnTA4rS4v+aW7ETbUbjttH1T6UGmWT6OqLunjf/6LPLoro5uHvm7Xk6sF277SA6PWjWY8hu9G0uOIdlRu6VrCew3qSS+N9oqj0xkfQr2F6d3w99RaUQPbDngn9Qz07WhTaeL9QkMPx9j9vpCiWcdlXnfASuo48XgHYHA3v1FwvBKbUiAaVPyx8EY343NKjnthrENX6lIFeWvtTaCSRZxZ6Ma7QhsFEU6iW1BUusMLpnHnKzzzjcqeee5peDipePL17+EsJMIDP8vOXC96d1qWrfXuEWz97J0UCgbRwfGEcyq0Ut2FjWfSh628qSgbhW284P+eFmGz71O6nl6xm3mG1vxineU31ww4nc1hyq5yEm9PKOyTypdOaBoPbk0NyRXeWf89mSwNbeO1c0N3S/HZ6LFAoSq9YgZAPXcpTsrBYBV8mHzBBU5oBc4JFRdOvkoiNdsCL081y9jqYu8MLYcsJWnFh3YBKUkRvyAlOZLjX1BLAwQUAAAICAAAGCHssVBCBWsAAAB3AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9Kz0FFQSi9KLMgoBgoYgjilmSkgdrRSsqmZUWKSkXGyhbkBkGWum2RgaGGSnJqSaGqeapRsbKgUC1RfUlmQ6peYmwrRE5BYkpGWmZeSmZeu516UmeIOMlopthYAUEsBAi0AFAAACAgAABgh7N8Q71taAgAAAAUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAABgh7LFQQgVrAAAAdwAAAAkAJAAAAAAAAAAAAAAApwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABdAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 

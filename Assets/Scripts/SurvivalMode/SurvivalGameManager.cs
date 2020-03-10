@@ -6,22 +6,37 @@ using TMPro;
 public class SurvivalGameManager : MonoBehaviour
 {
     public GameObject room;
-    public float gameRadius;
+    public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f;
     private int score;
-    public float gameTime;
     SurvivalGameUI gameUI;
-    public bool gameStopped,isGameStarted = false;
+    public bool gameStopped,isGameStarted = false,roomClosing,willRoomScale = false;
     public int waveIndex = 0;
+   
+
     void Start()
     {
         gameUI = FindObjectOfType<SurvivalGameUI>();
         gameTime = 0;
         SetRoom();
     }
+    
+    void Update()
+    {
+        if(!gameStopped && isGameStarted)
+        {
+            gameTime += Time.deltaTime;
+            if(roomClosing == false && gameTime > scaleDownStartTime && willRoomScale == true)
+            {
+                roomClosing = true;
+                FindObjectOfType<WallScaler>().CallScaler();
+            }
+        }
+    }
     public void SetRoom()
     {
         gameRadius = Random.Range(30,90);
         room.transform.localScale = new Vector3(gameRadius/3,gameRadius/3,1);
+        willRoomScale = ChooseWillRoomScale();
         FindObjectOfType<CreateRandomWalls>().CreateWalls();
     }
     public void GetScore()
@@ -39,8 +54,8 @@ public class SurvivalGameManager : MonoBehaviour
         score -= 100;
         gameUI.UpdateScoreText(score);
     }
-    
-    public void StartOrGoNextGame()
+    //It works when you touh or click for game to start
+    public void StartGame()
     {
         waveIndex++;
         isGameStarted = true;
@@ -120,6 +135,18 @@ public class SurvivalGameManager : MonoBehaviour
     public void EndGame()
     {
         //Score u kaydet ve her şeyi sıfırla
+    }
+    bool ChooseWillRoomScale()
+    {
+        float val = Random.Range(0f,1f);
+        if(val <= roomScaleDownChance)
+        {
+            return true;
+        }
+        else 
+        {
+            return false; 
+        }
     }
     
 }
