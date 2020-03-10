@@ -37,6 +37,7 @@ public class SurvivalGameManager : MonoBehaviour
         gameRadius = Random.Range(30,90);
         room.transform.localScale = new Vector3(gameRadius/3,gameRadius/3,1);
         willRoomScale = ChooseWillRoomScale();
+        roomClosing = false;
         FindObjectOfType<CreateRandomWalls>().CreateWalls();
     }
     public void GetScore()
