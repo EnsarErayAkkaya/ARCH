@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	public int killedEnemyCount;
-	public int currentHealth;
+	public float currentHealth;
 	public int maxHealth;
 	public bool isThereActivePowerUp,GetDataFromBefore;
 	public int howManyRoomVisited=0;
@@ -35,16 +35,14 @@ public class Player : MonoBehaviour {
         }
 	}
 	
-	public void GetDamage(int damage)
+	public void GetDamage(float damage)
 	{
 		currentHealth -= damage;
 		if(currentHealth >100)
 			currentHealth = 100;
 		else if( currentHealth <0)
 			currentHealth = 0;
-		//if(FindObjectOfType<SurvivalGameManager>() == null)
 		FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
-
 	}
 	public void AddEnemyKilled()
 	{

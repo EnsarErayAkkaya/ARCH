@@ -25,7 +25,7 @@ public class PlayerData
 {
     public float positionX,positionY;
 	public int killedEnemyCount;
-	public int currentHealth;
+	public float currentHealth;
 	public int maxHealth;
 	public int howManyRoomVisited;
     public PlayerData()
@@ -35,7 +35,7 @@ public class PlayerData
         currentHealth = maxHealth;
         howManyRoomVisited = 0;
     }
-     public PlayerData(int _killedEnemyCount, int _maxHealth, int _currentHealth, int _howManyRoomVisited, float _positionX, float _positionY )
+     public PlayerData(int _killedEnemyCount, int _maxHealth, float _currentHealth, int _howManyRoomVisited, float _positionX, float _positionY )
     {
         positionX = _positionX;
         positionY = _positionY;

@@ -1815,9 +1815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded339778d399b24f900bbd4ec1ab74d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageOnSecond: 1
-  color1: {r: 0.4509804, g: 0.68235296, b: 0.28235295, a: 0.18039216}
-  color2: {r: 0.7176471, g: 0.21568628, b: 0.21960784, a: 0.18039216}
+  damageOnSecond: 0.1
 --- !u!1 &1209084770
 GameObject:
   m_ObjectHideFlags: 0
