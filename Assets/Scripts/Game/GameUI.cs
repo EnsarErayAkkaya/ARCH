@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameUI : MonoBehaviour
 {
     public Image healthLeft,healthRight;
-    public void UpdateHealthBar(int health)
+    public void UpdateHealthBar(float health)
     {
         float res =((float)health /100);
         healthLeft.fillAmount = res;

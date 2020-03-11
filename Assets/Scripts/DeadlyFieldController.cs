@@ -6,8 +6,8 @@ public class DeadlyFieldController : MonoBehaviour
 {
     bool playerInside;
     [SerializeField]
-    int damageOnSecond;
-    [SerializeField]Color color1,color2;
+    float damageOnSecond;
+   /*  [SerializeField]Color color1,color2;
     void Start()
     {
         //StartCoroutine( ChageBetwenColorByTime() );   
@@ -35,7 +35,7 @@ public class DeadlyFieldController : MonoBehaviour
             }
             yield return 0;
         }
-    }
+    } */
 
     
     void OnTriggerEnter2D(Collider2D other)
