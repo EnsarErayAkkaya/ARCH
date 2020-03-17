@@ -7,10 +7,6 @@ public class WallScaler : MonoBehaviour
     public float scaleSpeed,scaleDuration;
     public Vector2 minScale;
     SurvivalGameManager survivalManager;
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
     void Start()
     {
         survivalManager = FindObjectOfType<SurvivalGameManager>();
@@ -26,10 +22,15 @@ public class WallScaler : MonoBehaviour
         float t = 0.0f;
         while(t < scaleDuration)
         {
-            if(survivalManager.gameStopped == true )
+            if(survivalManager.gameEnded == true)
                 break;
-            t += Time.deltaTime / Time.timeScale / scaleDuration;
-            gameObject.transform.localScale = Vector3.Lerp(Scale, minScale, t);
+            
+            if(survivalManager.gameStopped == false )
+            {
+                t += Time.deltaTime / Time.timeScale / scaleDuration;
+                gameObject.transform.localScale = Vector3.Lerp(Scale, minScale, t);
+            }
+            
             yield return null;
         }
     }

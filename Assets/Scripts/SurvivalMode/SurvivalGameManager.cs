@@ -9,7 +9,7 @@ public class SurvivalGameManager : MonoBehaviour
     public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f;
     private int score;
     SurvivalGameUI gameUI;
-    public bool gameStopped,isGameStarted = false,roomClosing,willRoomScale = false;
+    public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false;
     public int waveIndex = 0;
    
 
@@ -39,6 +39,7 @@ public class SurvivalGameManager : MonoBehaviour
         willRoomScale = ChooseWillRoomScale();
         roomClosing = false;
         FindObjectOfType<CreateRandomWalls>().CreateWalls();
+        FindObjectOfType<DeadlyFieldController>().ResetField();
     }
     public void GetScore()
     {
@@ -59,6 +60,7 @@ public class SurvivalGameManager : MonoBehaviour
     public void StartGame()
     {
         waveIndex++;
+        gameEnded = false;
         isGameStarted = true;
         gameStopped = false;
         FindObjectOfType<Player_Shoot>().enabled = true;
@@ -69,6 +71,7 @@ public class SurvivalGameManager : MonoBehaviour
     public void StopGame()
     {
         gameStopped = true;
+        //isGameStarted = false;
         //düşmanları sakla
         foreach (var item in FindObjectsOfType<Enemy>())
         {
@@ -83,6 +86,7 @@ public class SurvivalGameManager : MonoBehaviour
     public void ResumeGame()
     {
         gameStopped = false;
+        //isGameStarted = true;
         //düşmanları açığa çıkar
         foreach (var item in FindObjectsOfType<Enemy>())
         {
@@ -116,6 +120,7 @@ public class SurvivalGameManager : MonoBehaviour
         //Son skoru hesapla
         CalculateTimeScore();
         gameUI.UpdateScoreText(score);
+        gameEnded = true;
     }
     
     private void CalculateTimeScore()

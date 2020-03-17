@@ -6,10 +6,17 @@ public class GlassScript : MonoBehaviour
 {
     public int glassHealth = 3;
     public GameObject brokenGlass,brokenGlass2,glassPiece;
-    public bool hasBomb;
+    public bool hasBomb, canEffectFromBomb;
   
     void Start()
     {
+        //If canEffectFromBomb == true then it cant move 
+        if(canEffectFromBomb)
+        {
+            GetComponent<AddForceToWall>().enabled = false;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
         brokenGlass.SetActive(false);
         brokenGlass2.SetActive(false);
     }
@@ -29,6 +36,14 @@ public class GlassScript : MonoBehaviour
             {
                 other.gameObject.GetComponent<Enemy_Projectile>().DestroyProjectile();
             }
+        }
+    }
+    public void GetDamageFromBomb()
+    {
+        if(canEffectFromBomb)
+        {
+            glassHealth = 0;
+            CrackTheGlass();
         }
     }
     void CrackTheGlass()
@@ -62,7 +77,6 @@ public class GlassScript : MonoBehaviour
                         item.GetComponent<BombController>().StartExplosion();
                 }
             }
-            
         }
     }
     void CreateGlassPieces()

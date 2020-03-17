@@ -7,36 +7,19 @@ public class DeadlyFieldController : MonoBehaviour
     bool playerInside;
     [SerializeField]
     float damageOnSecond;
-   /*  [SerializeField]Color color1,color2;
+    [SerializeField] 
+    Vector3 startScale;
+    SurvivalGameManager gameManager;
+
     void Start()
     {
-        //StartCoroutine( ChageBetwenColorByTime() );   
+        gameManager = FindObjectOfType<SurvivalGameManager>();
     }
 
-    IEnumerator ChageBetwenColorByTime()
+    public void ResetField()
     {
-        float t = 0.0f,changeStartTime = 0;
-        while(true)
-        {
-            t += Time.deltaTime / 3;
-            changeStartTime = t;
-            while( changeStartTime+3 > t )
-            {
-                t += Time.deltaTime / 3;
-                GetComponent<SpriteRenderer>().color 
-                    = Color.Lerp(GetComponent<SpriteRenderer>().color, color1, t);
-            }
-            changeStartTime = t;
-            while( changeStartTime+3 > t )
-            {
-                t += Time.deltaTime / 3;
-                GetComponent<SpriteRenderer>().color 
-                    = Color.Lerp(GetComponent<SpriteRenderer>().color, color2, t);
-            }
-            yield return 0;
-        }
-    } */
-
+        gameObject.transform.localScale = startScale;
+    }
     
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -60,7 +43,7 @@ public class DeadlyFieldController : MonoBehaviour
         while(playerInside)
         {
             t += Time.deltaTime;
-            if( lastDamageTime+Time.deltaTime < t )
+            if( lastDamageTime+Time.deltaTime < t && gameManager.isGameStarted && !gameManager.gameStopped )
             {
                 p.GetDamage( damageOnSecond );
                 lastDamageTime = t;
