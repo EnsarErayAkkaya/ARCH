@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     private float timeBetweenShots;
     public float startTimeBetweenShots;
     public GameObject enemyParticle,spawnParticle;
-    public bool canShoot,canRotate,dontDieFromCollision,isSloved;
+    public bool canShoot,canRotate,dontDieFromCollision,isSloved,dontGetDamage;
     public GameObject projectile;
     public RoomController room;
 
@@ -106,6 +106,8 @@ public class Enemy : MonoBehaviour
 
     public void GetDamage(int damage)
 	{
+        if(dontGetDamage == true)
+            return;
 		currentHealth -= damage;
         if(currentHealth <=0)
         {

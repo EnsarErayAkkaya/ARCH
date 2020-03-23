@@ -501,9 +501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641b296703a12e0498ce5a4c7c723e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalShootSpeed: 10
-  MiddleShootSpeed: 13
-  PowerfulShootSpeed: 11
+  NormalShootSpeed: 14
+  MiddleShootSpeed: 16
+  PowerfulShootSpeed: 15
   NormalRecoilForce: 7
   MiddleRecoilForce: 11
   PowerfulRecoilForce: 15
@@ -2067,11 +2067,11 @@ GameObject:
   - component: {fileID: 1212278212}
   m_Layer: 0
   m_Name: Enemy_X
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1212278210
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2129,7 +2129,7 @@ Transform:
   m_GameObject: {fileID: 1212278209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 25.88, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1648911034}
   m_Father: {fileID: 0}
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 9
+  maxSpeed: 7.5
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -2223,7 +2223,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2454,6 +2454,7 @@ MonoBehaviour:
   canRotate: 0
   dontDieFromCollision: 1
   isSloved: 0
+  dontGetDamage: 0
   projectile: {fileID: 0}
   room: {fileID: 0}
 --- !u!114 &1212278217
@@ -2468,6 +2469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0676e4759edf1f468f3ce446956f322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transformedMaterial: {fileID: 2100000, guid: 1c2f211c73a45ad42ac6cb30360cfab4, type: 2}
+  normalMaterial: {fileID: 2100000, guid: 878ccd3b73469f641b70e7165920f6ff, type: 2}
+  transformTime: 5
 --- !u!1 &1255683760
 GameObject:
   m_ObjectHideFlags: 0
@@ -3076,6 +3080,7 @@ MonoBehaviour:
   roomScaleDownChance: 0.91
   gameStopped: 0
   isGameStarted: 0
+  gameEnded: 0
   roomClosing: 0
   willRoomScale: 0
   waveIndex: 0
@@ -7817,6 +7822,7 @@ GameObject:
   - component: {fileID: 1648911034}
   - component: {fileID: 1648911033}
   - component: {fileID: 1648911035}
+  - component: {fileID: 1648911036}
   m_Layer: 0
   m_Name: EnemyX_field
   m_TagString: Untagged
@@ -7896,12 +7902,27 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4, y: -1.05}
-  m_Size: {x: 7.17, y: 9}
+  m_Offset: {x: 0.4, y: -1.5161991}
+  m_Size: {x: 7.17, y: 8.067603}
   m_Direction: 0
+--- !u!114 &1648911036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648911032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce066aea01b953c4da08a72c049b80e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  path: {fileID: 1212278213}
+  enemyX: {fileID: 1212278217}
 --- !u!1001 &1791732082
 PrefabInstance:
   m_ObjectHideFlags: 0
