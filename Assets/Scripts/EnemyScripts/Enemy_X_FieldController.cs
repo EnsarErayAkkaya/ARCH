@@ -28,6 +28,7 @@ public class Enemy_X_FieldController : MonoBehaviour
     IEnumerator StunPlayer(Player_Shoot player)
     {
         player.canShoot = false;
+        path.canSearch = false;
         path.canMove = false;
         justStunned = true;
         enemyX.CallTransform();
@@ -41,6 +42,7 @@ public class Enemy_X_FieldController : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         path.canMove = true;
+        path.canSearch = true;  
     }
 
 }

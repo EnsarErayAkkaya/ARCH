@@ -110,6 +110,7 @@ MonoBehaviour:
   canRotate: 1
   dontDieFromCollision: 0
   isSloved: 0
+  dontGetDamage: 0
   projectile: {fileID: 405509334939425670, guid: e1c8dd06bc2942d4e8f0d0d8b13eba24,
     type: 3}
   room: {fileID: 0}
@@ -126,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 0.6
+  radius: 1
   height: 0.01
   repathRate: 0.5
   canSearch: 1
@@ -142,9 +143,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 14
-  pickNextWaypointDist: 1.2
-  endReachedDistance: 14
+  slowdownDistance: 12.49
+  pickNextWaypointDist: 10.8
+  endReachedDistance: 13
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
