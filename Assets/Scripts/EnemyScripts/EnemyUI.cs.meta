@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: bb3dd8e2f9b2fe34b9c30d08c236ae05
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthCanvasPrefab: {fileID: 4636953062125988007, guid: 96ef3a990cb8f784ea961a8449fa42de,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

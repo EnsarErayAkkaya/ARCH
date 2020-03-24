@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Pathfinding;
-using System.Linq;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,15 +15,9 @@ public class Enemy : MonoBehaviour
     public bool canShoot,canRotate,dontDieFromCollision,isSloved,dontGetDamage;
     public GameObject projectile;
     public RoomController room;
-
-    //private Rigidbody2D rb;
-    //float lastVelocityX;
-
-   //public bool collidingWithWall;
-    //public float friendRadius;
-
     void Start()
     {
+        gameObject.AddComponent<EnemyUI>();
         currentHealth = maxHealth;
         target = FindObjectOfType<Player>().transform;
         selfRotationSpeed.z = Random.Range(-60,60);
@@ -35,7 +26,6 @@ public class Enemy : MonoBehaviour
             GetComponent<AIDestinationSetter>().target = target;
         }
         timeBetweenShots = startTimeBetweenShots;
-        //rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -114,6 +104,7 @@ public class Enemy : MonoBehaviour
             FindObjectOfType<Player>().AddEnemyKilled();
             DestroyEnemy();
         }
+        GetComponent<EnemyUI>().UpdateHealthBar(currentHealth,maxHealth);
 	}
     public Transform Get_Target()
     {
