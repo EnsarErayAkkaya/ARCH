@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
     public RoomController room;
     void Start()
     {
-        gameObject.AddComponent<EnemyUI>();
         currentHealth = maxHealth;
         target = FindObjectOfType<Player>().transform;
         selfRotationSpeed.z = Random.Range(-60,60);
