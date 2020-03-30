@@ -6,13 +6,14 @@ public class GlassScript : MonoBehaviour
 {
     public int glassHealth = 3;
     public GameObject brokenGlass,brokenGlass2,glassPiece;
-    public bool hasBomb, canEffectFromBomb;
+    public bool hasBomb, canEffectFromBomb, dontTakeDamageFromProjectiles;
   
     void Start()
     {
         //If canEffectFromBomb == true then it cant move 
         if(canEffectFromBomb)
         {
+            FindObjectOfType<CreateRandomWalls>().CreateAWall(1);
             GetComponent<AddForceToWall>().enabled = false;
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
@@ -22,7 +23,7 @@ public class GlassScript : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Projectile"))
+        if(other.gameObject.CompareTag("Projectile") && dontTakeDamageFromProjectiles == false )
 		{
             if(other.gameObject.GetComponent<Projectile>() != null)
             {

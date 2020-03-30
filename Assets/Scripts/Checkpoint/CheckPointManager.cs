@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
 {
-    public GameObject checkPoint;
+    public List<GameObject> checkPointsList = new List<GameObject>();
     private float radius;
     public int checkPointCount;
     public List<GameObject> checkPoints = new List<GameObject>();
@@ -22,7 +22,7 @@ public class CheckPointManager : MonoBehaviour
 
         for (int i = 0; i < checkPointCount; i++)
         {
-            GameObject check = Instantiate( checkPoint, ChooseRandomLocation(), Quaternion.identity );
+            GameObject check = Instantiate( checkPointsList[ChooseCheckpointType()], ChooseRandomLocation(), Quaternion.identity );
             
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
             foreach (Transform item in check.transform)
@@ -47,6 +47,22 @@ public class CheckPointManager : MonoBehaviour
         }
     }
 
+     int ChooseCheckpointType()
+    {
+        float val = Random.Range(0f,1f);
+        if(val <= .3f)
+        {
+            return 0;
+        }
+        else if( val > .3f && val <= 1f)
+        {
+            return 1; 
+        }
+        else{
+            return 0;
+        }
+        
+    }
     public void ChoosecheckPointCount()
     {
         if( survivalManager.waveIndex < 5 && radius <= 60 )

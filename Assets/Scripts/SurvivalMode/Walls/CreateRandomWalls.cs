@@ -24,7 +24,21 @@ public class CreateRandomWalls : MonoBehaviour
         for (int i = 0; i < wallCount; i++)
         {
             int k = ChooseWallType();
-            GameObject wall = Instantiate( walls[k], ChooseRandomLocation(), Quaternion.identity );
+            
+            CreateAWall(k);
+        }
+    }
+    ///<summary>
+    ///This function can called when a spesific wall needed 
+    ///to created.
+    ///for normal wall give 0,
+    ///for glass wall with bomb give 1,
+    ///for normal glass give 2 .
+    ///</summary>
+    
+    public void CreateAWall(int k)
+    {
+        GameObject wall = Instantiate( walls[k], ChooseRandomLocation(), Quaternion.identity );
             
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
             if(wall.CompareTag("Wall"))
@@ -36,8 +50,6 @@ public class CreateRandomWalls : MonoBehaviour
                 wall.transform.localScale = new Vector3(Random.Range(reflectorWallMinXScale,reflectorWallMaxXScale)
                         ,Random.Range(reflectorWallMinYScale,reflectorWallMaxYScale),transform.localScale.z);
             }
-               
-        }
     }
 
     int ChooseWallType()
