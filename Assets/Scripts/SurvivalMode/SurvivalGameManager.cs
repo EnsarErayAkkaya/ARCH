@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class SurvivalGameManager : MonoBehaviour
 {
     public GameObject room;
@@ -22,7 +22,7 @@ public class SurvivalGameManager : MonoBehaviour
     
     void Update()
     {
-        if(!gameStopped && isGameStarted)
+        if(!gameStopped && isGameStarted && !gameEnded)
         {
             gameTime += Time.deltaTime;
             if(roomClosing == false && gameTime > scaleDownStartTime && willRoomScale == true)
@@ -101,6 +101,7 @@ public class SurvivalGameManager : MonoBehaviour
     public void CleanGame()
     {
         gameTime = 0;
+        gameStopped = true;
         FindObjectOfType<Player_Shoot>().transform.position = Vector2.zero;
         foreach (var item in FindObjectsOfType<Enemy>())
         {
@@ -115,12 +116,11 @@ public class SurvivalGameManager : MonoBehaviour
             Destroy(item.gameObject);
         }
     }
-    public void EndWave()
+    public void CalculateScore()
     {
         //Son skoru hesapla
         CalculateTimeScore();
         gameUI.UpdateScoreText(score);
-        gameEnded = true;
     }
     
     private void CalculateTimeScore()
@@ -140,7 +140,14 @@ public class SurvivalGameManager : MonoBehaviour
     }
     public void EndGame()
     {
+        gameEnded = true;
+        CleanGame();
         //Score u kaydet ve her şeyi sıfırla
+        gameUI.EndGameUI();
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
     bool ChooseWillRoomScale()
     {

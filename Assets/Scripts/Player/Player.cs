@@ -41,7 +41,13 @@ public class Player : MonoBehaviour {
 		if(currentHealth >100)
 			currentHealth = 100;
 		else if( currentHealth <0)
+		{
 			currentHealth = 0;
+			if(FindObjectOfType<SurvivalGameManager>() != null)
+			{
+				FindObjectOfType<SurvivalGameManager>().EndGame();
+			}
+		}
 		FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
 	}
 	public void AddEnemyKilled()

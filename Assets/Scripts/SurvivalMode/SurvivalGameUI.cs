@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class SurvivalGameUI : GameUI
 {
     public TextMeshProUGUI timeText,scoreText,startText,shrinkText;
-    public Button nextButton;
+    public Button nextButton,restartButton;
     SurvivalGameManager survivalManager;
+
     void Start()
     {
         survivalManager = FindObjectOfType<SurvivalGameManager>();
@@ -38,7 +39,7 @@ public class SurvivalGameUI : GameUI
         scoreText.color = UnityEngine.Random.ColorHSV(0,1,1,1,1,1);
         StartCoroutine( UpdateScoreEnumerator(score) );
     }
-    public void SetUIOnGameEnded()
+    public void SetUIOnGamePassed()
     {
         nextButton.gameObject.SetActive(true);
     }
@@ -57,5 +58,13 @@ public class SurvivalGameUI : GameUI
             scoreText.text = cScore.ToString();
             yield return null;
         }
+    }
+    public void EndGameUI()
+    {
+        restartButton.gameObject.SetActive(true);
+    }
+    public void OnClickRestart()
+    {
+        survivalManager.RestartGame();
     }
 }
