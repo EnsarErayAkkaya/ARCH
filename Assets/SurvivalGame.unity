@@ -2478,12 +2478,13 @@ MonoBehaviour:
   gameRadius: 45
   gameTime: 0
   scaleDownStartTime: 42
-  roomScaleDownChance: 0.2
+  roomScaleDownChance: 0.9
   gameStopped: 0
   isGameStarted: 0
   gameEnded: 0
   roomClosing: 0
   willRoomScale: 0
+  waweEnded: 0
   waveIndex: 0
 --- !u!4 &1410600286
 Transform:

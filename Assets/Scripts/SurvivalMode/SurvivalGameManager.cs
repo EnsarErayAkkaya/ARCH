@@ -9,7 +9,7 @@ public class SurvivalGameManager : MonoBehaviour
     public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f;
     private int score;
     SurvivalGameUI gameUI;
-    public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false;
+    public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false,waweEnded;
     public int waveIndex = 0;
    
 
@@ -100,9 +100,12 @@ public class SurvivalGameManager : MonoBehaviour
     }
     public void CleanGame()
     {
+        waweEnded = true;
         gameTime = 0;
         gameStopped = true;
         FindObjectOfType<Player_Shoot>().transform.position = Vector2.zero;
+        FindObjectOfType<Player_Shoot>().enabled = false;
+
         foreach (var item in FindObjectsOfType<Enemy>())
         {
             Destroy(item.gameObject);

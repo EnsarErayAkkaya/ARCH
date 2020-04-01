@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     public ProjectileType type;
     public int damage;
 
-    public float lifeTime;
+    public float lifeTime, powerfulProjectileExplosionForce;
     public bool spawnEnemy;
 
     void Start()
@@ -25,54 +25,65 @@ public class Projectile : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy"))
 		{
-            
-            //Debug.Log("düşman");   
             if(FindObjectOfType<PermanentPowerUpController>().freezingShot)
             {
                 FreezeEnemy(other.gameObject);
             }
 
+            CollisionInterract(other.gameObject);
+        }
+        if(other.gameObject.CompareTag("Nest"))
+		{
             life--;
             if(isBomb)
             {
                 Bomb();
             }
-            else
-            {
-                GiveDamage(other.gameObject);
-            }
-        }
-        if(other.gameObject.CompareTag("Nest"))
-		{
-            life--;
-            Bomb();
             other.gameObject.GetComponent<Enemy_Spawn>().GetDamage(1);
             DestroyProjectile();
         }
         
     }
-    
 
-    public void GiveDamage(GameObject enemy)
+    public void CollisionInterract(GameObject other)
     {
-        enemy.GetComponent<Enemy>().GetDamage(damage);
+        life--;
+        if(isBomb)
+        {
+            Bomb();
+        }
+        else
+        {
+            GiveDamage(other);
+        }
+    }    
+
+     void GiveDamage(GameObject enemy)
+    {
+        if( enemy.GetComponent<Enemy>() != null )
+            enemy.GetComponent<Enemy>().GetDamage(damage);
 
         DestroyProjectile();
     }
-
-    public void Bomb()
+    ///<summary>
+    ///Etrafındaki objeleri iter. Player ve enemylere hasar verir. camları da bir seviye parçalar
+    ///</summary>
+     void Bomb()
     {
-        if(isBomb)
+        foreach (Collider2D col in Physics2D.OverlapCircleAll(transform.position, 8))
         {
-            GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
-            if( gos.Length > 0 )
+            if(col.GetComponent<Rigidbody2D>() != null)
             {
-                foreach (var col in gos)
+                Vector2 Direction = col.transform.position - transform.position;
+                col.GetComponent<Rigidbody2D>().AddForce(Direction.normalized * powerfulProjectileExplosionForce,ForceMode2D.Impulse );
+                if(col.GetComponent<Player>() != null)
                 {
-                    if( radius >= Vector2.Distance(col.transform.position, transform.position) )
-                    {
-                        col.GetComponent<Enemy>().GetDamage(damage);
-                    }
+                    //Yakında patlarsa sende hasar yersin.
+                    col.GetComponent<Player>().GetDamage( damage );
+                }
+                else if(col.GetComponent<Enemy>() != null)
+                {
+                    GiveDamage(col.gameObject);
                 }
             }
         }
@@ -83,7 +94,7 @@ public class Projectile : MonoBehaviour
     {
         Destroy(gameObject,lifeTime);
     }
-    public void DestroyProjectile()
+     void DestroyProjectile()
     {
         if(life<1)
         {
@@ -111,7 +122,7 @@ public class Projectile : MonoBehaviour
             FindObjectOfType<Enemy_Controller>().SpawnEnemy(0,transform.position);
         }
     }
-    public void FreezeEnemy(GameObject enemy)
+     void FreezeEnemy(GameObject enemy)
     {
         if(enemy.GetComponent<AIPath>() != null)
         {

@@ -18,6 +18,7 @@ public class DeadlyFieldController : MonoBehaviour
 
     public void ResetField()
     {
+        
         gameObject.transform.localScale = startScale;
     }
     

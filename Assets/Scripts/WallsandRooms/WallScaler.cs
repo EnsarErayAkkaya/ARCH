@@ -22,7 +22,7 @@ public class WallScaler : MonoBehaviour
         float t = 0.0f;
         while(t < scaleDuration)
         {
-            if(survivalManager.gameEnded == true)
+            if(survivalManager.waweEnded == true)
                 break;
             
             if(survivalManager.gameStopped == false )

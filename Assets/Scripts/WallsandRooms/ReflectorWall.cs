@@ -20,11 +20,6 @@ public class ReflectorWall : MonoBehaviour
          if(other.gameObject.CompareTag("Projectile"))
 		{
             other.gameObject.GetComponent<Rigidbody2D>().velocity = Reflect_Projectile( other.gameObject.GetComponent<Rigidbody2D>().velocity );
-            if(other.gameObject.GetComponent<Projectile>() != null)
-            {
-                other.gameObject.GetComponent<Projectile>().Bomb();
-            }
-            //other.gameObject.GetComponent<Projectile>().DestroyProjectile();
         }
     }
     

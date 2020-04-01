@@ -109,6 +109,7 @@ MonoBehaviour:
   type: 0
   damage: 10
   lifeTime: 3
+  powerfulProjectileExplosionForce: 10
   spawnEnemy: 0
 --- !u!58 &3641729369480149808
 CircleCollider2D:

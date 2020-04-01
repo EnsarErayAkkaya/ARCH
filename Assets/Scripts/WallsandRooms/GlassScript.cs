@@ -28,8 +28,7 @@ public class GlassScript : MonoBehaviour
             if(other.gameObject.GetComponent<Projectile>() != null)
             {
                 other.gameObject.GetComponent<Projectile>().life = 0;
-                other.gameObject.GetComponent<Projectile>().Bomb();
-                other.gameObject.GetComponent<Projectile>().DestroyProjectile();
+                other.gameObject.GetComponent<Projectile>().CollisionInterract(gameObject);
                 glassHealth--;
                 CrackTheGlass();
             }
