@@ -7,7 +7,8 @@ using UnityEngine.UI;
 
 public class SurvivalGameUI : GameUI
 {
-    public TextMeshProUGUI timeText,scoreText,startText,shrinkText;
+    [SerializeField]GameObject gameEndedGroup;
+    public TextMeshProUGUI timeText,scoreText,startText,shrinkText,coinGainedText,totalCoinText;
     public Button nextButton,restartButton;
     SurvivalGameManager survivalManager;
 
@@ -61,10 +62,41 @@ public class SurvivalGameUI : GameUI
     }
     public void EndGameUI()
     {
-        restartButton.gameObject.SetActive(true);
+        gameEndedGroup.SetActive(true);
+        totalCoinText.text = (PlayerPrefs.GetInt("coin") - survivalManager.GetCoinGained()).ToString();
+        StartCoroutine( UpdateCoinGainedEnumerator( survivalManager.GetCoinGained() ) );
+    }
+    public void HideEndGameUI()
+    {
+        gameEndedGroup.SetActive(false);
+    }
+    IEnumerator UpdateCoinGainedEnumerator(int coin)
+    {
+        int i = 0;
+        while (i < coin) {
+            i += 4;
+            coinGainedText.text = i.ToString();
+            yield return null;
+        }
+        StartCoroutine( UpdateTotalCoinEnumerator(coin) );
+    }
+    IEnumerator UpdateTotalCoinEnumerator(int coin)
+    {
+        int oldCoin = Convert.ToInt32( totalCoinText.text);
+        coin += oldCoin;
+        while (oldCoin < coin) {
+            oldCoin += 4;
+            totalCoinText.text = oldCoin.ToString();
+            yield return null;
+        }
+    
     }
     public void OnClickRestart()
     {
         survivalManager.RestartGame();
+    }
+    public void OnClickReturnHome()
+    {
+        survivalManager.ReturnHome();
     }
 }

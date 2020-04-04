@@ -37,9 +37,13 @@ public class BombController : MonoBehaviour
                 {
                     col.GetComponent<Player>().GetDamage( damage );
                 }
-                if(col.GetComponent<GlassScript>() != null)
+                else if(col.GetComponent<GlassScript>() != null)
                 {
                     col.GetComponent<GlassScript>().GetDamageFromBomb();
+                }
+                else if(col.GetComponent<Enemy>() != null)
+                {
+                    col.GetComponent<Enemy>().GetDamage(damage * 2 / 3);
                 }
             }
         }

@@ -4,9 +4,17 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
     public Sound[] sounds;
     void Awake()
     {
+        if(instance != null)
+		{
+			Debug.LogWarning("More than one instance of Audio manager found");
+			return;
+		}
+		instance = this;
+        
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -17,6 +25,8 @@ public class AudioManager : MonoBehaviour
         }
         gameObject.AddComponent<AudioListener>();
         Play("Theme");
+
+        DontDestroyOnLoad(this.gameObject);
     }
     /* void start()
     {

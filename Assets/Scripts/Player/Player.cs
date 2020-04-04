@@ -16,8 +16,8 @@ public class Player : MonoBehaviour {
 		passivePowerUps = GetComponent<PermanentPowerUpController>();
 		if(GetDataFromBefore == true)
 		{
-			GetSavedData();
-		}
+/* 			GetSavedData();
+ */		}
 		else{
 			currentHealth = maxHealth;
 		}
@@ -56,6 +56,7 @@ public class Player : MonoBehaviour {
 		if(passivePowerUps.lifeSteal)
 		{
 			GainHealth(5);
+			FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
 		}
 	}
 	public void GainHealth(int gain)
@@ -69,23 +70,5 @@ public class Player : MonoBehaviour {
 
 		FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
 	}
-	//Call one off active powerUps
-	public void UsePowerUp(int powerUpIndex)
-	{
-		PowerUpManager pm = FindObjectOfType<PowerUpManager>();
-		pm.GivePower(gameObject,pm.selectedActivePowerUps[powerUpIndex].powerUpType);
-	}
 	
-	private void GetSavedData()
-	{
-		//Gets the last data saved
-		
-		PlayerData saved = SaveAndLoadGameData.instance.savedData.playerData;
-
-		currentHealth = saved.currentHealth;
-		maxHealth =saved.maxHealth;
-		howManyRoomVisited = saved.howManyRoomVisited;
-		killedEnemyCount = saved.killedEnemyCount;
-		transform.position = new Vector2(saved.positionX,saved.positionY);
-	}
 }

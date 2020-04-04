@@ -14,10 +14,10 @@ public class Throver_Wall : MonoBehaviour
 		if(other.gameObject.CompareTag("Player"))
 		{
             //give DamageTo Passangers
-            if(damagePassanger == true)
+            /* if(damagePassanger == true)
             {
                 FindObjectOfType<PassangerManager>().GetDamage();
-            }
+            } */
             other.gameObject.GetComponent<Player_Shoot>().recoiledVector = ThrowPlayer(other.gameObject);
             other.gameObject.GetComponent<Player_Shoot>().recoilCall = true;
         }

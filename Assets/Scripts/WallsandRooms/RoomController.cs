@@ -73,8 +73,8 @@ public class RoomController : MonoBehaviour
         }
         
         //Bir oda geçildiğinde oyunu kaydet diyelim.
-        FindObjectOfType<GameManager>().CallSaveGame();
-    }
+/*         FindObjectOfType<GameManager>().CallSaveGame();
+ */    }
     void SpawnEnemy()
     {
         Enemy_Controller enemy_Controller = FindObjectOfType<Enemy_Controller>();
@@ -106,8 +106,8 @@ public class RoomController : MonoBehaviour
         if(EnemyList.Count<1)
         {
             roomCleaned = true;
-            room.roomCleaned = true;
-            if(isEndingRoom== false)
+/*             room.roomCleaned = true;
+ */            if(isEndingRoom== false)
             {
                 OpenTheRoom();
             }

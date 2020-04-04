@@ -100,21 +100,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  damage: 5
-  stoppingDistance: 14
-  retreatDistance: 8
+  stoppingDistance: 20
   startTimeBetweenShots: 1.2
+  damage: 5
+  projectileExtraDistanceToCenter: 1
   enemyParticle: {fileID: 1827622945091978232, guid: 6439de561bae71b45aa962a51c0fe81f,
+    type: 3}
+  projectile: {fileID: 405509334939425670, guid: e1c8dd06bc2942d4e8f0d0d8b13eba24,
     type: 3}
   spawnParticle: {fileID: 2823389512280989435, guid: 9db67b2abf4a246409f9c15ed7411b8b,
     type: 3}
   canShoot: 1
-  canRotate: 1
+  canRotate: 0
   dontDieFromCollision: 0
   isSloved: 0
   dontGetDamage: 0
-  projectile: {fileID: 405509334939425670, guid: e1c8dd06bc2942d4e8f0d0d8b13eba24,
-    type: 3}
   room: {fileID: 0}
 --- !u!114 &3022241832132671525
 MonoBehaviour:
@@ -145,9 +145,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 12.49
-  pickNextWaypointDist: 10.8
-  endReachedDistance: 13
+  slowdownDistance: 0
+  pickNextWaypointDist: 1
+  endReachedDistance: 20
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0

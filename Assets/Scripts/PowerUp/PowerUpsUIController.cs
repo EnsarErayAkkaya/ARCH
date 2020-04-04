@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PowerUpsUIController : MonoBehaviour
 {
@@ -21,9 +22,9 @@ public class PowerUpsUIController : MonoBehaviour
         foreach (var item in powerUpManager.playerPowerUps)
         {   
             var powerUp = Instantiate(powerUpObject,transform.position,Quaternion.identity).GetComponent<PowerUpUIObject>();
-            powerUp.powerUp = item;
+            powerUp.powerUp = PowerUpManager.powerUpManager.powerUps.FirstOrDefault( s => s.powerUpType == item);
             powerUp.SetObjectUI();
-            if(item.isSelected == false)
+            if(powerUp.powerUp.isSelected == false)
             {
                 powerUp.transform.GetChild(0).GetComponent<Image>().color = new Color(0.784f,0.317f,0.317f);
             }

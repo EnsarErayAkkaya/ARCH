@@ -7,7 +7,7 @@ public class SurvivalGameManager : MonoBehaviour
 {
     public GameObject room;
     public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f;
-    private int score;
+    private int score,coinGained;
     SurvivalGameUI gameUI;
     public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false,waweEnded;
     public int waveIndex = 0;
@@ -48,7 +48,7 @@ public class SurvivalGameManager : MonoBehaviour
     }
     public void GetEnemyScore()
     {
-        score += 50;
+        score += 60;
         gameUI.UpdateScoreText(score);
     }
     public void LoseScore()
@@ -60,6 +60,7 @@ public class SurvivalGameManager : MonoBehaviour
     public void StartGame()
     {
         waveIndex++;
+        waweEnded = false;
         gameEnded = false;
         isGameStarted = true;
         gameStopped = false;
@@ -123,9 +124,33 @@ public class SurvivalGameManager : MonoBehaviour
     {
         //Son skoru hesapla
         CalculateTimeScore();
+        SaveScore();
         gameUI.UpdateScoreText(score);
     }
-    
+    void CalculateCoin(int coin)
+    {
+        coinGained += coin;
+        SaveCoin();
+    }
+    void CalculateCoin()
+    {
+        coinGained += score / 10;
+        SaveCoin();
+    }
+    void SaveCoin()
+    {
+        SaveAndLoadGameData.instance.savedData.coin +=  coinGained;
+        SaveAndLoadGameData.instance.Save();
+    }
+    public int GetCoinGained() { return coinGained; }
+    void SaveScore()
+    {
+        if(this.score > SaveAndLoadGameData.instance.savedData.score)
+        {
+            Debug.Log("New High score");
+            SaveAndLoadGameData.instance.savedData.score = this.score;
+        }
+    }
     private void CalculateTimeScore()
     {
         if( gameTime <= 25 )
@@ -146,9 +171,14 @@ public class SurvivalGameManager : MonoBehaviour
         gameEnded = true;
         CleanGame();
         //Score u kaydet ve her şeyi sıfırla
+        CalculateCoin();
         gameUI.EndGameUI();
     }
     public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void ReturnHome()
     {
         SceneManager.LoadScene(0);
     }

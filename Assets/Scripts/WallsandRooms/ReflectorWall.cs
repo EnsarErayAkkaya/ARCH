@@ -11,10 +11,10 @@ public class ReflectorWall : MonoBehaviour
          if(other.gameObject.CompareTag("Player"))
 		{
             //give DamageTo Passangers
-            if(damagePassanger == true)
+           /*  if(damagePassanger == true)
             {
                 FindObjectOfType<PassangerManager>().GetDamage();
-            }            ///Stop the player
+            }  */           ///Stop the player
             other.gameObject.GetComponent<Player_Shoot>().canRecoil = false;
         }
          if(other.gameObject.CompareTag("Projectile"))

@@ -7,7 +7,6 @@ using System;
 public class PowerUp
 {
     public string powerUpName;
-    public GameObject particle;
     public Sprite sprite;
     public PowerUpType powerUpType;
     public UsageType usageType;

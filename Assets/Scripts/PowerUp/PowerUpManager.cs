@@ -6,13 +6,30 @@ using System;
 
 public class PowerUpManager : MonoBehaviour
 {
+    public static PowerUpManager powerUpManager;
     ///All power ups in game
     public List<PowerUp> powerUps;
     ///All power ups player has
-    public List<PowerUp> playerPowerUps;
+    public List<PowerUpType> playerPowerUps;
     ///five power up player selected 3 active 2 passive
     public List<PowerUp> selectedActivePowerUps,selectedPassivePowerUps;
-    public GameObject powerUpSpawnParticle,powerUpObject;
+    //public GameObject powerUpSpawnParticle,powerUpObject;
+
+    void Awake()
+    {
+        if (PowerUpManager.powerUpManager == null)
+        {
+            PowerUpManager.powerUpManager = this;
+        }
+        else if (PowerUpManager.powerUpManager != null)
+        {
+            Destroy(PowerUpManager.powerUpManager.gameObject);
+            PowerUpManager.powerUpManager = this;
+        }
+        DontDestroyOnLoad(this.gameObject);
+        playerPowerUps = SaveAndLoadGameData.instance.savedData.playerPowerUps;
+    }
+
 
     ///Just For temporary powers
     ////Oyuncu yeteneği aktif hale getirince çağıralacak
@@ -54,7 +71,7 @@ public class PowerUpManager : MonoBehaviour
             PowerUp powerUp = powerUps.FirstOrDefault( s => s.powerUpType == powerUpType);
             if(powerUp.usageType == UsageType.Temporary)
             {
-                Debug.Log("machine gun");
+                Debug.Log("machine gun 1");
                 yield return new WaitForSeconds(powerUp.usingTime);
                 pShoot.NormalShootTimeLimit =powerUp.tempData[0];
                 pShoot.canRecoil = true;
@@ -62,10 +79,20 @@ public class PowerUpManager : MonoBehaviour
             }
         }
     }
+    public void ObtainPower(PowerUpType powerUpType)
+    {
+        playerPowerUps.Add(powerUpType);
+        //SelectPowerUp(powerUp);
+    }
     public void ObtainPower(PowerUp powerUp)
     {
-        playerPowerUps.Add(powerUp);
+        playerPowerUps.Add(powerUp.powerUpType);
         //SelectPowerUp(powerUp);
+    }
+    void SavePlayersPowerUp()
+    {
+        SaveAndLoadGameData.instance.savedData.playerPowerUps = this.playerPowerUps;
+        SaveAndLoadGameData.instance.Save();
     }
     public void SelectPowerUp(PowerUp powerUp)
     {
@@ -106,7 +133,7 @@ public class PowerUpManager : MonoBehaviour
             Debug.Log("There is no power up selected. Select one for remove");
         }
     }
-    public PowerUpType[] SelectThreeRandomPowerUp()
+    /* public PowerUpType[] SelectThreeRandomPowerUp()
     {
         List<PowerUp> list = new List<PowerUp>();
         list.AddRange(powerUps);
@@ -119,15 +146,15 @@ public class PowerUpManager : MonoBehaviour
             list.RemoveAt(a);
         }
         return powers;
-    }
+    } */
 
-    public void Call_SpawnPowerUp(Vector2 pos,RoomController room,PowerUpType powerUpType)
+   /*  public void Call_SpawnPowerUp(Vector2 pos,RoomController room,PowerUpType powerUpType)
     {
         StartCoroutine(SpawnPowerUpEnumerator(pos,room, onPowerUpCreated,powerUpType));
     }
      public IEnumerator SpawnPowerUpEnumerator(Vector2 pos,
         RoomController room,
-        Action<PowerUpObject,RoomController,PowerUpType> onEnemyCreated,
+        Action<PowerUpObject,RoomController,PowerUpType> onPowerUpCreated,
         PowerUpType powerUpType)
     {
 
@@ -149,5 +176,5 @@ public class PowerUpManager : MonoBehaviour
         obj.SetUp();
         obj.room = room;
         room.roomPowerUps.Add(obj.gameObject);
-    }
+    } */
 }

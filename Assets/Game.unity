@@ -972,7 +972,7 @@ PrefabInstance:
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
@@ -982,7 +982,7 @@ PrefabInstance:
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
@@ -992,7 +992,7 @@ PrefabInstance:
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
@@ -1144,6 +1144,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 11493908, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
+      propertyPath: m_VerticalFit
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 22440688, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.000030517578
@@ -1151,10 +1155,6 @@ PrefabInstance:
     - target: {fileID: 22440688, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
       propertyPath: m_SizeDelta.y
       value: -0.000030518
-      objectReference: {fileID: 0}
-    - target: {fileID: 11493908, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
-      propertyPath: m_VerticalFit
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
@@ -3092,7 +3092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &733723735
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3473,8 +3473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUps:
   - powerUpName: MachineGun
-    particle: {fileID: 7556141562891172229, guid: 534631f1b6c825846829f1031e76b389,
-      type: 3}
     sprite: {fileID: 21300000, guid: 206bb7d7c8c1b9e4e989f44d0e720b1e, type: 3}
     powerUpType: 0
     usageType: 0
@@ -3482,8 +3480,6 @@ MonoBehaviour:
     tempData: []
     isSelected: 0
   - powerUpName: LifeSteal
-    particle: {fileID: 7556141562891172229, guid: 534631f1b6c825846829f1031e76b389,
-      type: 3}
     sprite: {fileID: 21300000, guid: 48a6adc277ec572479b0c32cd65a9fd7, type: 3}
     powerUpType: 1
     usageType: 1
@@ -3491,21 +3487,15 @@ MonoBehaviour:
     tempData: []
     isSelected: 0
   - powerUpName: FreezingShot
-    particle: {fileID: 7556141562891172229, guid: 534631f1b6c825846829f1031e76b389,
-      type: 3}
     sprite: {fileID: 21300000, guid: bbef5fd38944f774f8aed0c8a37cc677, type: 3}
     powerUpType: 2
     usageType: 1
     usingTime: 0
     tempData: []
     isSelected: 0
-  playerPowerUps: []
+  playerPowerUps: 
   selectedActivePowerUps: []
   selectedPassivePowerUps: []
-  powerUpSpawnParticle: {fileID: 7556141562891172229, guid: 534631f1b6c825846829f1031e76b389,
-    type: 3}
-  powerUpObject: {fileID: 3104367182127653901, guid: 7f9e0ba2246b8354bb3ee605a252024e,
-    type: 3}
 --- !u!1 &911402356
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,7 +3611,7 @@ PrefabInstance:
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
@@ -3631,7 +3621,7 @@ PrefabInstance:
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
@@ -3641,7 +3631,7 @@ PrefabInstance:
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075328614459987006, guid: 2a4315ec962ffdf488ea4944ac73db3b,
         type: 3}
@@ -4102,6 +4092,7 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   isThereActivePowerUp: 0
+  GetDataFromBefore: 0
   howManyRoomVisited: 0
 --- !u!4 &1036746682
 Transform:
@@ -4425,7 +4416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22440686, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00018310547
+      value: 0.00019836173
       objectReference: {fileID: 0}
     - target: {fileID: 22440686, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4681,9 +4672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80fff10cce2dd8840b663269e0125235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLeft: {fileID: 351147107}
-  healthRight: {fileID: 403385843}
-  shotText: {fileID: 210871477}
+  healthUI: {fileID: 0}
 --- !u!4 &1165441070
 Transform:
   m_ObjectHideFlags: 0
@@ -5213,17 +5202,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedData:
-    currentFloor: 0
-    maxReachedFloor: 0
-    floors: []
-    Passangers: []
-    playerData:
-      positionX: 0
-      positionY: 0
-      killedEnemyCount: 0
-      currentHealth: 100
-      maxHealth: 100
-      howManyRoomVisited: 0
+    score: 0
+    coin: 0
+    playerPowerUps: 
 --- !u!1 &1340166736
 GameObject:
   m_ObjectHideFlags: 0
@@ -10685,20 +10666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab9ff8ed16be704684bdcc5506d0e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rooms: []
-  EndingRoom: {fileID: 0}
-  endingRoomMaterial: {fileID: 2100000, guid: 878ccd3b73469f641b70e7165920f6ff, type: 2}
-  dungenLengthX: 6
-  dungenLengthY: 6
-  room: {fileID: 6077782788639463569, guid: 50cdd11c0238988408877380224e3856, type: 3}
-  creatorPos: {x: 0, y: 0}
-  choosenRoomCount: 7
-  currentRoomCount: 0
-  X: 0
-  Y: 0
-  distanceBetweenRooms: 64
-  randomDirection: {x: 0, y: 0}
-  lastDirection: {x: 0, y: 0}
 --- !u!4 &1690013995
 Transform:
   m_ObjectHideFlags: 0

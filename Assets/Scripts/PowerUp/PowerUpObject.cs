@@ -51,8 +51,8 @@ public class PowerUpObject : MonoBehaviour, IInteractable
     
     public void DestroyInteractable()
     {
-        var part = Instantiate(powerUp.particle,transform.position,Quaternion.identity);
-        part.GetComponent<ParticleSystem>().Play();
+        //var part = Instantiate(powerUp.particle,transform.position,Quaternion.identity);
+        //part.GetComponent<ParticleSystem>().Play();
         Destroy(gameObject);
     }
 }

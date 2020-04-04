@@ -4,16 +4,15 @@ using Pathfinding;
 public class Enemy : MonoBehaviour
 {
     private int currentHealth;
-	public int maxHealth;
+	[SerializeField] int maxHealth;
     private Transform target;
     private Vector3 selfRotationSpeed;
-    public float damage;
-    public float stoppingDistance,retreatDistance;
-    private float timeBetweenShots;
-    public float startTimeBetweenShots;
-    public GameObject enemyParticle,spawnParticle;
-    public bool canShoot,canRotate,dontDieFromCollision,isSloved,dontGetDamage;
-    public GameObject projectile;
+    [SerializeField] float stoppingDistance,startTimeBetweenShots,damage,projectileExtraDistanceToCenter;
+    float timeBetweenShots;
+    [SerializeField] GameObject enemyParticle,projectile;
+    public GameObject spawnParticle;
+    [SerializeField] bool canShoot,canRotate,dontDieFromCollision;
+    public bool isSloved,dontGetDamage;
     public RoomController room;
     void Start()
     {
@@ -34,10 +33,7 @@ public class Enemy : MonoBehaviour
             RotateSelf();
 
         }
-        if (Vector2.Distance(transform.position, target.position) < stoppingDistance && Vector2.Distance(transform.position, target.position) > retreatDistance )
-        {
-            Shoot();
-        }
+        Shoot();
     }
    
 
@@ -57,6 +53,10 @@ public class Enemy : MonoBehaviour
        }
        
    }
+   /* void OnDrawGizmos()
+   {
+       Gizmos.DrawWireSphere(transform.position,stoppingDistance);
+   } */
     void RotateSelf()
     {
         transform.Rotate(selfRotationSpeed * Time.deltaTime);
@@ -64,18 +64,25 @@ public class Enemy : MonoBehaviour
   
     void Shoot()
     {
-        if(canShoot)
+        if (Vector2.Distance(transform.position, target.position) < stoppingDistance)
         {
-            if(timeBetweenShots <= 0)
+            if(canShoot)
             {
-                Instantiate(projectile, transform.position, Quaternion.identity);
-                timeBetweenShots = startTimeBetweenShots;
-            }
-            else
-            {
-                timeBetweenShots -= Time.deltaTime;
+                if(timeBetweenShots <= 0)
+                {
+                    Vector2 dir = (target.position - transform.position).normalized * projectileExtraDistanceToCenter;
+                    Vector2 pos = new Vector2(transform.position.x + dir.x,transform.position.y+ dir.y);
+                    Instantiate(projectile, pos, Quaternion.identity);
+
+                    timeBetweenShots = startTimeBetweenShots;
+                }
+                else
+                {
+                    timeBetweenShots -= Time.deltaTime;
+                }
             }
         }
+        
     }
  
     public void DestroyEnemy()
