@@ -55,15 +55,6 @@ public class PowerUpsUIController : MonoBehaviour
             powerUp.transform.GetChild(0).GetComponent<Button>().enabled = false;
             powerUp.transform.SetParent(playerSelectedContent);
         }
-        foreach (var item in powerUpManager.selectedPassivePowerUps)
-        {
-            var powerUp = Instantiate(powerUpObject,transform.position,Quaternion.identity).GetComponent<PowerUpUIObject>();
-            powerUp.powerUp = item;
-            powerUp.SetObjectUI();
-            powerUp.transform.GetChild(0).GetComponent<Image>().color = new Color(0.305f,0.635f,0.176f);
-            powerUp.transform.GetChild(0).GetComponent<Button>().enabled = false;
-            powerUp.transform.SetParent(playerSelectedContent);
-        }
     }
     public void CleanList(Transform listItem)
     {

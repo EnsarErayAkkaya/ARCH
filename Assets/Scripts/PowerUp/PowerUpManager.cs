@@ -13,7 +13,7 @@ public class PowerUpManager : MonoBehaviour
     public List<PowerUpType> playerPowerUps;
     ///five power up player selected 3 active 2 passive
     public List<PowerUp> selectedActivePowerUps;
-    [SerializeField] int activePowerUplimit;
+    public int activePowerUplimit;
     void Awake()
     {
         if (PowerUpManager.powerUpManager == null)
@@ -32,11 +32,10 @@ public class PowerUpManager : MonoBehaviour
 
     ///Just For temporary powers
     ////Oyuncu yeteneği aktif hale getirince çağıralacak
-    public void GivePower(GameObject player, PowerUpType powerUpType)
+    public void GivePower( PowerUp powerUp)
     {
-        Player_Shoot pShoot = player.GetComponent<Player_Shoot>();
-        Player p = player.GetComponent<Player>();
-        PowerUp powerUp = powerUps.FirstOrDefault( s => s.powerUpType == powerUpType);
+        Player p = FindObjectOfType<Player>();
+        Player_Shoot pShoot = p.GetComponent<Player_Shoot>();
         
         ///Eğer aktif bir power up varsa geri dön
         ///Bunu şimdilik geçici bir çözüm olarak koyuyorum belki power uplar stacklenebilir bilmiyorum.
@@ -46,7 +45,7 @@ public class PowerUpManager : MonoBehaviour
         }
         ///Geçici kod buraya kadar
 
-        switch (powerUpType)
+        switch (powerUp.powerUpType)
         {
             case PowerUpType.MachineGun:
                 Debug.Log("machine gun 0");
@@ -54,20 +53,19 @@ public class PowerUpManager : MonoBehaviour
                 powerUp.tempData.Add(pShoot.NormalShootTimeLimit);
                 pShoot.NormalShootTimeLimit = 0.2f;
                 p.isThereActivePowerUp = true;
-                StartCoroutine( GetPowerBack(player, powerUpType) );
+                StartCoroutine( GetPowerBack(powerUp) );
             break;
 
             default:
             break;
         }
     }
-    public IEnumerator GetPowerBack(GameObject player, PowerUpType powerUpType)
+    public IEnumerator GetPowerBack( PowerUp powerUp)
     {
-        Player_Shoot pShoot = player.GetComponent<Player_Shoot>();
-        Player p = player.GetComponent<Player>();
-        if(PowerUpType.MachineGun == powerUpType)
+        Player p = FindObjectOfType<Player>();
+        Player_Shoot pShoot = p.GetComponent<Player_Shoot>();
+        if(PowerUpType.MachineGun == powerUp.powerUpType)
         {
-            PowerUp powerUp = powerUps.FirstOrDefault( s => s.powerUpType == powerUpType);
             if(powerUp.usageType == UsageType.Temporary)
             {
                 Debug.Log("machine gun 1");
@@ -93,31 +91,33 @@ public class PowerUpManager : MonoBehaviour
         SaveAndLoadGameData.instance.savedData.playerPowerUps = this.playerPowerUps;
         SaveAndLoadGameData.instance.Save();
     }
-    public void SelectPowerUp(PowerUp powerUp)
+    public bool SelectPowerUp(PowerUp powerUp)
     {
        
         if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count < activePowerUplimit)
         {
             selectedActivePowerUps.Add(powerUp);
             Debug.Log("Power up selected. "+ powerUp.powerUpName);
+            return true;
         }
         else
         {
             Debug.Log("You can not have more then"+ activePowerUplimit +"power up 3 Active");
+            return false;
         }
     }
-    public void DeselectPowerUp(PowerUp powerUp)
+    public bool DeselectPowerUp(PowerUp powerUp)
     {
-        if(selectedActivePowerUps.Count > 0)
+       
+        if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count > 0)
         {
-            if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count > 0)
-            {
-                selectedActivePowerUps.Remove(powerUp);
-            }
+            selectedActivePowerUps.Remove(powerUp);
+            return true;
         }
         else
         {
             Debug.Log("There is no power up selected. Select one for remove");
+            return false;
         }
     }
     /* public PowerUpType[] SelectThreeRandomPowerUp()

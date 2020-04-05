@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class UpgradesUI : MonoBehaviour
 {
     public PowerUpType powerUpType;
-    public Button HiglightButton;
     [SerializeField]int price;
     [SerializeField]TextMeshProUGUI description,priceText;
-    public TextMeshProUGUI powerUpName;
     bool isHiglighted = false;
-    public bool isMyPowerUp;
     void Start()
     {
-        if(!isMyPowerUp)
-            priceText.text = price.ToString();
+        priceText.text = price.ToString();
     }
     public void onBuyButtonClick()
     {
@@ -47,8 +44,4 @@ public class UpgradesUI : MonoBehaviour
         }
     }
 
-    public void onChooseButtonClick()
-    {
-        
-    }
 }
