@@ -490,9 +490,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 2
+  HiglightButton: {fileID: 5555988359656860971}
   price: 3000
   description: {fileID: 2622210769724979045}
   priceText: {fileID: 8119144311248606221}
+  powerUpName: {fileID: 2052927080563940651}
 --- !u!222 &3361619885615032033
 CanvasRenderer:
   m_ObjectHideFlags: 0

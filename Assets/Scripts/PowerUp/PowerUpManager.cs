@@ -12,9 +12,8 @@ public class PowerUpManager : MonoBehaviour
     ///All power ups player has
     public List<PowerUpType> playerPowerUps;
     ///five power up player selected 3 active 2 passive
-    public List<PowerUp> selectedActivePowerUps,selectedPassivePowerUps;
-    //public GameObject powerUpSpawnParticle,powerUpObject;
-
+    public List<PowerUp> selectedActivePowerUps;
+    [SerializeField] int activePowerUplimit;
     void Awake()
     {
         if (PowerUpManager.powerUpManager == null)
@@ -96,36 +95,24 @@ public class PowerUpManager : MonoBehaviour
     }
     public void SelectPowerUp(PowerUp powerUp)
     {
-        if(selectedActivePowerUps.Count + selectedPassivePowerUps.Count < 5)
+       
+        if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count < activePowerUplimit)
         {
-            if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count < 3)
-            {
-                selectedActivePowerUps.Add(powerUp);
-                Debug.Log("Power up selected. "+ powerUp.powerUpName);
-            }
-            else if(powerUp.usageType == UsageType.Permanent && selectedPassivePowerUps.Count < 2)
-            {
-                selectedPassivePowerUps.Add(powerUp);
-                FindObjectOfType<PermanentPowerUpController>().SetPassivePowerUps();
-                Debug.Log("Power up selected. "+ powerUp.powerUpName);
-            }
+            selectedActivePowerUps.Add(powerUp);
+            Debug.Log("Power up selected. "+ powerUp.powerUpName);
         }
         else
         {
-            Debug.Log("You can not have more then five power up 3 Active, 2 passive. For adding new remove one");
+            Debug.Log("You can not have more then"+ activePowerUplimit +"power up 3 Active");
         }
     }
     public void DeselectPowerUp(PowerUp powerUp)
     {
-        if(selectedActivePowerUps.Count + selectedPassivePowerUps.Count > 0)
+        if(selectedActivePowerUps.Count > 0)
         {
             if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count > 0)
             {
                 selectedActivePowerUps.Remove(powerUp);
-            }
-            else if(powerUp.usageType == UsageType.Permanent && selectedPassivePowerUps.Count > 0)
-            {
-                selectedPassivePowerUps.Remove(powerUp);
             }
         }
         else
