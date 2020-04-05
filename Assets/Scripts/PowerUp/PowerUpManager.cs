@@ -12,7 +12,7 @@ public class PowerUpManager : MonoBehaviour
     ///All power ups player has
     public List<PowerUpType> playerPowerUps;
     ///five power up player selected 3 active 2 passive
-    public List<PowerUp> selectedActivePowerUps;
+    public List<PowerUpType> selectedActivePowerUps;
     public int activePowerUplimit;
     void Awake()
     {
@@ -27,6 +27,7 @@ public class PowerUpManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         playerPowerUps = SaveAndLoadGameData.instance.savedData.playerPowerUps;
+        selectedActivePowerUps = SaveAndLoadGameData.instance.savedData.selectedActivePowerUps;
     }
 
 
@@ -96,7 +97,7 @@ public class PowerUpManager : MonoBehaviour
        
         if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count < activePowerUplimit)
         {
-            selectedActivePowerUps.Add(powerUp);
+            selectedActivePowerUps.Add(powerUp.powerUpType);
             Debug.Log("Power up selected. "+ powerUp.powerUpName);
             return true;
         }
@@ -111,7 +112,7 @@ public class PowerUpManager : MonoBehaviour
        
         if(powerUp.usageType == UsageType.Temporary && selectedActivePowerUps.Count > 0)
         {
-            selectedActivePowerUps.Remove(powerUp);
+            selectedActivePowerUps.Remove(powerUp.powerUpType);
             return true;
         }
         else

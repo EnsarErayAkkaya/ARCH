@@ -7,11 +7,11 @@ public class MyUpgradesUI : MonoBehaviour
 {
     public PowerUpType powerUpType;
     public Button HiglightButton;
-    [SerializeField]TextMeshProUGUI description,chooseButtonText;
+    public TextMeshProUGUI description,chooseButtonText;
     public TextMeshProUGUI powerUpName;
     bool isHiglighted = false;
     public bool isSelected;
-    [SerializeField] string choosedString,notChoosedString;
+    public string choosedString,notChoosedString;
     public void onUpgradeClick()
     {
         //Kartı öne getir ve arka planı buğulaştır.
@@ -38,6 +38,8 @@ public class MyUpgradesUI : MonoBehaviour
             {
                 isSelected = true;
                 chooseButtonText.text = choosedString;
+                SaveAndLoadGameData.instance.savedData.selectedActivePowerUps = PowerUpManager.powerUpManager.selectedActivePowerUps;
+                SaveAndLoadGameData.instance.Save();
             }
         }
         else
@@ -47,6 +49,8 @@ public class MyUpgradesUI : MonoBehaviour
             {
                 isSelected = false;
                 chooseButtonText.text = notChoosedString;
+                SaveAndLoadGameData.instance.savedData.selectedActivePowerUps = PowerUpManager.powerUpManager.selectedActivePowerUps;
+                SaveAndLoadGameData.instance.Save();
             }
         }
         

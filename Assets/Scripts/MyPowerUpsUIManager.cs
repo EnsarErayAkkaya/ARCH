@@ -20,10 +20,26 @@ public class MyPowerUpsUIManager : MonoBehaviour
             if(p.usageType == UsageType.Temporary)
             {
                 MyUpgradesUI upgrade = Instantiate(MyPowerUpCardPrefab).GetComponent<MyUpgradesUI>();
+                
+                bool type = PowerUpManager.powerUpManager.selectedActivePowerUps.Any( s => s == item);
+                if(type == true)
+                {
+                    //true döndüğüne göre seçilmiş demektir.
+                    upgrade.isSelected = true;
+                    upgrade.chooseButtonText.text = upgrade.choosedString;
+                }
+                else
+                {
+                    //false döndüyse seçilmemiş demektir.
+                    upgrade.isSelected = false;
+                    upgrade.chooseButtonText.text = upgrade.notChoosedString;
+                }
+                
                 upgrade.powerUpType = item;
                 upgrade.powerUpName.text = p.powerUpName;
                 upgrade.HiglightButton.image.sprite = p.sprite;
                 upgrade.transform.SetParent(content.transform);
+                upgrade.description.text = p.description;
             }
         }
     }

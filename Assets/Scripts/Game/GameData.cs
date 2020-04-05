@@ -7,6 +7,8 @@ public class GameData
 {
     public int score,coin;
     public List<PowerUpType> playerPowerUps = new List<PowerUpType>();
+    public List<PowerUpType> selectedActivePowerUps = new List<PowerUpType>();
+
     /* public int currentFloor;
     public int maxReachedFloor;
     public List<Floor> floors;

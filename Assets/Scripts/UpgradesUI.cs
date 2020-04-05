@@ -6,22 +6,36 @@ using System.Linq;
 public class UpgradesUI : MonoBehaviour
 {
     public PowerUpType powerUpType;
-    [SerializeField]int price;
-    [SerializeField]TextMeshProUGUI description,priceText;
+    public TextMeshProUGUI description,priceText,powerUpName,buyButtonText;
+    public Button HiglightButton, buyButton;
+    public string soldString,notSoldString;
+
     bool isHiglighted = false;
-    void Start()
-    {
-        priceText.text = price.ToString();
-    }
     public void onBuyButtonClick()
     {
+        PowerUp p = PowerUpManager.powerUpManager.powerUps.FirstOrDefault(s => s.powerUpType == this.powerUpType);
         int coin = SaveAndLoadGameData.instance.savedData.coin;
-        if(coin >= price)
+        if(coin >= p.price)
         {
-            coin -= price;
+            coin -= p.price;
             FindObjectOfType<PowerUpManager>().ObtainPower(powerUpType);
+            //
+            bool type = PowerUpManager.powerUpManager.playerPowerUps.Any( s => s == powerUpType);
+            if(type == true)
+            {
+                //true döndüğüne göre satılmış demektir.
+                buyButton.enabled = false;
+                buyButtonText.text = soldString;
+            }
+            else
+            {
+                //false döndüyse satılmamış demektir.
+                buyButtonText.text = notSoldString;
+            }
+            //
             SaveAndLoadGameData.instance.savedData.coin = coin;
             SaveAndLoadGameData.instance.Save();
+            FindObjectOfType<EntranceUI>().UpdateCoin();
         }
         else
         {
