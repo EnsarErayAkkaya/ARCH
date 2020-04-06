@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 public class SurvivalGameManager : MonoBehaviour
 {
     public GameObject room;
-    public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f;
+    public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f,maxRoomScale,minRoomScale;
     private int score,coinGained;
     SurvivalGameUI gameUI;
     public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false,waweEnded;
     public int waveIndex = 0;
-   
+    [SerializeField] GameObject walls,enemys,checkpoints;
 
     void Start()
     {
@@ -34,10 +34,12 @@ public class SurvivalGameManager : MonoBehaviour
     }
     public void SetRoom()
     {
-        gameRadius = Random.Range(30,90);
+        gameRadius = Random.Range(minRoomScale,maxRoomScale);
         room.transform.localScale = new Vector3(gameRadius/3,gameRadius/3,1);
         willRoomScale = ChooseWillRoomScale();
         roomClosing = false;
+        gameStopped = false;
+        isGameStarted = false;
         FindObjectOfType<CreateRandomWalls>().CreateWalls();
         FindObjectOfType<DeadlyFieldController>().ResetField();
     }
@@ -64,7 +66,9 @@ public class SurvivalGameManager : MonoBehaviour
         gameEnded = false;
         isGameStarted = true;
         gameStopped = false;
-        FindObjectOfType<Player_Shoot>().enabled = true;
+        Player_Shoot ps = FindObjectOfType<Player_Shoot>();
+        ps.enabled = true;
+        ps.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
         //Oluştur
         FindObjectOfType<CheckPointManager>().CreateCheckPoints();
         FindObjectOfType<SurvivalEnemyManager>().ProduceEnemys();
@@ -72,32 +76,22 @@ public class SurvivalGameManager : MonoBehaviour
     public void StopGame()
     {
         gameStopped = true;
-        //isGameStarted = false;
         //düşmanları sakla
-        foreach (var item in FindObjectsOfType<Enemy>())
-        {
-            item.gameObject.SetActive(false);   
-        }
-        foreach (var item in FindObjectsOfType<AddForceToWall>())
-        {
-            item.gameObject.SetActive(false);   
-        }
-        FindObjectOfType<Player_Shoot>().enabled = false;
+        enemys.SetActive(false);
+        walls.SetActive(false);
+        Player_Shoot ps = FindObjectOfType<Player_Shoot>();
+        ps.enabled = false;
+        ps.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
     }
     public void ResumeGame()
     {
         gameStopped = false;
-        //isGameStarted = true;
         //düşmanları açığa çıkar
-        foreach (var item in FindObjectsOfType<Enemy>())
-        {
-            item.gameObject.SetActive(true); 
-        }
-        foreach (var item in FindObjectsOfType<AddForceToWall>())
-        {
-            item.gameObject.SetActive(true);   
-        }
-        FindObjectOfType<Player_Shoot>().enabled = true;
+        enemys.SetActive(true);
+        walls.SetActive(true);
+        Player_Shoot ps = FindObjectOfType<Player_Shoot>();
+        ps.enabled = true;
+        ps.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
     }
     public void CleanGame()
     {
@@ -106,18 +100,19 @@ public class SurvivalGameManager : MonoBehaviour
         gameStopped = true;
         FindObjectOfType<Player_Shoot>().transform.position = Vector2.zero;
         FindObjectOfType<Player_Shoot>().enabled = false;
-
-        foreach (var item in FindObjectsOfType<Enemy>())
+        enemys.SetActive(true);
+        walls.SetActive(true);
+        foreach (Transform child in enemys.transform)
         {
-            Destroy(item.gameObject);
+            Destroy(child.gameObject);
         }
-        foreach (var item in FindObjectsOfType<CheckpointController>())
+        foreach (Transform child in checkpoints.transform)
         {
-            Destroy(item.gameObject);
+            Destroy(child.gameObject);
         }
-        foreach (var item in FindObjectsOfType<AddForceToWall>())
+        foreach (Transform child in walls.transform)
         {
-            Destroy(item.gameObject);
+            Destroy(child.gameObject);
         }
     }
     public void CalculateScore()
@@ -171,6 +166,7 @@ public class SurvivalGameManager : MonoBehaviour
         gameEnded = true;
         CleanGame();
         //Score u kaydet ve her şeyi sıfırla
+        CalculateScore();
         CalculateCoin();
         gameUI.EndGameUI();
     }

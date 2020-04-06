@@ -1093,7 +1093,7 @@ MonoBehaviour:
     powerUpType: 0
     usageType: 0
     usingTime: 4
-    cooldownTime: 12
+    cooldownTime: 18
     tempData: []
     isSelected: 0
     price: 8000

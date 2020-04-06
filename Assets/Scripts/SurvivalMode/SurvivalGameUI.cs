@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class SurvivalGameUI : GameUI
 {
-    [SerializeField]GameObject gameEndedGroup;
+    [SerializeField]GameObject gameEndedGroup,pausedGroup;
     public TextMeshProUGUI timeText,scoreText,startText,shrinkText,coinGainedText,totalCoinText;
-    public Button nextButton,restartButton;
+    public Button nextButton,restartButton,pauseButton;
     SurvivalGameManager survivalManager;
 
     void Start()
@@ -25,6 +25,7 @@ public class SurvivalGameUI : GameUI
             {
                 survivalManager.StartGame();
                 startText.gameObject.SetActive(false);
+                pauseButton.gameObject.SetActive(true);
                 if(survivalManager.willRoomScale)
                     shrinkText.gameObject.SetActive(true);
             }
@@ -43,12 +44,12 @@ public class SurvivalGameUI : GameUI
     public void SetUIOnGamePassed()
     {
         nextButton.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(false);
     }
     public void OnNextButtonClick()
     {
         survivalManager.CleanGame();
         survivalManager.SetRoom();
-        survivalManager.isGameStarted = false;
         nextButton.gameObject.SetActive(false);
     }
     IEnumerator UpdateScoreEnumerator(int score)
@@ -74,7 +75,7 @@ public class SurvivalGameUI : GameUI
     {
         int i = 0;
         while (i < coin) {
-            i += 4;
+            i += 10;
             coinGainedText.text = i.ToString();
             yield return null;
         }
@@ -85,7 +86,7 @@ public class SurvivalGameUI : GameUI
         int oldCoin = Convert.ToInt32( totalCoinText.text);
         coin += oldCoin;
         while (oldCoin < coin) {
-            oldCoin += 4;
+            oldCoin += 10;
             totalCoinText.text = oldCoin.ToString();
             yield return null;
         }
@@ -98,5 +99,26 @@ public class SurvivalGameUI : GameUI
     public void OnClickReturnHome()
     {
         survivalManager.ReturnHome();
+    }
+    public void PauseGame()
+    {
+        if(survivalManager.gameStopped == true)
+        {
+            //Oyunu devam ettir
+            survivalManager.ResumeGame();
+            FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = true;
+            pausedGroup.SetActive(false);
+        }
+        else{
+            //oyunu duraklat
+            survivalManager.StopGame();
+            FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = false;
+            pausedGroup.SetActive(true);
+        }
+    }
+    public void EndGame()
+    {
+        pausedGroup.SetActive(false);
+        survivalManager.EndGame();
     }
 }

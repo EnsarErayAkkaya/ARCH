@@ -10,6 +10,8 @@ public class CheckPointManager : MonoBehaviour
     public List<GameObject> checkPoints = new List<GameObject>();
     SurvivalGameManager survivalManager;
     [SerializeField] int checkPointWithGlass_StartLevel;
+    [SerializeField] Transform cheskpointsParent;
+
     void Start()
     {
         survivalManager = FindObjectOfType<SurvivalGameManager>();
@@ -24,7 +26,7 @@ public class CheckPointManager : MonoBehaviour
         for (int i = 0; i < checkPointCount; i++)
         {
             GameObject check = Instantiate( checks[ChooseCheckpointType()], ChooseRandomLocation(), Quaternion.identity );
-            
+            check.transform.SetParent(cheskpointsParent.transform);
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
             foreach (Transform item in check.transform)
             {
@@ -121,7 +123,7 @@ public class CheckPointManager : MonoBehaviour
         if(checkPoints.Count == 0)
         {
             Debug.Log("All checkPoint Passed");
-            FindObjectOfType<SurvivalGameManager>().CleanGame();
+            FindObjectOfType<SurvivalGameManager>().StopGame();
             FindObjectOfType<SurvivalGameUI>().SetUIOnGamePassed();
             FindObjectOfType<SurvivalGameManager>().CalculateScore();
         }

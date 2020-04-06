@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class ActivePowerUpGameUI : MonoBehaviour
 {
-    [SerializeField] Button useButton;
+    public Button useButton;
     [SerializeField]Image image;
     [SerializeField] TextMeshProUGUI cooldownText;
     PowerUp power;
     float cooldowntime;
+    SurvivalGameManager gameManager;
     void Start()
     {
         if(PowerUpManager.powerUpManager.selectedActivePowerUps.Count <1)
@@ -19,7 +20,8 @@ public class ActivePowerUpGameUI : MonoBehaviour
         }
         else
         {
-             power = PowerUpManager.powerUpManager.powerUps
+            gameManager = FindObjectOfType<SurvivalGameManager>();
+            power = PowerUpManager.powerUpManager.powerUps
             .FirstOrDefault(
                 s => 
                 s.powerUpType == PowerUpManager.powerUpManager.selectedActivePowerUps[0] );
@@ -27,7 +29,10 @@ public class ActivePowerUpGameUI : MonoBehaviour
             Set();
         }
     }
-
+    public void ChangeButtonInteractable(bool a)
+    {
+        useButton.interactable = a;
+    }
     void Set()
     {
         image.sprite = power.sprite;
@@ -36,22 +41,22 @@ public class ActivePowerUpGameUI : MonoBehaviour
     public void Use()
     {
         PowerUpManager.powerUpManager.GivePower(power);
-        Debug.Log("bura");
         StartCoroutine( CooldownTimer() );
     }
     IEnumerator CooldownTimer()
     {
         useButton.interactable = false;
         cooldownText.gameObject.SetActive(true);
-        Debug.Log("bura0");
 
         while(cooldowntime > 0)
         {
-            cooldowntime -= Time.deltaTime;
-            cooldownText.text = cooldowntime.ToString("#.#");
+            if(gameManager.gameStopped == false && gameManager.isGameStarted == true)
+            {
+                cooldowntime -= Time.deltaTime;
+                cooldownText.text = cooldowntime.ToString("#.#");
+            }
             yield return null;
         }
-        Debug.Log("bura1");
 
         cooldowntime = power.cooldownTime;
         useButton.interactable = true;

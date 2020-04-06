@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8882320569646200960}
   m_Layer: 0
-  m_Name: GlasssWallWithBomb
-  m_TagString: Untagged
+  m_Name: GlassWallWithBomb
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

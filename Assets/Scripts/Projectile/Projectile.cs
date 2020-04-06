@@ -122,25 +122,18 @@ public class Projectile : MonoBehaviour
             FindObjectOfType<Enemy_Controller>().SpawnEnemy(0,transform.position);
         }
     }
-     void FreezeEnemy(GameObject enemy)
+    void FreezeEnemy(GameObject enemy)
     {
         if(enemy.GetComponent<AIPath>() != null)
         {
             if( enemy.GetComponent<Enemy>().isSloved == false)
             {
                 enemy.GetComponent<AIPath>().maxSpeed -= 1.8f;
-                Debug.Log("success");
                 var particle = Instantiate(freezingParticle,transform.position,Quaternion.identity);
                 particle.GetComponent<ParticleSystem>().Play();
                 enemy.GetComponent<Enemy>().isSloved = true;
             }
-        }
-        else
-        {
-            Debug.Log("Yavaşlatılamadı");
-        }
-        
-        
+        }        
     }
 }
 public enum ProjectileType

@@ -14,6 +14,7 @@ public class CreateRandomWalls : MonoBehaviour
 
     [SerializeField] int Glass_levelStart, GlassWallWithBomb_levelStart;
     List<GameObject> wallsToCreate = new List<GameObject>(); 
+    [SerializeField] Transform wallsParent;
 
     void Start()
     {   
@@ -43,7 +44,7 @@ public class CreateRandomWalls : MonoBehaviour
     public void CreateAWall(int k)
     {
         GameObject wall = Instantiate( wallsToCreate[k], ChooseRandomLocation(), Quaternion.identity );
-            
+            wall.transform.SetParent(wallsParent.transform); 
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
             if(wall.CompareTag("Wall"))
             {
