@@ -58,10 +58,6 @@ public class CheckpointController : MonoBehaviour
                 lastCollision = 1;
                 collisionTime = Time.time;
             }
-            if( rightCollider.GetComponent<Collider2D>() & other.gameObject.CompareTag("Player") )
-            {
-                
-            }
         }
     }
 

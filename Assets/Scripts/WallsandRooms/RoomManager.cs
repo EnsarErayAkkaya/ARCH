@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
 {
-    public List<GameObject> Rooms;
+/*    public List<GameObject> Rooms;
     public GameObject EndingRoom;
     public Material endingRoomMaterial;
     public int dungenLengthX,dungenLengthY;
@@ -234,5 +234,6 @@ public class RoomManager : MonoBehaviour
         pl.canRecoil = false;
         pl.transform.position = pos;
         pl.recoiledVector = pos;
-    }
+    }*/
 }
+ 

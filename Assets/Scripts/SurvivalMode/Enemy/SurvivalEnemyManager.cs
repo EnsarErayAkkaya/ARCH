@@ -11,6 +11,8 @@ public class SurvivalEnemyManager : MonoBehaviour
     public int enemyCount = 4;
     public List<GameObject> liveEnemies = new List<GameObject>();
     SurvivalGameManager survivalManager;
+    [SerializeField] int O_levelStart,Y_levelStart,X_levelStart;
+    [SerializeField] Transform enemysParent;
     void Start()
     {
         survivalManager = FindObjectOfType<SurvivalGameManager>();
@@ -21,7 +23,7 @@ public class SurvivalEnemyManager : MonoBehaviour
         ChooseEnemyCount();
         for (int i = 0; i < enemyCount; i++)
         {
-            CallSpawnEnemy( ChooseRandomLocation() );
+            CallSpawnEnemy( ChooseRandomLocation(), ChooseEnemysToCreate() );
         }
     }
     public void ChooseEnemyCount()
@@ -51,22 +53,45 @@ public class SurvivalEnemyManager : MonoBehaviour
             enemyCount = UnityEngine.Random.Range(12,16);
         }
     }
-     Vector2 ChooseRandomLocation()
+    
+    List<GameObject> ChooseEnemysToCreate()
+    {
+        List<GameObject> selected = new List<GameObject>();
+        // H enemy added
+        selected.Add(enemys[0]);
+        // O Enemy adding
+        if(survivalManager.waveIndex >= O_levelStart )
+        {
+            selected.Add(enemys[1]);
+        }
+        // Y Enemy adding
+        if(survivalManager.waveIndex >= Y_levelStart)
+        {
+            selected.Add(enemys[2]);
+        }
+        // X enemy adding
+        if(survivalManager.waveIndex >= X_levelStart)
+        {
+            selected.Add(enemys[3]);
+        }
+        return selected;
+    }
+    Vector2 ChooseRandomLocation()
     {
         var vector2 = UnityEngine.Random.insideUnitCircle * radius;
         return new Vector2(transform.position.x + vector2.x,transform.position.y + vector2.y);
     }
 
-    public void CallSpawnEnemy(Vector2 pos)
+    public void CallSpawnEnemy(Vector2 pos, List<GameObject> selectedEnemies)
     {
-        StartCoroutine(CreateEnemy(pos, onEnemyCreated));
+        StartCoroutine(CreateEnemy(pos, onEnemyCreated, selectedEnemies ));
     }
    
-    public IEnumerator CreateEnemy(Vector2 pos, Action<GameObject> onEnemyCreated)
+    public IEnumerator CreateEnemy(Vector2 pos, Action<GameObject> onEnemyCreated, List<GameObject> selectedEnemies)
     {
-        int i = UnityEngine.Random.Range(0,enemys.Count);
+        int i = UnityEngine.Random.Range(0, selectedEnemies.Count);
 
-        var particle = Instantiate(enemys[i].GetComponent<Enemy>().spawnParticle,pos,Quaternion.identity);
+        var particle = Instantiate( selectedEnemies[i].GetComponent<Enemy>().spawnParticle, pos, Quaternion.identity );
         particle.GetComponent<ParticleSystem>().Play();
     
         yield return new WaitForSeconds(2.5f);
@@ -74,13 +99,11 @@ public class SurvivalEnemyManager : MonoBehaviour
         GameObject enemy = SpawnEnemy(i,pos);
         onEnemyCreated(enemy);
     }
-     public GameObject SpawnEnemy(Vector2 pos)
-    {
-        return Instantiate(enemys[UnityEngine.Random.Range(0,enemys.Count)],pos,Quaternion.identity);
-    }
     public GameObject SpawnEnemy(int index,Vector2 pos)
     {
-        return Instantiate(enemys[index],pos,Quaternion.identity);
+        GameObject e = Instantiate(enemys[index],pos,Quaternion.identity);
+        e.transform.SetParent(enemysParent);
+        return e;
     }
     void onEnemyCreated(GameObject enemy)
     {

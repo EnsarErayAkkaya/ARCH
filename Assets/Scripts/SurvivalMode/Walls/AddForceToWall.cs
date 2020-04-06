@@ -14,7 +14,12 @@ public class AddForceToWall : MonoBehaviour
     }
     IEnumerator waitaLitle()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.3f);
+        AddForce = true;
+    }
+   
+    void OnEnable()
+    {
         AddForce = true;
     }
 

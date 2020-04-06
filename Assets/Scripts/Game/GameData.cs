@@ -5,7 +5,11 @@ using UnityEngine;
 [Serializable]
 public class GameData 
 {
-    public int currentFloor;
+    public int score,coin;
+    public List<PowerUpType> playerPowerUps = new List<PowerUpType>();
+    public List<PowerUpType> selectedActivePowerUps = new List<PowerUpType>();
+
+    /* public int currentFloor;
     public int maxReachedFloor;
     public List<Floor> floors;
     public List<Passanger> Passangers;
@@ -17,9 +21,9 @@ public class GameData
         floors = new List<Floor>();
         Passangers = new List<Passanger>();
         playerData = new PlayerData();
-    }
+    } */
 }
-
+/* 
 [Serializable]
 public class PlayerData 
 {
@@ -69,4 +73,4 @@ public class PlayerData
     {
         return new Dir2(b.x, b.y);
     }
-} 
+}  */

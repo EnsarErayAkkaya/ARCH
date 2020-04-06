@@ -9,8 +9,13 @@ public class CreateRandomWalls : MonoBehaviour
 
     private float radius;
     public int wallCount;
-    public List<GameObject> walls;
+    public List<GameObject> wallprefabs;
     SurvivalGameManager survivalManager;
+
+    [SerializeField] int Glass_levelStart, GlassWallWithBomb_levelStart;
+    List<GameObject> wallsToCreate = new List<GameObject>(); 
+    [SerializeField] Transform wallsParent;
+
     void Start()
     {   
         survivalManager = FindObjectOfType<SurvivalGameManager>();
@@ -18,14 +23,28 @@ public class CreateRandomWalls : MonoBehaviour
     public void CreateWalls()
     {
         radius = FindObjectOfType<SurvivalGameManager>().gameRadius;
-        
+        ChooseWallsToCreate();
         ChooseWallCount();   
         
         for (int i = 0; i < wallCount; i++)
         {
             int k = ChooseWallType();
-            GameObject wall = Instantiate( walls[k], ChooseRandomLocation(), Quaternion.identity );
             
+            CreateAWall(k);
+        }
+    }
+    ///<summary>
+    ///This function can called when a spesific wall needed 
+    ///to created.
+    ///for normal wall give 0,
+    ///for glass wall with bomb give 1,
+    ///for normal glass give 2 .
+    ///</summary>
+    
+    public void CreateAWall(int k)
+    {
+        GameObject wall = Instantiate( wallsToCreate[k], ChooseRandomLocation(), Quaternion.identity );
+            wall.transform.SetParent(wallsParent.transform); 
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
             if(wall.CompareTag("Wall"))
             {
@@ -36,28 +55,57 @@ public class CreateRandomWalls : MonoBehaviour
                 wall.transform.localScale = new Vector3(Random.Range(reflectorWallMinXScale,reflectorWallMaxXScale)
                         ,Random.Range(reflectorWallMinYScale,reflectorWallMaxYScale),transform.localScale.z);
             }
-               
+    }
+    void ChooseWallsToCreate()
+    {
+        wallsToCreate.Clear();
+        wallsToCreate.Add(wallprefabs[0]);
+        // Glass wall adding
+        if(survivalManager.waveIndex >= Glass_levelStart )
+        {
+            wallsToCreate.Add(wallprefabs[1]);
+        }
+        // Glass Wall with bomb adding
+        if(survivalManager.waveIndex >= GlassWallWithBomb_levelStart)
+        {
+            wallsToCreate.Add(wallprefabs[2]);
         }
     }
-
     int ChooseWallType()
     {
         float val = Random.Range(0f,1f);
-        if(val <= .4f)
+        if(wallsToCreate.Count == 1)
         {
             return 0;
         }
-        else if( val > .4f && val <= .6f)
+        else if (wallsToCreate.Count == 2)
         {
-            return 1; 
+            if(val <= .7f)
+            {
+                return 0;
+            }
+            else if( val > .7f && val <= .1f)
+            {
+                return 1; 
+            }
         }
-        else if(val > .6f && val <= 1 )
+        else if(wallsToCreate.Count == 3)
         {
-            return 2;
+            if(val <= .5f)
+            {
+                return 0;
+            }
+            else if( val > .5f && val <= .8f)
+            {
+                return 1; 
+            }
+            else if(val > .8f && val <= 1 )
+            {
+                return 2;
+            }
         }
-        else{
-            return 0;
-        }
+        return 0;
+        
     }
 
     void ChooseWallCount()

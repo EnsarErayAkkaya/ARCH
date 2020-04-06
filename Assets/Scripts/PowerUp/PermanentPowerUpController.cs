@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class PermanentPowerUpController : MonoBehaviour
 {
-    PowerUpManager powerUpManager;
     public bool lifeSteal = false,freezingShot = false;
     void Start()
     {
-        powerUpManager = FindObjectOfType<PowerUpManager>();
+        SetPassivePowerUps();
     }
     
     public void SetPassivePowerUps()
     {
-        lifeSteal = false;
-        foreach (var item in powerUpManager.selectedPassivePowerUps)
+        foreach (var item in PowerUpManager.powerUpManager.playerPowerUps)
         {
-            switch (item.powerUpType)
+            switch (item)
             {
                 case PowerUpType.LifeStealing:
                     lifeSteal = true;

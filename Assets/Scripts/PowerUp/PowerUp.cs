@@ -6,14 +6,14 @@ using System;
 [Serializable]
 public class PowerUp
 {
-    public string powerUpName;
-    public GameObject particle;
+    public string powerUpName, description;
     public Sprite sprite;
     public PowerUpType powerUpType;
     public UsageType usageType;
-    public float usingTime;
+    public float usingTime,cooldownTime;
     public List<float> tempData = new List<float>();
     public bool isSelected;
+    public int price;
 }
 public enum PowerUpType
 {

@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    public Image healthLeft,healthRight;
+    public Image healthUI;
     public void UpdateHealthBar(float health)
     {
         float res =((float)health /100);
-        healthLeft.fillAmount = res;
-        healthRight.fillAmount = res;
+        healthUI.fillAmount = res;
     }
    
 }

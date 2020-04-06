@@ -25,14 +25,13 @@ public class PowerUpObject : MonoBehaviour, IInteractable
         GetComponent<SpriteRenderer>().sprite = powerUp.sprite;
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Projectile"))
         {
             health--;
             other.gameObject.GetComponent<Projectile>().life = 0;
-            other.gameObject.GetComponent<Projectile>().Bomb();
-            other.gameObject.GetComponent<Projectile>().DestroyProjectile();
+            other.gameObject.GetComponent<Projectile>().CollisionInterract(gameObject);
             if( health < 1)
             {
                 if(room.isEndingRoom == true)
@@ -52,8 +51,8 @@ public class PowerUpObject : MonoBehaviour, IInteractable
     
     public void DestroyInteractable()
     {
-        var part = Instantiate(powerUp.particle,transform.position,Quaternion.identity);
-        part.GetComponent<ParticleSystem>().Play();
+        //var part = Instantiate(powerUp.particle,transform.position,Quaternion.identity);
+        //part.GetComponent<ParticleSystem>().Play();
         Destroy(gameObject);
     }
 }

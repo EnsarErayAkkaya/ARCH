@@ -14,10 +14,10 @@ public class Throver_Wall : MonoBehaviour
 		if(other.gameObject.CompareTag("Player"))
 		{
             //give DamageTo Passangers
-            if(damagePassanger == true)
+            /* if(damagePassanger == true)
             {
                 FindObjectOfType<PassangerManager>().GetDamage();
-            }
+            } */
             other.gameObject.GetComponent<Player_Shoot>().recoiledVector = ThrowPlayer(other.gameObject);
             other.gameObject.GetComponent<Player_Shoot>().recoilCall = true;
         }
@@ -33,8 +33,7 @@ public class Throver_Wall : MonoBehaviour
             if(other.gameObject.GetComponent<Projectile>() != null)
             {
                 other.gameObject.GetComponent<Projectile>().life = 0;
-                other.gameObject.GetComponent<Projectile>().Bomb();
-                other.gameObject.GetComponent<Projectile>().DestroyProjectile();
+            other.gameObject.GetComponent<Projectile>().CollisionInterract(gameObject);
             }
             if(other.gameObject.GetComponent<Enemy_Projectile>() != null)
             {

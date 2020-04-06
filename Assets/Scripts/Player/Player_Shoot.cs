@@ -42,8 +42,17 @@ public class Player_Shoot : MonoBehaviour {
 		{
 			if(EventSystem.current.IsPointerOverGameObject())
 				return;
-			Look();
-			Shoot();
+
+			if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+			{
+				Look();
+				Shoot();
+			}
+			else if(Application.platform == RuntimePlatform.Android)
+			{
+				LookAndroid();
+				ShootAndroid();
+			}
 		}
 	}
 	void FixedUpdate()
@@ -56,28 +65,28 @@ public class Player_Shoot : MonoBehaviour {
 		LimitSpeed();
 	}
 	
-	void Look()
+	void LookAndroid()
 	{
-	/* 	if(Input.touchCount < 1)
+		if(Input.touchCount < 1)
 			return;
-		Touch touch = Input.GetTouch(0); */
-		if(Input.GetMouseButton(0) /* || touch.phase == TouchPhase.Moved */ )
+		Touch touch = Input.GetTouch(0);
+		if(/* Input.GetMouseButton(0) || */ touch.phase == TouchPhase.Moved )
 		{
 			var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
 			var angle =  (Mathf.Atan2(dir.y,dir.x)* Mathf.Rad2Deg)%360;
 			transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward);
 		}
 	}
-	void Shoot()
+	void ShootAndroid()
 	{
-		/* Touch touch= Input.GetTouch(0);;
+		Touch touch= Input.GetTouch(0);;
 		if (Application.platform == RuntimePlatform.Android)
         {
             if(Input.touchCount < 1)
 			return;
-        } */
+        }
 		
-		if(Input.GetMouseButtonDown(0) /* || touch.phase == TouchPhase.Began */ )
+		if(/* Input.GetMouseButtonDown(0) ||*/   touch.phase == TouchPhase.Began )
 		{	
 			chargedTime = Time.time;
 			ShootCharging = true;
@@ -86,7 +95,70 @@ public class Player_Shoot : MonoBehaviour {
 			gfxs.CallSetEnergyGlass();
 		}
 
-		if( ( Input.GetMouseButtonUp(0)/*  || touch.phase == TouchPhase.Ended  */)  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
+		if( ( /*Input.GetMouseButtonUp(0)  ||  */touch.phase == TouchPhase.Ended )  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
+		{
+			ShootCharging = false;
+			gfxs.CallSetEnergyGlassToNormal();
+			if( GetComponent<Player>().isThereActivePowerUp == false )
+			{
+				canRecoil = true;
+			}
+			
+			Vector3 mouthPos = mouthFrontPos.position;
+
+			//With space
+			Vector3 target = mouthPos;		
+
+			//With mouse
+			//Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+			Vector2 Direction = target - transform.position;
+
+			if( Time.time - chargedTime < MiddleShootTimeLimit )
+			{
+				var projectile = Instantiate(normalProjectile,mouthPos,Quaternion.identity);
+				FindObjectOfType<AudioManager>().Play( "NormalShot" );
+				NormalShoot(projectile,Direction.normalized);
+				
+			}
+			else if( Time.time - chargedTime >= MiddleShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit )
+			{
+				var projectile = Instantiate(middleProjectile,mouthPos,Quaternion.identity);
+				MiddleShoot(projectile,Direction.normalized);
+			}
+			else if( Time.time - chargedTime >= PowerfulShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit + 2f )
+			{
+				var projectile = Instantiate(powerfulProjectile,mouthPos,Quaternion.identity);
+				PowerfulShoot(projectile,Direction.normalized);
+			}
+			SetShootingParticle(false);
+		}
+		if(Time.time - chargedTime >= PowerfulShootTimeLimit + 2f && ShootCharging)
+		{
+			SetShootingParticle(false);
+		}
+	}
+	void Look()
+	{
+		if( Input.GetMouseButton(0) )
+		{
+			var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+			var angle =  (Mathf.Atan2(dir.y,dir.x)* Mathf.Rad2Deg)%360;
+			transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward);
+		}
+	}
+	void Shoot()
+	{		
+		if( Input.GetMouseButtonDown(0) )
+		{	
+			chargedTime = Time.time;
+			ShootCharging = true;
+			SetShootingParticle(true);
+			//Arkadaki cam küreyi doldurur
+			gfxs.CallSetEnergyGlass();
+		}
+
+		if( ( Input.GetMouseButtonUp(0)  )  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
 		{
 			ShootCharging = false;
 			gfxs.CallSetEnergyGlassToNormal();
