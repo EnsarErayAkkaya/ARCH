@@ -28,10 +28,6 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
     }
-    /* void start()
-    {
-        Play("Theme");
-    } */
     public void Play(string name)
     {
         try
@@ -44,7 +40,58 @@ public class AudioManager : MonoBehaviour
             Debug.Log(e.Message);
             throw e;
         }
-        
+    }
+    public void Stop(string name)
+    {
+        try
+        {
+            Sound s  = Array.Find(sounds, sound => sound.name == name);
+            s.source.Stop();
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e.Message);
+            throw e;
+        }
+    }
+    public void Mute(string name)
+    {
+        try
+        {
+            Sound s  = Array.Find(sounds, sound => sound.name == name);
+            s.source.mute = true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e.Message);
+            throw e;
+        }
+    }
+    public void Unmute(string name)
+    {
+        try
+        {
+            Sound s  = Array.Find(sounds, sound => sound.name == name);
+            s.source.mute = false;
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e.Message);
+            throw e;
+        }
+    }
+    public bool IsMuted(string name)
+    {
+        try
+        {
+            Sound s  = Array.Find(sounds, sound => sound.name == name);
+            return s.source.mute;
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e.Message);
+            throw e;
+        }
     }
 
 }
