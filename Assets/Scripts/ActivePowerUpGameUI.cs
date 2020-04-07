@@ -40,8 +40,12 @@ public class ActivePowerUpGameUI : MonoBehaviour
     }
     public void Use()
     {
-        PowerUpManager.powerUpManager.GivePower(power);
-        StartCoroutine( CooldownTimer() );
+        if(gameManager.isGameStarted == true && gameManager.gameStopped == false && gameManager.waweEnded == false)
+        {
+            PowerUpManager.powerUpManager.GivePower(power);
+            StartCoroutine( CooldownTimer() );
+        }
+        
     }
     IEnumerator CooldownTimer()
     {

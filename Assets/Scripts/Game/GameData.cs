@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class GameData 
 {
-    public int score,coin;
+    public int score,totalScore,coin;
     public List<PowerUpType> playerPowerUps = new List<PowerUpType>();
     public List<PowerUpType> selectedActivePowerUps = new List<PowerUpType>();
 

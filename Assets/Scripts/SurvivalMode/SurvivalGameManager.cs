@@ -40,6 +40,8 @@ public class SurvivalGameManager : MonoBehaviour
         roomClosing = false;
         gameStopped = false;
         isGameStarted = false;
+        enemys.SetActive(true);
+        walls.SetActive(true);
         FindObjectOfType<CreateRandomWalls>().CreateWalls();
         FindObjectOfType<DeadlyFieldController>().ResetField();
     }
@@ -100,8 +102,6 @@ public class SurvivalGameManager : MonoBehaviour
         gameStopped = true;
         FindObjectOfType<Player_Shoot>().transform.position = Vector2.zero;
         FindObjectOfType<Player_Shoot>().enabled = false;
-        enemys.SetActive(true);
-        walls.SetActive(true);
         foreach (Transform child in enemys.transform)
         {
             Destroy(child.gameObject);
@@ -140,11 +140,13 @@ public class SurvivalGameManager : MonoBehaviour
     public int GetCoinGained() { return coinGained; }
     void SaveScore()
     {
+        SaveAndLoadGameData.instance.savedData.totalScore += this.score;
         if(this.score > SaveAndLoadGameData.instance.savedData.score)
         {
             Debug.Log("New High score");
             SaveAndLoadGameData.instance.savedData.score = this.score;
         }
+        SaveAndLoadGameData.instance.Save();
     }
     private void CalculateTimeScore()
     {

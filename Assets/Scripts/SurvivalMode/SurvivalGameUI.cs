@@ -26,6 +26,7 @@ public class SurvivalGameUI : GameUI
                 survivalManager.StartGame();
                 startText.gameObject.SetActive(false);
                 pauseButton.gameObject.SetActive(true);
+                FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = true;
                 if(survivalManager.willRoomScale)
                     shrinkText.gameObject.SetActive(true);
             }
@@ -43,6 +44,7 @@ public class SurvivalGameUI : GameUI
     }
     public void SetUIOnGamePassed()
     {
+        FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = false;
         nextButton.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(false);
     }
