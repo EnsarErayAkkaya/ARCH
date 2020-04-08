@@ -11,7 +11,7 @@ public class SurvivalEnemyManager : MonoBehaviour
     public int enemyCount = 4;
     SurvivalGameManager survivalManager;
     [SerializeField] int O_levelStart,Y_levelStart,X_levelStart,P_levelStart;
-    [SerializeField] Transform enemysParent;
+    public Transform enemysParent;
     void Start()
     {
         survivalManager = FindObjectOfType<SurvivalGameManager>();
@@ -56,6 +56,7 @@ public class SurvivalEnemyManager : MonoBehaviour
     
     void ChooseEnemysToCreate()
     {
+        selectedEnemies.Clear();
         // H enemy added
         selectedEnemies.Add(enemys[0]);
         // O Enemy adding
@@ -120,7 +121,7 @@ public class SurvivalEnemyManager : MonoBehaviour
     ///</summary>
     public GameObject SpawnEnemy(int index,Vector2 pos)
     {
-        GameObject e = Instantiate(enemys[index],pos,Quaternion.identity);
+        GameObject e = Instantiate(selectedEnemies[index],pos,Quaternion.identity);
         e.transform.SetParent(enemysParent);
         return e;
     }
