@@ -6,10 +6,9 @@ using UnityEngine;
 public class SurvivalEnemyManager : MonoBehaviour
 {
     private float radius;
-    public List<GameObject> enemys;
+    public List<GameObject> enemys,selectedEnemies,liveEnemies;
     private GameObject spawnEnemyParticle;
     public int enemyCount = 4;
-    public List<GameObject> liveEnemies = new List<GameObject>();
     SurvivalGameManager survivalManager;
     [SerializeField] int O_levelStart,Y_levelStart,X_levelStart,P_levelStart;
     [SerializeField] Transform enemysParent;
@@ -21,64 +20,64 @@ public class SurvivalEnemyManager : MonoBehaviour
     {
         radius = FindObjectOfType<SurvivalGameManager>().gameRadius;
         ChooseEnemyCount();
+        ChooseEnemysToCreate();
         for (int i = 0; i < enemyCount; i++)
         {
-            CallSpawnEnemy( ChooseRandomLocation(), ChooseEnemysToCreate() );
+            CallSpawnEnemy( ChooseRandomLocation() );
         }
     }
     public void ChooseEnemyCount()
     {
         if( survivalManager.waveIndex < 5 && radius <= 60 )
         {
-            enemyCount = UnityEngine.Random.Range(2,5);
+            enemyCount = UnityEngine.Random.Range(3,5);
         }
         else if( survivalManager.waveIndex < 5 && radius > 60 )
         {
             enemyCount = UnityEngine.Random.Range(3,7);
         }
-        else if( survivalManager.waveIndex > 5 && survivalManager.waveIndex <10 && radius <= 60 )
+        else if( survivalManager.waveIndex >= 5 && survivalManager.waveIndex <10 && radius <= 60 )
         {
             enemyCount = UnityEngine.Random.Range(3,7);
         }
-        else if( survivalManager.waveIndex > 5 && survivalManager.waveIndex <10 && radius > 60 )
+        else if( survivalManager.waveIndex >= 5 && survivalManager.waveIndex <10 && radius > 60 )
         {
             enemyCount = UnityEngine.Random.Range(6,10);
         }
-        else if( survivalManager.waveIndex > 15 && radius <= 60 )
+        else if( survivalManager.waveIndex >= 10 && radius <= 60 )
         {
             enemyCount = UnityEngine.Random.Range(9,13);
         }
-        else if( survivalManager.waveIndex > 15 && radius > 60 )
+        else if( survivalManager.waveIndex >= 10 && radius > 60 )
         {
             enemyCount = UnityEngine.Random.Range(12,16);
         }
     }
     
-    List<GameObject> ChooseEnemysToCreate()
+    void ChooseEnemysToCreate()
     {
-        List<GameObject> selected = new List<GameObject>();
         // H enemy added
-        selected.Add(enemys[0]);
+        selectedEnemies.Add(enemys[0]);
         // O Enemy adding
         if(survivalManager.waveIndex >= O_levelStart )
         {
-            selected.Add(enemys[1]);
+            selectedEnemies.Add(enemys[1]);
         }
         // Y Enemy adding
         if(survivalManager.waveIndex >= Y_levelStart)
         {
-            selected.Add(enemys[2]);
+            selectedEnemies.Add(enemys[2]);
         }
         // X enemy adding
         if(survivalManager.waveIndex >= X_levelStart)
         {
-            selected.Add(enemys[3]);
+            selectedEnemies.Add(enemys[3]);
         }
         if(survivalManager.waveIndex >= P_levelStart)
         {
-            selected.Add(enemys[4]);
+            selectedEnemies.Add(enemys[4]);
         }
-        return selected;
+        
     }
     Vector2 ChooseRandomLocation()
     {
@@ -86,12 +85,12 @@ public class SurvivalEnemyManager : MonoBehaviour
         return new Vector2(transform.position.x + vector2.x,transform.position.y + vector2.y);
     }
 
-    public void CallSpawnEnemy(Vector2 pos, List<GameObject> selectedEnemies)
+    public void CallSpawnEnemy(Vector2 pos)
     {
-        StartCoroutine(CreateEnemy(pos, onEnemyCreated, selectedEnemies ));
+        StartCoroutine(CreateEnemy(pos, onEnemyCreated ));
     }
    
-    public IEnumerator CreateEnemy(Vector2 pos, Action<GameObject> onEnemyCreated, List<GameObject> selectedEnemies)
+    public IEnumerator CreateEnemy(Vector2 pos, Action<GameObject> onEnemyCreated)
     {
         int i = UnityEngine.Random.Range(0, selectedEnemies.Count);
 
@@ -103,13 +102,29 @@ public class SurvivalEnemyManager : MonoBehaviour
         GameObject enemy = SpawnEnemy(i,pos);
         onEnemyCreated(enemy);
     }
+     ///<summary>
+    /// enemy Types; H = 0, O = 1, Y = 2, X = 3,P = 4.
+    ///</summary>
+    public IEnumerator CreateEnemy(int enemyType,Vector2 pos, Action<GameObject> onEnemyCreated)
+    {
+        var particle = Instantiate( selectedEnemies[enemyType].GetComponent<Enemy>().spawnParticle, pos, Quaternion.identity );
+        particle.GetComponent<ParticleSystem>().Play();
+    
+        yield return new WaitForSeconds(2.5f);
+            
+        GameObject enemy = SpawnEnemy(enemyType,pos);
+        onEnemyCreated(enemy);
+    }
+    ///<summary>
+    ///H = 0, O = 1, Y = 2, X = 3,P = 4.
+    ///</summary>
     public GameObject SpawnEnemy(int index,Vector2 pos)
     {
         GameObject e = Instantiate(enemys[index],pos,Quaternion.identity);
         e.transform.SetParent(enemysParent);
         return e;
     }
-    void onEnemyCreated(GameObject enemy)
+    public void onEnemyCreated(GameObject enemy)
     {
         liveEnemies.Add(enemy);
     }
