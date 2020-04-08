@@ -14,7 +14,7 @@ public class CreateRandomWalls : MonoBehaviour
 
     [SerializeField] int Glass_levelStart, GlassWallWithBomb_levelStart;
     List<GameObject> wallsToCreate = new List<GameObject>(); 
-    [SerializeField] Transform wallsParent;
+    public Transform wallsParent;
 
     void Start()
     {   
