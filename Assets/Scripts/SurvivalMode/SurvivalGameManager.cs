@@ -165,6 +165,8 @@ public class SurvivalGameManager : MonoBehaviour
     }
     public void EndGame()
     {
+        if(gameEnded == true)
+            return;
         gameEnded = true;
         CleanGame();
         //Score u kaydet ve her şeyi sıfırla
