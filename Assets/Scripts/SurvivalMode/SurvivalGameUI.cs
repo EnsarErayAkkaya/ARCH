@@ -65,6 +65,7 @@ public class SurvivalGameUI : GameUI
     }
     public void EndGameUI()
     {
+        pauseButton.gameObject.SetActive(false);
         gameEndedGroup.SetActive(true);
         totalCoinText.text = (PlayerPrefs.GetInt("coin") - survivalManager.GetCoinGained()).ToString();
         StartCoroutine( UpdateCoinGainedEnumerator( survivalManager.GetCoinGained() ) );
