@@ -11,7 +11,7 @@ public class SurvivalEnemyManager : MonoBehaviour
     public int enemyCount = 4;
     public List<GameObject> liveEnemies = new List<GameObject>();
     SurvivalGameManager survivalManager;
-    [SerializeField] int O_levelStart,Y_levelStart,X_levelStart;
+    [SerializeField] int O_levelStart,Y_levelStart,X_levelStart,P_levelStart;
     [SerializeField] Transform enemysParent;
     void Start()
     {
@@ -73,6 +73,10 @@ public class SurvivalEnemyManager : MonoBehaviour
         if(survivalManager.waveIndex >= X_levelStart)
         {
             selected.Add(enemys[3]);
+        }
+        if(survivalManager.waveIndex >= P_levelStart)
+        {
+            selected.Add(enemys[4]);
         }
         return selected;
     }

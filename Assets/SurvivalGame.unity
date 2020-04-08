@@ -146,11 +146,13 @@ MonoBehaviour:
   - {fileID: 6995952132415358655, guid: 57412a75cf3252642a11b0edd92f89e6, type: 3}
   - {fileID: 2744209982455082128, guid: 1b6a05cfd4d658040b40dd21a65383f5, type: 3}
   - {fileID: 5177554393824303646, guid: b3d6dc2cc890da4459601ca91e7e47ba, type: 3}
+  - {fileID: 1290950033547990804, guid: 62b3f737dfbb93d4699d22c278818b71, type: 3}
   enemyCount: 4
   liveEnemies: []
   O_levelStart: 2
   Y_levelStart: 4
   X_levelStart: 6
+  P_levelStart: 1
   enemysParent: {fileID: 169458255}
 --- !u!4 &1136345
 Transform:
