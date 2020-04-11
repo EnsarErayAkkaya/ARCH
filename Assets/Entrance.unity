@@ -1027,7 +1027,7 @@ RectTransform:
   m_Children:
   - {fileID: 1034870563}
   m_Father: {fileID: 1631607806}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1101,7 +1101,7 @@ RectTransform:
   - {fileID: 664434350}
   - {fileID: 654384981}
   m_Father: {fileID: 1631607806}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1453,84 +1453,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 664434349}
   m_CullTransparentMesh: 0
---- !u!1 &705778742
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 705778744}
-  - component: {fileID: 705778743}
-  m_Layer: 0
-  m_Name: PowerUpManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &705778743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705778742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16734b3df5deb5a4d87a1325f09a189d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUps:
-  - powerUpName: MAKINELI TUFEK
-    description: SIZI BIR SURELIGINE YERINIZE SABITLER VE ATIS HIZINIZI ARTTIRIR.
-    sprite: {fileID: 21300000, guid: 206bb7d7c8c1b9e4e989f44d0e720b1e, type: 3}
-    powerUpType: 0
-    usageType: 0
-    usingTime: 4
-    cooldownTime: 18
-    tempData: []
-    isSelected: 0
-    price: 8000
-  - powerUpName: "CAN \xC7ALMA"
-    description: "DUSMANLARINIZI OLDURDUKCE CAN \xC7ALMANIZI SAGLAR."
-    sprite: {fileID: 21300000, guid: 48a6adc277ec572479b0c32cd65a9fd7, type: 3}
-    powerUpType: 1
-    usageType: 1
-    usingTime: 0
-    cooldownTime: 0
-    tempData: []
-    isSelected: 0
-    price: 5000
-  - powerUpName: DONDURUCU ATIS
-    description: HER BASARILI ATISINIZ YAVASLATILABILIR DUSMANLARINIZI BIR SURELIGINE
-      YAVASLATIR. ETKI BIRIKMEZ.
-    sprite: {fileID: 21300000, guid: bbef5fd38944f774f8aed0c8a37cc677, type: 3}
-    powerUpType: 2
-    usageType: 1
-    usingTime: 0
-    cooldownTime: 0
-    tempData: []
-    isSelected: 0
-    price: 3500
-  playerPowerUps: 
-  selectedActivePowerUps: 
-  activePowerUplimit: 1
---- !u!4 &705778744
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705778742}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &822721419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,9 +1953,8 @@ RectTransform:
   - {fileID: 1369052353}
   - {fileID: 1276831872}
   - {fileID: 822721420}
-  - {fileID: 2111933207}
   m_Father: {fileID: 1631607806}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3177,6 +3098,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 2111933207}
   - {fileID: 1019090531}
   - {fileID: 577678731}
   - {fileID: 586085183}
@@ -3521,8 +3443,8 @@ RectTransform:
   - {fileID: 880967494}
   - {fileID: 534462538}
   - {fileID: 2119827778}
-  m_Father: {fileID: 1019090531}
-  m_RootOrder: 4
+  m_Father: {fileID: 1631607806}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3675,7 +3597,7 @@ PrefabInstance:
     - target: {fileID: 4824795310634825214, guid: c737b694a040ea8489f3da2a8abdd88a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4824795310634825214, guid: c737b694a040ea8489f3da2a8abdd88a,
         type: 3}
@@ -4049,3 +3971,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c344f13f65deb9448b1daabd31b3eb2, type: 3}
+--- !u!1001 &8608879789958941082
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8608879789523836332, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_Name
+      value: PowerUpManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8608879789523836322, guid: ceaea6b2b22468541820c407b3448dec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ceaea6b2b22468541820c407b3448dec, type: 3}
