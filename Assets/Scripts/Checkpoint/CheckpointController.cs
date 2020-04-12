@@ -7,7 +7,10 @@ public class CheckpointController : MonoBehaviour
     SurvivalGameManager gameManager;
     int lastCollision;
     float collisionTime;
-    public GameObject rightCollider,leftCollider,arrow,leftParticle;
+    public GameObject arrow;
+    public Collider2D rightCollider;
+    public ParticleSystem leftParticle,rightParticle;
+    public SpriteRenderer up,down;
     //sadece önce sağdan geçildiğinde kabul et demek
     public bool isOneSided;
     void Start()
@@ -21,42 +24,45 @@ public class CheckpointController : MonoBehaviour
         
         if(isOneSided)
         {
-            leftParticle.SetActive(false);
+            leftParticle.gameObject.SetActive(false);
             arrow.SetActive(true);
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(!isOneSided)
+        if(other.gameObject.CompareTag("Player"))
         {
-            if(rightCollider.GetComponent<Collider2D>() & other.gameObject.CompareTag("Player") )
+            if(!isOneSided)
             {
-                if(lastCollision == 2 && Time.time - collisionTime < 2.5 )
+                if(rightCollider )
                 {
-                    OnPlayerPassed();
+                    if(lastCollision == 2 && Time.time - collisionTime < 2.5 )
+                    {
+                        OnPlayerPassed();
+                    }
+                    //1 sol
+                    lastCollision = 1;
+                    collisionTime = Time.time;
                 }
-                //1 sol
-                lastCollision = 1;
-                collisionTime = Time.time;
-            }
-            if( rightCollider.GetComponent<Collider2D>() & other.gameObject.CompareTag("Player") )
-            {
-                if(lastCollision == 1 && Time.time - collisionTime < 2.5 )
+                if( rightCollider )
                 {
-                    OnPlayerPassed();
+                    if(lastCollision == 1 && Time.time - collisionTime < 2.5 )
+                    {
+                        OnPlayerPassed();
+                    }
+                        //2 sağ
+                    lastCollision = 2;
+                    collisionTime = Time.time;
                 }
-                    //2 sağ
-                lastCollision = 2;
-                collisionTime = Time.time;
             }
-        }
-        else
-        {
-            if( rightCollider.GetComponent<Collider2D>() & other.gameObject.CompareTag("Player") )
+            else
             {
-                //1 sol
-                lastCollision = 1;
-                collisionTime = Time.time;
+                if( rightCollider )
+                {
+                    //1 sol
+                    lastCollision = 1;
+                    collisionTime = Time.time;
+                }
             }
         }
     }
@@ -108,7 +114,7 @@ public class CheckpointController : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
 
-        FindObjectOfType<CheckPointManager>().RemovePointFromlist(this.gameObject);
+        FindObjectOfType<CheckPointManager>().RemovePointFromlist(this);
         Destroy(gameObject);
     }
 }

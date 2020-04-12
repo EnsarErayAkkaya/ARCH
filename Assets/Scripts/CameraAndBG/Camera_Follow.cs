@@ -19,19 +19,19 @@ public class Camera_Follow : MonoBehaviour
         switch (target.gameObject.GetComponent<Player_Shoot>().state)
         {
             case State.Static:
-                 GetComponent<Camera>().orthographicSize = Mathf.Lerp( GetComponent<Camera>().orthographicSize, staticBend,Time.deltaTime);
+                Camera.main.orthographicSize = Mathf.Lerp( Camera.main.orthographicSize, staticBend,Time.deltaTime);
                
             break;
             case State.NormalShot:
-                GetComponent<Camera>().orthographicSize = Mathf.Lerp( GetComponent<Camera>().orthographicSize, normalBend,Time.deltaTime);
+                Camera.main.orthographicSize = Mathf.Lerp( Camera.main.orthographicSize, normalBend,Time.deltaTime);
 
             break;
             case State.MiddleShot:
-                GetComponent<Camera>().orthographicSize = Mathf.Lerp( GetComponent<Camera>().orthographicSize, middleBend,Time.deltaTime);
+                Camera.main.orthographicSize = Mathf.Lerp( Camera.main.orthographicSize, middleBend,Time.deltaTime);
                
             break;
             case State.PowerfulShoot:
-                GetComponent<Camera>().orthographicSize = Mathf.Lerp( GetComponent<Camera>().orthographicSize, powerfulBend,Time.deltaTime);
+                Camera.main.orthographicSize = Mathf.Lerp( Camera.main.orthographicSize, powerfulBend,Time.deltaTime);
                 
             break;
             

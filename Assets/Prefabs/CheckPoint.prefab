@@ -123,11 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc95f5e2707a8d049890fe6876c7903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightCollider: {fileID: 45781831632634378}
-  leftCollider: {fileID: 2358203505560191785}
   arrow: {fileID: 2470490372295497329}
   leftParticle: {fileID: 5250693537051082090}
-  rightParticle: {fileID: 5419272188139085210}
+  rightCollider: {fileID: 5867379486432281862}
   isOneSided: 0
 --- !u!95 &7489038171683513069
 Animator:

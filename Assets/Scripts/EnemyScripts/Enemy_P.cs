@@ -6,24 +6,24 @@ public class Enemy_P : MonoBehaviour
 {   
     int waveIndex;
     [SerializeField ]List<GameObject> nextEnemiesPrefabs;
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
+    SurvivalGameManager survivalManager;
+    SurvivalEnemyManager enemyManager;
     void Start()
     {
-        waveIndex = FindObjectOfType<SurvivalGameManager>().waveIndex;
+        survivalManager = FindObjectOfType<SurvivalGameManager>();
+        enemyManager = FindObjectOfType<SurvivalEnemyManager>();
+        waveIndex = survivalManager.waveIndex;
     }
     void OnDestroy()
     {
-        if(waveIndex != FindObjectOfType<SurvivalGameManager>().waveIndex 
-            || FindObjectOfType<SurvivalGameManager>() == null 
-                || FindObjectOfType<SurvivalGameManager>().isGameStarted == false)
+        if(waveIndex !=survivalManager.waveIndex 
+            || survivalManager == null 
+                || survivalManager.isGameStarted == false)
             return;
         foreach (GameObject item in nextEnemiesPrefabs)
         {
             Transform t = Instantiate(item,transform.position,Quaternion.identity).transform;
-            t.SetParent(FindObjectOfType<SurvivalEnemyManager>().enemysParent);
+            t.SetParent(enemyManager.enemysParent);
         }
     }
 }
