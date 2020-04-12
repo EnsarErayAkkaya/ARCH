@@ -7,42 +7,51 @@ public class CheckPointManager : MonoBehaviour
     public List<GameObject> checkPointsPrefabList = new List<GameObject>();
     private float radius;
     public int checkPointCount;
-    public List<GameObject> checkPoints = new List<GameObject>();
+    public List<CheckpointController> checkPoints = new List<CheckpointController>();
     SurvivalGameManager survivalManager;
+    SurvivalGameUI survivalUI;
     [SerializeField] int checkPointWithGlass_StartLevel;
-    [SerializeField] Transform cheskpointsParent;
+    [SerializeField] Transform checkpointParent;
+    List<GameObject> checkPointsToCreate = new List<GameObject>();
 
     void Start()
     {
         survivalManager = FindObjectOfType<SurvivalGameManager>();
+        survivalUI = FindObjectOfType<SurvivalGameUI>();
     }
 
     public void CreateCheckPoints()
     {
-        radius = FindObjectOfType<SurvivalGameManager>().gameRadius-2;
+        radius = survivalManager.gameRadius-2;
 
         ChoosecheckPointCount();
-        List<GameObject> checks = CheckpointsToCreate();
+        CheckpointsToCreate();
         for (int i = 0; i < checkPointCount; i++)
         {
-            GameObject check = Instantiate( checks[ChooseCheckpointType()], ChooseRandomLocation(), Quaternion.identity );
-            check.transform.SetParent(cheskpointsParent.transform);
+            CheckpointController check = Instantiate( checkPointsToCreate[ChooseCheckpointType()], ChooseRandomLocation(), Quaternion.identity ).GetComponent<CheckpointController>();
+            check.transform.SetParent(checkpointParent.transform);
             Color c =  Random.ColorHSV(0,1,1,1,1,1);
-            foreach (Transform item in check.transform)
+
+            check.up.material.SetColor("_EmissionColor", c);
+            check.down.material.SetColor("_EmissionColor", c);
+
+            if(check.rightParticle != null)
             {
-                if(item.GetComponent<SpriteRenderer>() != null && !item.CompareTag("Wall"))
-                    item.GetComponent<SpriteRenderer>().material.SetColor("_EmissionColor", c);
-                if(item.GetComponent<ParticleSystem>() != null)
+                var col2 = check.rightParticle.colorOverLifetime;
+                col2.enabled = true;
+                Gradient grad = new Gradient();
+                grad.SetKeys( new GradientColorKey[] { 
+                    new GradientColorKey(c, 0.0f), new GradientColorKey(c, 1.0f) 
+                    },
+                    new GradientAlphaKey[] { 
+                        new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) 
+                        } );
+                col2.color = grad;
+
+                if(check.leftParticle != null)
                 {
-                    var col = item.GetComponent<ParticleSystem>().colorOverLifetime;
+                    var col = check.leftParticle.colorOverLifetime;
                     col.enabled = true;
-                    Gradient grad = new Gradient();
-                    grad.SetKeys( new GradientColorKey[] { 
-                        new GradientColorKey(c, 0.0f), new GradientColorKey(c, 1.0f) 
-                        },
-                        new GradientAlphaKey[] { 
-                            new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) 
-                            } );
                     col.color = grad;
                 }
             }
@@ -50,18 +59,15 @@ public class CheckPointManager : MonoBehaviour
         }
     }
 
-    List<GameObject> CheckpointsToCreate()
+    void CheckpointsToCreate()
     {
-        List<GameObject> checks = new List<GameObject>();
 
-        checks.Add(checkPointsPrefabList[0]);
+        checkPointsToCreate.Add(checkPointsPrefabList[0]);
 
         if(survivalManager.waveIndex >= checkPointWithGlass_StartLevel)
         {
-            checks.Add(checkPointsPrefabList[1]);
+            checkPointsToCreate.Add(checkPointsPrefabList[1]);
         }
-
-        return checks;
     }
     int ChooseCheckpointType()
     {
@@ -116,16 +122,16 @@ public class CheckPointManager : MonoBehaviour
         var vector2 = Random.insideUnitCircle * radius;
         return new Vector2(transform.position.x + vector2.x,transform.position.y + vector2.y);
     }
-    public void RemovePointFromlist(GameObject point)
+    public void RemovePointFromlist(CheckpointController point)
     {
         checkPoints.Remove(point);
-        FindObjectOfType<SurvivalGameManager>().GetEnemyScore();
+        survivalManager.GetEnemyScore();
         if(checkPoints.Count == 0)
         {
             Debug.Log("All checkPoint Passed");
-            FindObjectOfType<SurvivalGameManager>().StopGame();
-            FindObjectOfType<SurvivalGameUI>().SetUIOnGamePassed();
-            FindObjectOfType<SurvivalGameManager>().CalculateScore();
+            survivalManager.StopGame();
+            survivalUI.SetUIOnGamePassed();
+            survivalManager.CalculateScore();
         }
     }
 }

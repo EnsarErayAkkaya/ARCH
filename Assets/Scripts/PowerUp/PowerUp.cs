@@ -12,12 +12,12 @@ public class PowerUp
     public UsageType usageType;
     public float usingTime,cooldownTime;
     public List<float> tempData = new List<float>();
-    public bool isSelected;
-    public int price;
+    public int price,neededScore;
+    public GameObject neededPrefab;
 }
 public enum PowerUpType
 {
-    MachineGun,LifeStealing,FreezingShot
+    MachineGun,LifeStealing,FreezingShot,UnPerfectShield
 }
 public enum UsageType
 {

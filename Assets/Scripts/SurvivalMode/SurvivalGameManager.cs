@@ -119,7 +119,6 @@ public class SurvivalGameManager : MonoBehaviour
     {
         //Son skoru hesapla
         CalculateTimeScore();
-        SaveScore();
         gameUI.UpdateScoreText(score);
     }
     void CalculateCoin(int coin)
@@ -172,6 +171,7 @@ public class SurvivalGameManager : MonoBehaviour
         //Score u kaydet ve her şeyi sıfırla
         CalculateScore();
         CalculateCoin();
+        SaveScore();
         gameUI.EndGameUI();
     }
     public void RestartGame()

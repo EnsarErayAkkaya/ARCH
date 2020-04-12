@@ -7,14 +7,13 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public int life;
-    public float radius;
+    public float radius = 8;
     public bool isBomb;
     public GameObject normalParticle,middleParticle,powerfulParticle,freezingParticle;
     public ProjectileType type;
     public int damage;
 
     public float lifeTime, powerfulProjectileExplosionForce;
-    public bool spawnEnemy;
 
     void Start()
     {
@@ -70,7 +69,7 @@ public class Projectile : MonoBehaviour
     ///</summary>
      void Bomb()
     {
-        foreach (Collider2D col in Physics2D.OverlapCircleAll(transform.position, 8))
+        foreach (Collider2D col in Physics2D.OverlapCircleAll(transform.position, radius))
         {
             if(col.GetComponent<Rigidbody2D>() != null)
             {
@@ -117,10 +116,7 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        if(spawnEnemy)
-        {
-            FindObjectOfType<Enemy_Controller>().SpawnEnemy(0,transform.position);
-        }
+        
     }
     void FreezeEnemy(GameObject enemy)
     {

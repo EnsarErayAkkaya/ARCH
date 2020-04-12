@@ -26,10 +26,13 @@ public class PowerUpManager : MonoBehaviour
             PowerUpManager.powerUpManager = this;
         }
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    void Start()
+    {
         playerPowerUps = SaveAndLoadGameData.instance.savedData.playerPowerUps;
         selectedActivePowerUps = SaveAndLoadGameData.instance.savedData.selectedActivePowerUps;
     }
-
 
     ///Just For temporary powers
     ////Oyuncu yeteneği aktif hale getirince çağıralacak
@@ -56,6 +59,14 @@ public class PowerUpManager : MonoBehaviour
                 p.isThereActivePowerUp = true;
                 StartCoroutine( GetPowerBack(powerUp) );
             break;
+            case PowerUpType.UnPerfectShield:
+                Debug.Log("UnPerfect Shield 0");
+                pShoot.canShoot = false;
+                GameObject a = Instantiate(powerUp.neededPrefab,p.transform.position,Quaternion.identity);
+                a.transform.SetParent(p.transform);
+                p.isThereActivePowerUp = true;
+                StartCoroutine( GetPowerBack(powerUp) );
+            break;
 
             default:
             break;
@@ -67,14 +78,18 @@ public class PowerUpManager : MonoBehaviour
         Player_Shoot pShoot = p.GetComponent<Player_Shoot>();
         if(PowerUpType.MachineGun == powerUp.powerUpType)
         {
-            if(powerUp.usageType == UsageType.Temporary)
-            {
-                Debug.Log("machine gun 1");
-                yield return new WaitForSeconds(powerUp.usingTime);
-                pShoot.NormalShootTimeLimit =powerUp.tempData[0];
-                pShoot.canRecoil = true;
-                p.isThereActivePowerUp = false;
-            }
+            Debug.Log("machine gun 1");
+            yield return new WaitForSeconds(powerUp.usingTime);
+            pShoot.NormalShootTimeLimit =powerUp.tempData[0];
+            pShoot.canRecoil = true;
+            p.isThereActivePowerUp = false;
+        }
+        else if(powerUp.usageType == UsageType.Temporary)
+        {
+            Debug.Log("UnPerfect Shield 1");
+            yield return new WaitForSeconds(powerUp.usingTime);
+            pShoot.canShoot = true;
+            p.isThereActivePowerUp = false;
         }
     }
     public void ObtainPower(PowerUpType powerUpType)
