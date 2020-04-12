@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
     public GameObject spawnParticle;
     [SerializeField] bool canShoot,canRotate,dontDieFromCollision;
     public bool isSloved,dontGetDamage;
-    public RoomController room;
     void Start()
     {
         currentHealth = maxHealth;
@@ -64,9 +63,9 @@ public class Enemy : MonoBehaviour
   
     void Shoot()
     {
-        if (Vector2.Distance(transform.position, target.position) < stoppingDistance)
+        if (canShoot)
         {
-            if(canShoot)
+            if(Vector2.Distance(transform.position, target.position) < stoppingDistance)
             {
                 if(timeBetweenShots <= 0)
                 {
@@ -87,14 +86,9 @@ public class Enemy : MonoBehaviour
  
     public void DestroyEnemy()
     {
-        if(FindObjectOfType<SurvivalEnemyManager>() != null)
-        {
-            FindObjectOfType<SurvivalEnemyManager>().OnEnemyKilled(this.gameObject);
-        }
-        else
-        {
-            room.RemoveEnemyWhenDied(gameObject);
-        }
+       
+        FindObjectOfType<SurvivalEnemyManager>().OnEnemyKilled(this.gameObject);
+        
         var particle = Instantiate(enemyParticle,transform.position,Quaternion.identity);
         particle.GetComponent<ParticleSystem>().Play();
         Destroy(gameObject);
