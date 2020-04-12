@@ -124,8 +124,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 2470490372295497329}
-  leftParticle: {fileID: 5250693537051082090}
   rightCollider: {fileID: 5867379486432281862}
+  leftParticle: {fileID: 7324777507918205606}
+  rightParticle: {fileID: 4896604775228652080}
+  up: {fileID: 5385298831642302590}
+  down: {fileID: 6197357995195701924}
   isOneSided: 0
 --- !u!95 &7489038171683513069
 Animator:

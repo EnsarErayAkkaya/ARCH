@@ -1845,7 +1845,7 @@ MonoBehaviour:
   checkPointCount: 3
   checkPoints: []
   checkPointWithGlass_StartLevel: 2
-  cheskpointsParent: {fileID: 2034275704}
+  checkpointParent: {fileID: 2034275704}
 --- !u!4 &497918947
 Transform:
   m_ObjectHideFlags: 0
