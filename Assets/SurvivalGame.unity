@@ -3741,7 +3741,7 @@ MonoBehaviour:
   bloomThreshold:
     minValue: 1
     maxValue: 10
-  bloomScattering: 7
+  bloomScattering: 4
   bloomIntensity: 1
 --- !u!114 &1365509743
 MonoBehaviour:
@@ -9089,6 +9089,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6402143944391607672, guid: 239ec3d704bbfc94d9f267152d1c18a4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 239ec3d704bbfc94d9f267152d1c18a4, type: 3}
 --- !u!1 &1835006575

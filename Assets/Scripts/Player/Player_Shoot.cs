@@ -70,7 +70,7 @@ public class Player_Shoot : MonoBehaviour {
 		if(Input.touchCount < 1)
 			return;
 		Touch touch = Input.GetTouch(0);
-		if(/* Input.GetMouseButton(0) || */ touch.phase == TouchPhase.Moved )
+		if( touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved )
 		{
 			var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
 			var angle =  (Mathf.Atan2(dir.y,dir.x)* Mathf.Rad2Deg)%360;
@@ -86,7 +86,7 @@ public class Player_Shoot : MonoBehaviour {
 			return;
         }
 		
-		if(/* Input.GetMouseButtonDown(0) ||*/   touch.phase == TouchPhase.Began )
+		if( touch.phase == TouchPhase.Began )
 		{	
 			chargedTime = Time.time;
 			ShootCharging = true;
@@ -95,7 +95,7 @@ public class Player_Shoot : MonoBehaviour {
 			gfxs.CallSetEnergyGlass();
 		}
 
-		if( ( /*Input.GetMouseButtonUp(0)  ||  */touch.phase == TouchPhase.Ended )  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
+		if( ( touch.phase == TouchPhase.Ended )  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
 		{
 			ShootCharging = false;
 			gfxs.CallSetEnergyGlassToNormal();
