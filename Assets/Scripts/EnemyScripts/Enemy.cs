@@ -5,50 +5,43 @@ public class Enemy : MonoBehaviour
 {
     private int currentHealth;
 	[SerializeField] int maxHealth;
-    private Transform target;
+    private Player target;
     private Vector3 selfRotationSpeed;
     [SerializeField] float stoppingDistance,startTimeBetweenShots,damage,projectileExtraDistanceToCenter;
     float timeBetweenShots;
     [SerializeField] GameObject enemyParticle,projectile;
     public GameObject spawnParticle;
-    [SerializeField] bool canShoot,canRotate,dontDieFromCollision;
+    [SerializeField] bool canShoot,dontDieFromCollision;
     public bool isSloved,dontGetDamage;
+    SurvivalGameManager gameManager;
+    [SerializeField] EnemyUI enemyUI;
     void Start()
     {
         currentHealth = maxHealth;
-        target = FindObjectOfType<Player>().transform;
+        target = FindObjectOfType<Player>();
         selfRotationSpeed.z = Random.Range(-60,60);
         if(GetComponent<AIDestinationSetter>() != null)
         {
-            GetComponent<AIDestinationSetter>().target = target;
+            GetComponent<AIDestinationSetter>().target = target.transform;
         }
         timeBetweenShots = startTimeBetweenShots;
+        gameManager = FindObjectOfType<SurvivalGameManager>();
     }
 
     void Update()
     {
-        if(canRotate)
-        {
-            RotateSelf();
-
-        }
         Shoot();
     }
    
 
    void OnCollisionEnter2D(Collision2D other)
    {
-       if(!dontDieFromCollision)
-       {
-           if(other.gameObject.CompareTag("Player"))
-            {
-                other.gameObject.GetComponent<Player>().GetDamage((int)damage);
-                if( FindObjectOfType<SurvivalGameManager>() != null )
-                {
-                    FindObjectOfType<SurvivalGameManager>().LoseScore();
-                }
-                DestroyEnemy();
-            }
+        if(other.gameObject.CompareTag("Player") && !dontDieFromCollision)
+        {
+            other.gameObject.GetComponent<Player>().GetDamage((int)damage);
+            FindObjectOfType<SurvivalGameManager>().LoseScore();
+            
+            DestroyEnemy();
        }
        
    }
@@ -56,20 +49,17 @@ public class Enemy : MonoBehaviour
    {
        Gizmos.DrawWireSphere(transform.position,stoppingDistance);
    } */
-    void RotateSelf()
-    {
-        transform.Rotate(selfRotationSpeed * Time.deltaTime);
-    }
+
   
     void Shoot()
     {
         if (canShoot)
         {
-            if(Vector2.Distance(transform.position, target.position) < stoppingDistance)
+            if(Vector2.Distance(transform.position, target.transform.position) < stoppingDistance)
             {
                 if(timeBetweenShots <= 0)
                 {
-                    Vector2 dir = (target.position - transform.position).normalized * projectileExtraDistanceToCenter;
+                    Vector2 dir = (target.transform.position - transform.position).normalized * projectileExtraDistanceToCenter;
                     Vector2 pos = new Vector2(transform.position.x + dir.x,transform.position.y+ dir.y);
                     Instantiate(projectile, pos, Quaternion.identity);
 
@@ -86,7 +76,6 @@ public class Enemy : MonoBehaviour
  
     public void DestroyEnemy()
     {
-       
         FindObjectOfType<SurvivalEnemyManager>().OnEnemyKilled(this.gameObject);
         
         var particle = Instantiate(enemyParticle,transform.position,Quaternion.identity);
@@ -101,14 +90,9 @@ public class Enemy : MonoBehaviour
 		currentHealth -= damage;
         if(currentHealth <=0)
         {
-            FindObjectOfType<Player>().AddEnemyKilled();
+            target.AddEnemyKilled();
             DestroyEnemy();
         }
-        GetComponent<EnemyUI>().UpdateHealthBar(currentHealth,maxHealth);
+        enemyUI.UpdateHealthBar(currentHealth,maxHealth);
 	}
-    public Transform Get_Target()
-    {
-        return target;
-    }
-
 }

@@ -8,6 +8,11 @@ public class EnemyUI : MonoBehaviour
     bool healthEnabled = false;
     [SerializeField]
     GameObject healthbar,healthBack;
+    Image healthImage;
+    void Start()
+    {
+        healthImage = healthbar.GetComponent<Image>();
+    }
     
     public void UpdateHealthBar(float health,float maxHealth )
     {
@@ -15,7 +20,7 @@ public class EnemyUI : MonoBehaviour
             EnableHealthUI();
 
         float res =((float)health /maxHealth);
-        healthbar.GetComponent<Image>().fillAmount = res;
+        healthImage.fillAmount = res;
     }
     void EnableHealthUI()
     {

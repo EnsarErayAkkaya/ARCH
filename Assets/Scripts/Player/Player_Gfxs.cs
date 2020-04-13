@@ -7,9 +7,11 @@ public class Player_Gfxs : MonoBehaviour
     public SpriteRenderer energyGlass;
     Player_Shoot player_Shoot;
     public Color normal,middle,powerfull,startColor;
+    SpriteRenderer energySprite;
     void Start()
     {
         player_Shoot = GetComponent<Player_Shoot>();
+        energySprite =  energyGlass.GetComponent<SpriteRenderer>();
     }
     public void CallSetEnergyGlass()
     {
@@ -26,18 +28,18 @@ public class Player_Gfxs : MonoBehaviour
             t += Time.deltaTime * (Time.timeScale / 1);
             if( t <= player_Shoot.MiddleShootTimeLimit)
             {
-                energyGlass.GetComponent<SpriteRenderer>().color 
-                    = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, normal, t);
+                energySprite.color 
+                    = Color.Lerp(energySprite.color, normal, t);
             }
             else if(t > player_Shoot.MiddleShootTimeLimit && t <= player_Shoot.PowerfulShootTimeLimit)
             {
-                energyGlass.GetComponent<SpriteRenderer>().color 
-                    = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, middle, t);
+                energySprite.color 
+                    = Color.Lerp(energySprite.color, middle, t);
             }
             else if(t > player_Shoot.PowerfulShootTimeLimit && t <= player_Shoot.PowerfulShootTimeLimit + 2)
             {
-                energyGlass.GetComponent<SpriteRenderer>().color 
-                    = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, powerfull, t);
+                energySprite.color 
+                    = Color.Lerp(energySprite.color, powerfull, t);
             }
             yield return 0;
         }
@@ -56,8 +58,8 @@ public class Player_Gfxs : MonoBehaviour
                 break;
 
             t += Time.deltaTime * (Time.timeScale / 1);
-            energyGlass.GetComponent<SpriteRenderer>().color 
-                = Color.Lerp(energyGlass.GetComponent<SpriteRenderer>().color, startColor, t);
+            energySprite.color 
+                = Color.Lerp(energySprite.color, startColor, t);
             yield return 0;
         }
     }
