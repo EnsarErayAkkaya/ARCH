@@ -18,7 +18,7 @@ public class SurvivalEnemyManager : MonoBehaviour
     }
     public void ProduceEnemys()
     {
-        radius = FindObjectOfType<SurvivalGameManager>().gameRadius;
+        radius = survivalManager.gameRadius;
         ChooseEnemyCount();
         ChooseEnemysToCreate();
         for (int i = 0; i < enemyCount; i++)
@@ -103,19 +103,6 @@ public class SurvivalEnemyManager : MonoBehaviour
         GameObject enemy = SpawnEnemy(i,pos);
         onEnemyCreated(enemy);
     }
-     ///<summary>
-    /// enemy Types; H = 0, O = 1, Y = 2, X = 3,P = 4.
-    ///</summary>
-    public IEnumerator CreateEnemy(int enemyType,Vector2 pos, Action<GameObject> onEnemyCreated)
-    {
-        var particle = Instantiate( selectedEnemies[enemyType].GetComponent<Enemy>().spawnParticle, pos, Quaternion.identity );
-        particle.GetComponent<ParticleSystem>().Play();
-    
-        yield return new WaitForSeconds(2.5f);
-            
-        GameObject enemy = SpawnEnemy(enemyType,pos);
-        onEnemyCreated(enemy);
-    }
     ///<summary>
     ///H = 0, O = 1, Y = 2, X = 3,P = 4.
     ///</summary>
@@ -132,10 +119,10 @@ public class SurvivalEnemyManager : MonoBehaviour
     public void OnEnemyKilled(GameObject enemy)
     {
         liveEnemies.Remove(enemy);
-        FindObjectOfType<SurvivalGameManager>().GetEnemyScore();
+        survivalManager.GetEnemyScore();
         if(liveEnemies.Count == 0)
         {
-            FindObjectOfType<SurvivalGameManager>().GetEnemyScore();
+            survivalManager.GetEnemyScore();
         }
     }
 }

@@ -11,9 +11,11 @@ public class SurvivalGameUI : GameUI
     public TextMeshProUGUI timeText,scoreText,startText,shrinkText,coinGainedText,totalCoinText;
     public Button nextButton,restartButton,pauseButton;
     SurvivalGameManager survivalManager;
+    ActivePowerUpGameUI activePowerUp;
 
     void Start()
     {
+        activePowerUp = FindObjectOfType<ActivePowerUpGameUI>();
         survivalManager = FindObjectOfType<SurvivalGameManager>();
     }   
     void Update()
@@ -26,7 +28,7 @@ public class SurvivalGameUI : GameUI
                 survivalManager.StartGame();
                 startText.gameObject.SetActive(false);
                 pauseButton.gameObject.SetActive(true);
-                FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = true;
+                activePowerUp.useButton.enabled = true;
                 if(survivalManager.willRoomScale)
                     shrinkText.gameObject.SetActive(true);
             }
@@ -44,7 +46,7 @@ public class SurvivalGameUI : GameUI
     }
     public void SetUIOnGamePassed()
     {
-        FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = false;
+        activePowerUp.useButton.enabled = false;
         nextButton.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(false);
     }
@@ -109,13 +111,13 @@ public class SurvivalGameUI : GameUI
         {
             //Oyunu devam ettir
             survivalManager.ResumeGame();
-            FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = true;
+            activePowerUp.useButton.enabled = true;
             pausedGroup.SetActive(false);
         }
         else{
             //oyunu duraklat
             survivalManager.StopGame();
-            FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = false;
+            activePowerUp.useButton.enabled = false;
             pausedGroup.SetActive(true);
         }
     }

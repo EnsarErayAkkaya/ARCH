@@ -10,7 +10,7 @@ public class DeadlyFieldController : MonoBehaviour
     [SerializeField] 
     Vector3 startScale;
     SurvivalGameManager gameManager;
-
+    [SerializeField]Player p;
     void Start()
     {
         gameManager = FindObjectOfType<SurvivalGameManager>();
@@ -27,7 +27,6 @@ public class DeadlyFieldController : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             playerInside = true;
-            Player p = other.gameObject.GetComponent<Player>();
             StartCoroutine( DamagePlayerByTime(p) );
         }
     }

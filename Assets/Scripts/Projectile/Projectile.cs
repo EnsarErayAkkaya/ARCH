@@ -61,9 +61,10 @@ public class Projectile : MonoBehaviour
 
      void GiveDamage(GameObject enemy)
     {
-        if( enemy.GetComponent<Enemy>() != null )
+        if(enemy.GetComponent<Enemy>()!= null)
+        {
             enemy.GetComponent<Enemy>().GetDamage(damage);
-
+        }
         DestroyProjectile();
     }
     ///<summary>
@@ -76,6 +77,7 @@ public class Projectile : MonoBehaviour
             if(col.GetComponent<Rigidbody2D>() != null)
             {
                 Vector2 Direction = col.transform.position - transform.position;
+           
                 col.GetComponent<Rigidbody2D>().AddForce(Direction.normalized * manager.powerfulProjectileExplosionForce,ForceMode2D.Impulse );
                 if(col.GetComponent<Player>() != null)
                 {
@@ -89,7 +91,6 @@ public class Projectile : MonoBehaviour
             }
         }
         DestroyProjectile();
-
     }
     void DetectLifeTime()
     {

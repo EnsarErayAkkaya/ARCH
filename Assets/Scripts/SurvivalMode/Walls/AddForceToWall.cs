@@ -9,8 +9,10 @@ public class AddForceToWall : MonoBehaviour
     private float x,y;
     Vector2 forceVector;
     bool AddForce = false;
+    Rigidbody2D rb;
     void Start()
     {
+        rb =  GetComponent<Rigidbody2D>();
         if(workOnStart)
             StartCoroutine( waitaLitle() );
     }
@@ -35,7 +37,7 @@ public class AddForceToWall : MonoBehaviour
     {
         if(AddForce)
         {
-            gameObject.GetComponent<Rigidbody2D>().AddForce( forceVector * forceMultiplier, ForceMode2D.Impulse );
+            rb.AddForce( forceVector * forceMultiplier, ForceMode2D.Impulse );
             AddForce = false;
         }
     }

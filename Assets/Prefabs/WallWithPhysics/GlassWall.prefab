@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 14f2c753cb5485b45be8d9ddadd344ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3d9d70ff5c458e74bbcf0d74da5c7464, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,7 +147,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 14f2c753cb5485b45be8d9ddadd344ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3d9d70ff5c458e74bbcf0d74da5c7464, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -294,7 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c574674804e98934cb2095ad0a6880f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AddForce: 0
   workOnStart: 1
   forceMultiplier: 2
 --- !u!114 &8592961909521091753
@@ -315,6 +314,8 @@ MonoBehaviour:
   glassPiece: {fileID: 2764827712836943255, guid: e4fdee5ed4bf5124db77793007ea7d80,
     type: 3}
   hasBomb: 0
+  canEffectFromBomb: 0
+  dontTakeDamageFromProjectiles: 0
 --- !u!50 &8592961909521091759
 Rigidbody2D:
   serializedVersion: 4

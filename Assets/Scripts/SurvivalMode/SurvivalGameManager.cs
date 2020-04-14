@@ -12,11 +12,23 @@ public class SurvivalGameManager : MonoBehaviour
     public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false,waweEnded;
     public int waveIndex = 0;
     [SerializeField] GameObject walls,enemys,checkpoints;
+    WallScaler wallScaler;
+    CheckPointManager checkPointManager;
+    CreateRandomWalls createRandomWalls;
+    SurvivalEnemyManager survivalEnemyManager;
+    DeadlyFieldController deadlyFieldController;
+    Player_Shoot player_Shoot;
 
     void Start()
     {
         gameUI = FindObjectOfType<SurvivalGameUI>();
         gameTime = 0;
+        player_Shoot = FindObjectOfType<Player_Shoot>();
+        createRandomWalls = FindObjectOfType<CreateRandomWalls>();
+        deadlyFieldController = FindObjectOfType<DeadlyFieldController>();
+        wallScaler = FindObjectOfType<WallScaler>();
+        survivalEnemyManager = FindObjectOfType<SurvivalEnemyManager>();
+        checkPointManager = FindObjectOfType<CheckPointManager>();
         SetRoom();
     }
     
@@ -28,7 +40,7 @@ public class SurvivalGameManager : MonoBehaviour
             if(roomClosing == false && gameTime > scaleDownStartTime && willRoomScale == true)
             {
                 roomClosing = true;
-                FindObjectOfType<WallScaler>().CallScaler();
+                wallScaler.CallScaler();
             }
         }
     }
@@ -42,8 +54,8 @@ public class SurvivalGameManager : MonoBehaviour
         isGameStarted = false;
         enemys.SetActive(true);
         walls.SetActive(true);
-        FindObjectOfType<CreateRandomWalls>().CreateWalls();
-        FindObjectOfType<DeadlyFieldController>().ResetField();
+        createRandomWalls.CreateWalls();
+        deadlyFieldController.ResetField();
     }
     public void GetScore()
     {
@@ -68,12 +80,11 @@ public class SurvivalGameManager : MonoBehaviour
         gameEnded = false;
         isGameStarted = true;
         gameStopped = false;
-        Player_Shoot ps = FindObjectOfType<Player_Shoot>();
-        ps.enabled = true;
-        ps.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
+        player_Shoot.enabled = true;
+        player_Shoot.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
         //Oluştur
-        FindObjectOfType<CheckPointManager>().CreateCheckPoints();
-        FindObjectOfType<SurvivalEnemyManager>().ProduceEnemys();
+        checkPointManager.CreateCheckPoints();
+        survivalEnemyManager.ProduceEnemys();
     }
     public void StopGame()
     {
@@ -81,9 +92,8 @@ public class SurvivalGameManager : MonoBehaviour
         //düşmanları sakla
         enemys.SetActive(false);
         walls.SetActive(false);
-        Player_Shoot ps = FindObjectOfType<Player_Shoot>();
-        ps.enabled = false;
-        ps.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        player_Shoot.enabled = false;
+        player_Shoot.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
     }
     public void ResumeGame()
     {
@@ -91,17 +101,16 @@ public class SurvivalGameManager : MonoBehaviour
         //düşmanları açığa çıkar
         enemys.SetActive(true);
         walls.SetActive(true);
-        Player_Shoot ps = FindObjectOfType<Player_Shoot>();
-        ps.enabled = true;
-        ps.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
+        player_Shoot.enabled = true;
+        player_Shoot.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
     }
     public void CleanGame()
     {
         waweEnded = true;
         gameTime = 0;
         gameStopped = true;
-        FindObjectOfType<Player_Shoot>().transform.position = Vector2.zero;
-        FindObjectOfType<Player_Shoot>().enabled = false;
+        player_Shoot.transform.position = Vector2.zero;
+        player_Shoot.enabled = false;
         foreach (Transform child in enemys.transform)
         {
             Destroy(child.gameObject);

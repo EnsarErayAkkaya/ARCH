@@ -106,7 +106,7 @@ public class Player_Shoot : MonoBehaviour {
 
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
-				FindObjectOfType<AudioManager>().Play( "NormalShot" );
+				AudioManager.instance.Play( "NormalShot" );
 				projectileManager.NormalShoot( mouthPos, Direction.normalized);
 
 				LastShootTime = Time.time;
@@ -186,7 +186,7 @@ public class Player_Shoot : MonoBehaviour {
 
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
-				FindObjectOfType<AudioManager>().Play( "NormalShot" );
+				AudioManager.instance.Play( "NormalShot" );
 				projectileManager.NormalShoot( mouthPos, Direction.normalized);
 
 				LastShootTime = Time.time;

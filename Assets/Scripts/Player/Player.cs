@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
 	public bool isThereActivePowerUp,GetDataFromBefore;
 	public int howManyRoomVisited=0;
 	PermanentPowerUpController passivePowerUps;
+	[SerializeField] Player_Shoot player_Shoot;
+	[SerializeField] GameUI gameUI;
 	
 	void Start () 
 	{
@@ -24,16 +26,6 @@ public class Player : MonoBehaviour {
 		
 	}
 
-	void OnCollisionEnter2D(Collision2D other)
-	{
-		if(other.gameObject.CompareTag("Wall"))
-		{
-			if(other.gameObject.GetComponent<ReflectorWall>() != null)
-			{
-				other.gameObject.GetComponent<Player_Shoot>().recoiledVector =  other.gameObject.transform.position;
-			}
-        }
-	}
 	
 	public void GetDamage(float damage)
 	{
@@ -48,7 +40,7 @@ public class Player : MonoBehaviour {
 				FindObjectOfType<SurvivalGameManager>().EndGame();
 			}
 		}
-		FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
+		gameUI.UpdateHealthBar(currentHealth);
 	}
 	public void AddEnemyKilled()
 	{
@@ -56,7 +48,7 @@ public class Player : MonoBehaviour {
 		if(passivePowerUps.lifeSteal)
 		{
 			GainHealth(5);
-			FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
+			gameUI.UpdateHealthBar(currentHealth);
 		}
 	}
 	public void GainHealth(int gain)
@@ -68,7 +60,7 @@ public class Player : MonoBehaviour {
 		else if( currentHealth <0)
 			currentHealth = 0;
 
-		FindObjectOfType<GameUI>().UpdateHealthBar(currentHealth);
+		gameUI.UpdateHealthBar(currentHealth);
 	}
 	
 }
