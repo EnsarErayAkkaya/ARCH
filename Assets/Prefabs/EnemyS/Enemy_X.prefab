@@ -128,10 +128,10 @@ MonoBehaviour:
   spawnParticle: {fileID: 3978161751462951069, guid: c9363464fa361bb40846623009c52fa7,
     type: 3}
   canShoot: 0
-  canRotate: 0
   dontDieFromCollision: 1
   isSloved: 0
   dontGetDamage: 0
+  enemyUI: {fileID: 729024884898255962}
 --- !u!60 &5177554393824303640
 PolygonCollider2D:
   m_ObjectHideFlags: 0

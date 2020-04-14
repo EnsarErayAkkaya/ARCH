@@ -100,22 +100,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  damage: 15
   stoppingDistance: 12
-  retreatDistance: 8
   startTimeBetweenShots: 1
+  damage: 15
+  projectileExtraDistanceToCenter: 0
   enemyParticle: {fileID: 8979659252381689548, guid: 91ffc5a526868e44eb1b8822037dc381,
+    type: 3}
+  projectile: {fileID: 405509334939425670, guid: e1c8dd06bc2942d4e8f0d0d8b13eba24,
     type: 3}
   spawnParticle: {fileID: 3978161751462951069, guid: c9363464fa361bb40846623009c52fa7,
     type: 3}
   canShoot: 0
-  canRotate: 1
   dontDieFromCollision: 0
   isSloved: 0
   dontGetDamage: 0
-  projectile: {fileID: 405509334939425670, guid: e1c8dd06bc2942d4e8f0d0d8b13eba24,
-    type: 3}
-  room: {fileID: 0}
+  enemyUI: {fileID: 7373879066359051722}
 --- !u!58 &8911176306123281102
 CircleCollider2D:
   m_ObjectHideFlags: 0

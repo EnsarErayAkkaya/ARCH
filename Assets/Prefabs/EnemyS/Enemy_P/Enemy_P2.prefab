@@ -147,11 +147,10 @@ MonoBehaviour:
   projectile: {fileID: 0}
   spawnParticle: {fileID: 0}
   canShoot: 0
-  canRotate: 0
   dontDieFromCollision: 0
   isSloved: 0
   dontGetDamage: 0
-  room: {fileID: 0}
+  enemyUI: {fileID: 5850429422769725722}
 --- !u!114 &5850429422769725722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,11 +352,10 @@ MonoBehaviour:
   spawnParticle: {fileID: 3978161751462951069, guid: c9363464fa361bb40846623009c52fa7,
     type: 3}
   canShoot: 0
-  canRotate: 0
   dontDieFromCollision: 1
   isSloved: 0
   dontGetDamage: 0
-  room: {fileID: 0}
+  enemyUI: {fileID: 5850429423323053818}
 --- !u!114 &5850429423323053818
 MonoBehaviour:
   m_ObjectHideFlags: 0

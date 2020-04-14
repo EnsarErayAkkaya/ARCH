@@ -25,7 +25,7 @@ public class Throver_Wall : MonoBehaviour
 		{
             if(throwWalls == true)
             {
-                other.gameObject.GetComponent<AddForceToWall>().AddForce = true;    
+                other.gameObject.GetComponent<AddForceToWall>().StartForce();  
             }  
         }
         if(other.gameObject.CompareTag("Projectile"))

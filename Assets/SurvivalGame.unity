@@ -152,8 +152,8 @@ MonoBehaviour:
   enemyCount: 4
   O_levelStart: 2
   Y_levelStart: 4
-  X_levelStart: 6
-  P_levelStart: 1
+  X_levelStart: 8
+  P_levelStart: 6
   enemysParent: {fileID: 169458255}
 --- !u!4 &1136345
 Transform:
@@ -944,11 +944,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169458254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.71106, y: -6.453201, z: -0.8209518}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &189498497
 GameObject:
@@ -1163,28 +1163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641b296703a12e0498ce5a4c7c723e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalShootSpeed: 14
-  MiddleShootSpeed: 16
-  PowerfulShootSpeed: 15
-  NormalRecoilForce: 7
-  MiddleRecoilForce: 11
-  PowerfulRecoilForce: 15
   NormalShootTimeLimit: 0.4
   MiddleShootTimeLimit: 0.68
   PowerfulShootTimeLimit: 1.3
-  NormalShootSize: 1
-  MiddleShootSize: 1.8
-  PowerfulShootSize: 2.85
   canRecoil: 0
   recoiledVector: {x: 0, y: 0}
   ShootCharging: 0
   canShoot: 0
-  normalProjectile: {fileID: 1692680228001274, guid: 27f835fc51aa8344db822a024a38304c,
-    type: 3}
-  middleProjectile: {fileID: 44627847760540673, guid: 9c2616cd12237e542b7eaf0b9e6dc7f9,
-    type: 3}
-  powerfulProjectile: {fileID: 4530607580363523817, guid: 093fe42fd067e2e4e862bf7b714451d5,
-    type: 3}
   state: 0
   mouthFrontPos: {fileID: 1920288179}
   shootingParticle: {fileID: 643733103}
@@ -1205,7 +1190,7 @@ Transform:
   - {fileID: 240993154}
   - {fileID: 1920288179}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &219027730
 MonoBehaviour:
@@ -1905,7 +1890,7 @@ RectTransform:
   - {fileID: 403256392}
   - {fileID: 1134518549}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3633,11 +3618,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276445492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.71106, y: -6.453201, z: -0.8209518}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1279603307
 GameObject:
@@ -4196,6 +4181,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1425858629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1425858631}
+  - component: {fileID: 1425858630}
+  m_Layer: 0
+  m_Name: ProjectileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1425858630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425858629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa945065c36ff924bb3542d6d48d1169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalShootSpeed: 14
+  MiddleShootSpeed: 16
+  PowerfulShootSpeed: 15
+  NormalRecoilForce: 7
+  MiddleRecoilForce: 11
+  PowerfulRecoilForce: 15
+  NormalShootSize: 1
+  MiddleShootSize: 5
+  PowerfulShootSize: 3
+  normalParticle: {fileID: 7556141562891172229, guid: 33a13d5b56cd1e44282ef84a800c2293,
+    type: 3}
+  middleParticle: {fileID: 3948352337206360265, guid: ffbf37c48a2e5ed4b9478a57a511866d,
+    type: 3}
+  powerfulParticle: {fileID: 5312733706903751374, guid: c038111bdb3807742b9a266d5358763d,
+    type: 3}
+  freezingParticle: {fileID: 535738970573871162, guid: 4d8468fb8f2a6ca46ba9b3c2b5dd8e9a,
+    type: 3}
+  lifeTime: 5
+  powerfulProjectileExplosionForce: 8
+  packet:
+    normalProjectile: {fileID: 1692680228001274, guid: 27f835fc51aa8344db822a024a38304c,
+      type: 3}
+    middleProjectile: {fileID: 44627847760540673, guid: 9c2616cd12237e542b7eaf0b9e6dc7f9,
+      type: 3}
+    powerfulProjectile: {fileID: 4530607580363523817, guid: 093fe42fd067e2e4e862bf7b714451d5,
+      type: 3}
+--- !u!4 &1425858631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425858629}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1493162313
 GameObject:
@@ -9345,7 +9399,7 @@ PrefabInstance:
     - target: {fileID: 4386690685235459051, guid: 239ec3d704bbfc94d9f267152d1c18a4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4386690685235459051, guid: 239ec3d704bbfc94d9f267152d1c18a4,
         type: 3}
@@ -9458,7 +9512,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889835684
 GameObject:
@@ -9966,7 +10020,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2034275703
 GameObject:
@@ -9992,11 +10046,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034275703}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.71106, y: -6.453201, z: -0.8209518}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2079519741
 GameObject:

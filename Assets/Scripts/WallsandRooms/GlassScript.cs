@@ -87,7 +87,7 @@ public class GlassScript : MonoBehaviour
             GameObject glass = Instantiate(glassPiece, (Vector2)transform.position + pos, Quaternion.identity);
             glass.transform.SetParent(FindObjectOfType<CreateRandomWalls>().wallsParent.transform);
             if( !hasBomb )
-                glass.GetComponent<AddForceToWall>().AddForce = true;
+                glass.GetComponent<AddForceToWall>().StartForce();
         }
     }
 }
