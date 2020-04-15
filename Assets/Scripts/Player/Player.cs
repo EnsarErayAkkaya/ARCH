@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
 	public int killedEnemyCount;
 	public float currentHealth;
 	public int maxHealth;
-	public bool isThereActivePowerUp,GetDataFromBefore;
+	public bool isThereActivePowerUp,GetDataFromBefore,dontGetDamage = false;
 	public int howManyRoomVisited=0;
 	PermanentPowerUpController passivePowerUps;
 	[SerializeField] Player_Shoot player_Shoot;
@@ -16,19 +16,15 @@ public class Player : MonoBehaviour {
 	void Start () 
 	{
 		passivePowerUps = GetComponent<PermanentPowerUpController>();
-		if(GetDataFromBefore == true)
-		{
-/* 			GetSavedData();
- */		}
-		else{
-			currentHealth = maxHealth;
-		}
-		
+		currentHealth = maxHealth;
 	}
 
 	
 	public void GetDamage(float damage)
 	{
+		if(dontGetDamage == true)
+		 	return;
+
 		currentHealth -= damage;
 		if(currentHealth >100)
 			currentHealth = 100;

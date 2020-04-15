@@ -13,20 +13,21 @@ public class ProjectileManager : MonoBehaviour
     public GameObject normalParticle,middleParticle,powerfulParticle,freezingParticle;
     public float lifeTime;
     public float powerfulProjectileExplosionForce;
-    public ProjectilesPacket packet;
+    public List<ProjectilesPacket> allPackets,ownedPackets;
+    public ProjectilesPacket choosedPacket;
     public void NormalShoot( Vector2 mouthPos, Vector2 dir )
 	{
-        Projectile projectile = Instantiate(packet.normalProjectile,mouthPos,Quaternion.identity).GetComponent<Projectile>();
+        Projectile projectile = Instantiate(choosedPacket.normalProjectile,mouthPos,Quaternion.identity).GetComponent<Projectile>();
         projectile.SetProjectile(dir);
 	}
     public void MiddleShoot( Vector2 mouthPos, Vector2 dir )
 	{
-        Projectile projectile = Instantiate(packet.middleProjectile,mouthPos,Quaternion.identity).GetComponent<Projectile>();
+        Projectile projectile = Instantiate(choosedPacket.middleProjectile,mouthPos,Quaternion.identity).GetComponent<Projectile>();
         projectile.SetProjectile(dir);
 	}
     public void PowerfulShoot( Vector2 mouthPos, Vector2 dir )
 	{
-        Projectile projectile = Instantiate(packet.powerfulProjectile,mouthPos,Quaternion.identity).GetComponent<Projectile>();
+        Projectile projectile = Instantiate(choosedPacket.powerfulProjectile,mouthPos,Quaternion.identity).GetComponent<Projectile>();
         projectile.SetProjectile(dir);
 	}
 }

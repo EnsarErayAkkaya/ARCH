@@ -18,7 +18,6 @@ public class SaveAndLoadGameData : MonoBehaviour
 		instance = this;
         Load();
         DontDestroyOnLoad(this.gameObject);
-        savedData.coin = 15000;
     }
                 
     //it's static so we can call it from anywhere

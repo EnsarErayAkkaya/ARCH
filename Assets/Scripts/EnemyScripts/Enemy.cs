@@ -43,13 +43,7 @@ public class Enemy : MonoBehaviour
             
             DestroyEnemy();
        }
-       
    }
-   /* void OnDrawGizmos()
-   {
-       Gizmos.DrawWireSphere(transform.position,stoppingDistance);
-   } */
-
   
     void Shoot()
     {
@@ -77,7 +71,10 @@ public class Enemy : MonoBehaviour
     public void DestroyEnemy()
     {
         FindObjectOfType<SurvivalEnemyManager>().OnEnemyKilled(this.gameObject);
-        
+        if(GetComponent<Enemy_P>() != null)
+        {
+            GetComponent<Enemy_P>().OnHealthZero();
+        }
         var particle = Instantiate(enemyParticle,transform.position,Quaternion.identity);
         particle.GetComponent<ParticleSystem>().Play();
         Destroy(gameObject);

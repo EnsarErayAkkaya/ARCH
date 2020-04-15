@@ -12,23 +12,17 @@ public class SurvivalGameManager : MonoBehaviour
     public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false,waweEnded;
     public int waveIndex = 0;
     [SerializeField] GameObject walls,enemys,checkpoints;
-    WallScaler wallScaler;
-    CheckPointManager checkPointManager;
-    CreateRandomWalls createRandomWalls;
-    SurvivalEnemyManager survivalEnemyManager;
-    DeadlyFieldController deadlyFieldController;
-    Player_Shoot player_Shoot;
+    [SerializeField]WallScaler wallScaler;
+    [SerializeField]CheckPointManager checkPointManager;
+    [SerializeField]CreateRandomWalls createRandomWalls;
+    [SerializeField]SurvivalEnemyManager survivalEnemyManager;
+    [SerializeField]DeadlyFieldController deadlyFieldController;
+    [SerializeField]Player_Shoot player_Shoot;
 
     void Start()
     {
         gameUI = FindObjectOfType<SurvivalGameUI>();
         gameTime = 0;
-        player_Shoot = FindObjectOfType<Player_Shoot>();
-        createRandomWalls = FindObjectOfType<CreateRandomWalls>();
-        deadlyFieldController = FindObjectOfType<DeadlyFieldController>();
-        wallScaler = FindObjectOfType<WallScaler>();
-        survivalEnemyManager = FindObjectOfType<SurvivalEnemyManager>();
-        checkPointManager = FindObjectOfType<CheckPointManager>();
         SetRoom();
     }
     
@@ -130,7 +124,7 @@ public class SurvivalGameManager : MonoBehaviour
         CalculateTimeScore();
         gameUI.UpdateScoreText(score);
     }
-    void CalculateCoin(int coin)
+    public void GainCoin(int coin)
     {
         coinGained += coin;
         SaveCoin();
@@ -146,6 +140,7 @@ public class SurvivalGameManager : MonoBehaviour
         SaveAndLoadGameData.instance.Save();
     }
     public int GetCoinGained() { return coinGained; }
+
     void SaveScore()
     {
         SaveAndLoadGameData.instance.savedData.totalScore += this.score;
@@ -176,11 +171,13 @@ public class SurvivalGameManager : MonoBehaviour
         if(gameEnded == true)
             return;
         gameEnded = true;
+        //Oynanamış oyun sayısını arttır
+        SaveAndLoadGameData.instance.savedData.playedGameCount++;
         CleanGame();
         //Score u kaydet ve her şeyi sıfırla
         CalculateScore();
-        CalculateCoin();
         SaveScore();
+        CalculateCoin();
         gameUI.EndGameUI();
     }
     public void RestartGame()

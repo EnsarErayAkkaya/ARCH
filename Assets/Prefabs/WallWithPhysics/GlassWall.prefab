@@ -316,6 +316,8 @@ MonoBehaviour:
   hasBomb: 0
   canEffectFromBomb: 0
   dontTakeDamageFromProjectiles: 0
+  spriteRenderer: {fileID: 8592961909521091754}
+  boxCollider: {fileID: 8592961909521091749}
 --- !u!50 &8592961909521091759
 Rigidbody2D:
   serializedVersion: 4
