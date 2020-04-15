@@ -776,6 +776,7 @@ MonoBehaviour:
     score: 0
     totalScore: 0
     coin: 0
+    playedGameCount: 0
     playerPowerUps: 
     selectedActivePowerUps: 
     isGlow: 0

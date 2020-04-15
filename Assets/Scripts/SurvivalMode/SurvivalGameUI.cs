@@ -70,7 +70,7 @@ public class SurvivalGameUI : GameUI
     {
         if(canShowAd && SaveAndLoadGameData.instance.savedData.playedGameCount%2 == 0)
         {
-            FindObjectOfType<RegularAdScript>().ShowRegularAd();
+            FindObjectOfType<UnityAdsManager>().ShowRegularAd();
         }
         pauseButton.gameObject.SetActive(false);
         gameEndedGroup.SetActive(true);
