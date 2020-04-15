@@ -7,6 +7,9 @@ public class Enemy_XController : MonoBehaviour
     private Transform target;
     [SerializeField]Material transformedMaterial,normalMaterial;
     [SerializeField]float transformTime;
+    [SerializeField]Enemy enemy;
+    [SerializeField]SpriteRenderer sprite;
+    
     void Start()
     {
         target = FindObjectOfType<Player>().transform;
@@ -29,12 +32,12 @@ public class Enemy_XController : MonoBehaviour
     }
     IEnumerator Transform()
     {
-        GetComponent<SpriteRenderer>().material = transformedMaterial;
-        GetComponent<Enemy>().dontGetDamage = true;
+        sprite.material = transformedMaterial;
+        enemy.dontGetDamage = true;
 
         yield return new WaitForSeconds(transformTime);
 
-        GetComponent<SpriteRenderer>().material = normalMaterial;
-        GetComponent<Enemy>().dontGetDamage = false;
+        sprite.material = normalMaterial;
+        enemy.dontGetDamage = false;
     }
 }

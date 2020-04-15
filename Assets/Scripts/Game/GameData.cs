@@ -5,9 +5,10 @@ using UnityEngine;
 [Serializable]
 public class GameData 
 {
-    public int score,totalScore,coin;
+    public int score,totalScore,coin,playedGameCount;
     public List<PowerUpType> playerPowerUps = new List<PowerUpType>();
     public List<PowerUpType> selectedActivePowerUps = new List<PowerUpType>();
+    public bool isGlow;
 
     /* public int currentFloor;
     public int maxReachedFloor;

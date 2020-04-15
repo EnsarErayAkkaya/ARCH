@@ -4,16 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Player_Shoot : MonoBehaviour {
-
-  	////ShootSpeed
-	public float NormalShootSpeed,MiddleShootSpeed,PowerfulShootSpeed; 
-	////RecoilForce
-	public float NormalRecoilForce,MiddleRecoilForce,PowerfulRecoilForce;
-	////TimeLimits
+////TimeLimits
 	public float NormalShootTimeLimit,MiddleShootTimeLimit,PowerfulShootTimeLimit;
-	////BulletSize
-	public float NormalShootSize,MiddleShootSize,PowerfulShootSize;
-
 	public bool canRecoil;
 	
 	public Vector2 recoiledVector;
@@ -21,7 +13,6 @@ public class Player_Shoot : MonoBehaviour {
 
     public bool ShootCharging,canShoot;
 
-    public GameObject normalProjectile,middleProjectile,powerfulProjectile;
 	public State state;
 	public Transform mouthFrontPos;
 	public GameObject shootingParticle;
@@ -29,8 +20,10 @@ public class Player_Shoot : MonoBehaviour {
 	public float recoilForce, speedLimit;
 	public bool recoilCall;
 	Player_Gfxs gfxs;
+	ProjectileManager projectileManager;
 	void Start()
 	{
+		projectileManager = FindObjectOfType<ProjectileManager>();
 		rb = GetComponent<Rigidbody2D>();
 		canShoot = true;
 		gfxs = GetComponent<Player_Gfxs>();
@@ -38,11 +31,10 @@ public class Player_Shoot : MonoBehaviour {
 
 	
 	void Update () {
+		if(EventSystem.current.IsPointerOverGameObject())
+				return;
 		if(canShoot)
 		{
-			if(EventSystem.current.IsPointerOverGameObject())
-				return;
-
 			if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
 			{
 				Look();
@@ -70,7 +62,7 @@ public class Player_Shoot : MonoBehaviour {
 		if(Input.touchCount < 1)
 			return;
 		Touch touch = Input.GetTouch(0);
-		if(/* Input.GetMouseButton(0) || */ touch.phase == TouchPhase.Moved )
+		if( touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved )
 		{
 			var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
 			var angle =  (Mathf.Atan2(dir.y,dir.x)* Mathf.Rad2Deg)%360;
@@ -80,13 +72,11 @@ public class Player_Shoot : MonoBehaviour {
 	void ShootAndroid()
 	{
 		Touch touch= Input.GetTouch(0);;
-		if (Application.platform == RuntimePlatform.Android)
-        {
-            if(Input.touchCount < 1)
+	
+		if(Input.touchCount < 1)
 			return;
-        }
-		
-		if(/* Input.GetMouseButtonDown(0) ||*/   touch.phase == TouchPhase.Began )
+        
+		if( touch.phase == TouchPhase.Began )
 		{	
 			chargedTime = Time.time;
 			ShootCharging = true;
@@ -95,7 +85,7 @@ public class Player_Shoot : MonoBehaviour {
 			gfxs.CallSetEnergyGlass();
 		}
 
-		if( ( /*Input.GetMouseButtonUp(0)  ||  */touch.phase == TouchPhase.Ended )  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
+		if( ( touch.phase == TouchPhase.Ended )  && ShootCharging && Time.time>LastShootTime+NormalShootTimeLimit)
 		{
 			ShootCharging = false;
 			gfxs.CallSetEnergyGlassToNormal();
@@ -116,20 +106,37 @@ public class Player_Shoot : MonoBehaviour {
 
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
-				var projectile = Instantiate(normalProjectile,mouthPos,Quaternion.identity);
-				FindObjectOfType<AudioManager>().Play( "NormalShot" );
-				NormalShoot(projectile,Direction.normalized);
-				
+				AudioManager.instance.Play( "NormalShot" );
+				projectileManager.NormalShoot( mouthPos, Direction.normalized);
+
+				LastShootTime = Time.time;
+
+				state = State.NormalShot;
+
+				recoiledVector = -Direction.normalized * projectileManager.NormalRecoilForce;///Recoil Force
+				recoilCall = true;
 			}
 			else if( Time.time - chargedTime >= MiddleShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit )
 			{
-				var projectile = Instantiate(middleProjectile,mouthPos,Quaternion.identity);
-				MiddleShoot(projectile,Direction.normalized);
+				projectileManager.MiddleShoot( mouthPos, Direction.normalized);
+
+				LastShootTime = Time.time;
+
+				state = State.NormalShot;
+
+				recoiledVector = -Direction.normalized * projectileManager.MiddleRecoilForce;///Recoil Force
+				recoilCall = true;
 			}
 			else if( Time.time - chargedTime >= PowerfulShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit + 2f )
 			{
-				var projectile = Instantiate(powerfulProjectile,mouthPos,Quaternion.identity);
-				PowerfulShoot(projectile,Direction.normalized);
+				projectileManager.PowerfulShoot( mouthPos, Direction.normalized);
+
+				LastShootTime = Time.time;
+
+				state = State.NormalShot;
+
+				recoiledVector = -Direction.normalized * projectileManager.PowerfulRecoilForce;///Recoil Force
+				recoilCall = true;
 			}
 			SetShootingParticle(false);
 		}
@@ -179,20 +186,37 @@ public class Player_Shoot : MonoBehaviour {
 
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
-				var projectile = Instantiate(normalProjectile,mouthPos,Quaternion.identity);
-				FindObjectOfType<AudioManager>().Play( "NormalShot" );
-				NormalShoot(projectile,Direction.normalized);
-				
+				AudioManager.instance.Play( "NormalShot" );
+				projectileManager.NormalShoot( mouthPos, Direction.normalized);
+
+				LastShootTime = Time.time;
+
+				state = State.NormalShot;
+
+				recoiledVector = -Direction.normalized * projectileManager.NormalRecoilForce;///Recoil Force
+				recoilCall = true;
 			}
 			else if( Time.time - chargedTime >= MiddleShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit )
 			{
-				var projectile = Instantiate(middleProjectile,mouthPos,Quaternion.identity);
-				MiddleShoot(projectile,Direction.normalized);
+				projectileManager.MiddleShoot( mouthPos, Direction.normalized);
+
+				LastShootTime = Time.time;
+
+				state = State.NormalShot;
+
+				recoiledVector = -Direction.normalized * projectileManager.MiddleRecoilForce;///Recoil Force
+				recoilCall = true;
 			}
 			else if( Time.time - chargedTime >= PowerfulShootTimeLimit && Time.time - chargedTime < PowerfulShootTimeLimit + 2f )
 			{
-				var projectile = Instantiate(powerfulProjectile,mouthPos,Quaternion.identity);
-				PowerfulShoot(projectile,Direction.normalized);
+				projectileManager.PowerfulShoot( mouthPos, Direction.normalized);
+
+				LastShootTime = Time.time;
+
+				state = State.NormalShot;
+
+				recoiledVector = -Direction.normalized * projectileManager.PowerfulRecoilForce;///Recoil Force
+				recoilCall = true;
 			}
 			SetShootingParticle(false);
 		}
@@ -201,44 +225,8 @@ public class Player_Shoot : MonoBehaviour {
 			SetShootingParticle(false);
 		}
 	}
-	void NormalShoot( GameObject projectile,Vector2 ShootVelocity )
-	{
-		recoiledVector = -ShootVelocity * NormalRecoilForce;///Recoil Force
-			
-		projectile.GetComponent<Rigidbody2D>().velocity = ShootVelocity * NormalShootSpeed;///Speed
-
-		projectile.transform.localScale *= NormalShootSize; ///Size
-
-		LastShootTime = Time.time;
-		state = State.NormalShot;
-		recoilCall = true;
-	}
-	void MiddleShoot(  GameObject projectile,Vector2 ShootVelocity )
-	{
-		recoiledVector = -ShootVelocity * MiddleRecoilForce;///Recoil Force
-			
-		projectile.GetComponent<Rigidbody2D>().velocity = ShootVelocity * MiddleShootSpeed;///Speed
-
-		projectile.transform.localScale *= MiddleShootSize; ///Size
-
-		LastShootTime = Time.time;
-		state = State.MiddleShot;
-		recoilCall = true;
-	}
-	void PowerfulShoot(  GameObject projectile,Vector2 ShootVelocity )
-	{
-		recoiledVector = -ShootVelocity * PowerfulRecoilForce;///Recoil Force
-			
-		projectile.GetComponent<Rigidbody2D>().velocity = ShootVelocity * PowerfulShootSpeed;///Speed
-
-		projectile.transform.localScale *= PowerfulShootSize; ///Size
-
-		FindObjectOfType<Camera_Shake>().Call_Shake(.7f,.2f);///Shakes Camera
-
-		LastShootTime = Time.time;
-		state = State.PowerfulShoot;
-		recoilCall = true;
-	}
+	
+	
 	public void Recoil()
 	{
 		if(canRecoil)

@@ -22,7 +22,7 @@ public class CreateRandomWalls : MonoBehaviour
     }
     public void CreateWalls()
     {
-        radius = FindObjectOfType<SurvivalGameManager>().gameRadius;
+        radius = survivalManager.gameRadius;
         ChooseWallsToCreate();
         ChooseWallCount();   
         
@@ -44,17 +44,17 @@ public class CreateRandomWalls : MonoBehaviour
     public void CreateAWall(int k)
     {
         GameObject wall = Instantiate( wallsToCreate[k], ChooseRandomLocation(), Quaternion.identity );
-            wall.transform.SetParent(wallsParent.transform); 
-            Color c =  Random.ColorHSV(0,1,1,1,1,1);
-            if(wall.CompareTag("Wall"))
+        wall.transform.SetParent(wallsParent.transform); 
+        Color c =  Random.ColorHSV(0,1,1,1,1,1);
+        if(wall.CompareTag("Wall"))
+        {
+            if( wall.GetComponent<GlassScript>() == null)
             {
-                if( !wall.GetComponent<GlassScript>())
-                {
-                    wall.GetComponent<SpriteRenderer>().material.SetColor("_EmissionColor", c);
-                }
-                wall.transform.localScale = new Vector3(Random.Range(reflectorWallMinXScale,reflectorWallMaxXScale)
-                        ,Random.Range(reflectorWallMinYScale,reflectorWallMaxYScale),transform.localScale.z);
+                wall.GetComponent<SpriteRenderer>().material.SetColor("_EmissionColor", c);
             }
+            wall.transform.localScale = new Vector3(Random.Range(reflectorWallMinXScale,reflectorWallMaxXScale)
+                    ,Random.Range(reflectorWallMinYScale,reflectorWallMaxYScale),transform.localScale.z);
+        }
     }
     void ChooseWallsToCreate()
     {

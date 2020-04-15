@@ -103,6 +103,8 @@ MonoBehaviour:
   transformedMaterial: {fileID: 2100000, guid: 1c2f211c73a45ad42ac6cb30360cfab4, type: 2}
   normalMaterial: {fileID: 2100000, guid: 878ccd3b73469f641b70e7165920f6ff, type: 2}
   transformTime: 5
+  enemy: {fileID: 5177554393824303639}
+  sprite: {fileID: 5177554393824303645}
 --- !u!114 &5177554393824303639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,21 +118,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 60
-  damage: 18
   stoppingDistance: 12
-  retreatDistance: 8
   startTimeBetweenShots: 1
+  damage: 18
+  projectileExtraDistanceToCenter: 0
   enemyParticle: {fileID: 8979659252381689548, guid: 91ffc5a526868e44eb1b8822037dc381,
     type: 3}
+  projectile: {fileID: 0}
   spawnParticle: {fileID: 3978161751462951069, guid: c9363464fa361bb40846623009c52fa7,
     type: 3}
   canShoot: 0
-  canRotate: 0
   dontDieFromCollision: 1
   isSloved: 0
   dontGetDamage: 0
-  projectile: {fileID: 0}
-  room: {fileID: 0}
+  enemyUI: {fileID: 729024884898255962}
 --- !u!60 &5177554393824303640
 PolygonCollider2D:
   m_ObjectHideFlags: 0

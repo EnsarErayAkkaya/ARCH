@@ -103,11 +103,33 @@ PrefabInstance:
       propertyPath: hasBomb
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8592961909521091753, guid: 37e4866bedfb2b743ae0d7e935511a17,
+        type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 5954307183722850751}
+    - target: {fileID: 8592961909521091753, guid: 37e4866bedfb2b743ae0d7e935511a17,
+        type: 3}
+      propertyPath: boxCollider
+      value: 
+      objectReference: {fileID: 5954307183722850736}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e4866bedfb2b743ae0d7e935511a17, type: 3}
 --- !u!4 &5954307183722850750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8592961909521091755, guid: 37e4866bedfb2b743ae0d7e935511a17,
+    type: 3}
+  m_PrefabInstance: {fileID: 2729647027295937813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5954307183722850751 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8592961909521091754, guid: 37e4866bedfb2b743ae0d7e935511a17,
+    type: 3}
+  m_PrefabInstance: {fileID: 2729647027295937813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &5954307183722850736 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8592961909521091749, guid: 37e4866bedfb2b743ae0d7e935511a17,
     type: 3}
   m_PrefabInstance: {fileID: 2729647027295937813}
   m_PrefabAsset: {fileID: 0}

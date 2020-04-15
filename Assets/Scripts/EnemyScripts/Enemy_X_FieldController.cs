@@ -10,11 +10,18 @@ public class Enemy_X_FieldController : MonoBehaviour
     public AIPath path;
     public Enemy_XController enemyX;
     bool justStunned = false;
+    Player_Shoot player;
+    Player p;
+    void Start()
+    {
+        player = FindObjectOfType<Player_Shoot>();
+        p = FindObjectOfType<Player>();
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player") && !justStunned )
         {
-            StartCoroutine(StunPlayer(other.gameObject.GetComponent< Player_Shoot>() ));
+            StartCoroutine(StunPlayer());
         }
     }
     void OnTriggerExit2D(Collider2D other)
@@ -25,7 +32,7 @@ public class Enemy_X_FieldController : MonoBehaviour
         }
     }
 
-    IEnumerator StunPlayer(Player_Shoot player)
+    IEnumerator StunPlayer()
     {
         player.canShoot = false;
         path.canSearch = false;
@@ -33,7 +40,7 @@ public class Enemy_X_FieldController : MonoBehaviour
         justStunned = true;
         enemyX.CallTransform();
 
-        player.gameObject.GetComponent<Player>().GetDamage(damage);
+        p.GetDamage(damage);
 
         yield return new WaitForSeconds(2);
 

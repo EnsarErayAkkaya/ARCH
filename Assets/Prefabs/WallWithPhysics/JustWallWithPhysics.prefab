@@ -134,9 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AddForce: 0
+  workOnStart: 1
   forceMultiplier: 2
-  x: 0
-  y: 0
 --- !u!50 &6936635921561513573
 Rigidbody2D:
   serializedVersion: 4

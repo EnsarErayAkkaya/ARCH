@@ -111,11 +111,10 @@ MonoBehaviour:
   spawnParticle: {fileID: 2823389512280989435, guid: 9db67b2abf4a246409f9c15ed7411b8b,
     type: 3}
   canShoot: 1
-  canRotate: 0
   dontDieFromCollision: 0
   isSloved: 0
   dontGetDamage: 0
-  room: {fileID: 0}
+  enemyUI: {fileID: 2225253181815795475}
 --- !u!114 &3022241832132671525
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,9 +11,12 @@ public class SurvivalGameUI : GameUI
     public TextMeshProUGUI timeText,scoreText,startText,shrinkText,coinGainedText,totalCoinText;
     public Button nextButton,restartButton,pauseButton;
     SurvivalGameManager survivalManager;
-
+    ActivePowerUpGameUI activePowerUp;
+    public bool canShowAd = false;
+    bool stopCoroutines = false;
     void Start()
     {
+        activePowerUp = FindObjectOfType<ActivePowerUpGameUI>();
         survivalManager = FindObjectOfType<SurvivalGameManager>();
     }   
     void Update()
@@ -26,7 +29,7 @@ public class SurvivalGameUI : GameUI
                 survivalManager.StartGame();
                 startText.gameObject.SetActive(false);
                 pauseButton.gameObject.SetActive(true);
-                FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = true;
+                activePowerUp.useButton.enabled = true;
                 if(survivalManager.willRoomScale)
                     shrinkText.gameObject.SetActive(true);
             }
@@ -44,7 +47,7 @@ public class SurvivalGameUI : GameUI
     }
     public void SetUIOnGamePassed()
     {
-        FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = false;
+        activePowerUp.useButton.enabled = false;
         nextButton.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(false);
     }
@@ -65,20 +68,28 @@ public class SurvivalGameUI : GameUI
     }
     public void EndGameUI()
     {
+        if(canShowAd && SaveAndLoadGameData.instance.savedData.playedGameCount%2 == 0)
+        {
+            FindObjectOfType<RegularAdScript>().ShowRegularAd();
+        }
         pauseButton.gameObject.SetActive(false);
         gameEndedGroup.SetActive(true);
-        totalCoinText.text = (PlayerPrefs.GetInt("coin") - survivalManager.GetCoinGained()).ToString();
-        StartCoroutine( UpdateCoinGainedEnumerator( survivalManager.GetCoinGained() ) );
+        totalCoinText.text = (SaveAndLoadGameData.instance.savedData.coin - survivalManager.GetCoinGained()).ToString();
+        CallCoinEnumerator();
     }
     public void HideEndGameUI()
     {
         gameEndedGroup.SetActive(false);
     }
+    public void CallCoinEnumerator()
+    {
+        StartCoroutine( UpdateCoinGainedEnumerator( survivalManager.GetCoinGained() ) );
+    }
     IEnumerator UpdateCoinGainedEnumerator(int coin)
     {
         int i = 0;
         while (i < coin) {
-            i += 10;
+            i += 5;
             coinGainedText.text = i.ToString();
             yield return null;
         }
@@ -89,11 +100,10 @@ public class SurvivalGameUI : GameUI
         int oldCoin = Convert.ToInt32( totalCoinText.text);
         coin += oldCoin;
         while (oldCoin < coin) {
-            oldCoin += 10;
+            oldCoin += 5;
             totalCoinText.text = oldCoin.ToString();
             yield return null;
         }
-    
     }
     public void OnClickRestart()
     {
@@ -109,13 +119,13 @@ public class SurvivalGameUI : GameUI
         {
             //Oyunu devam ettir
             survivalManager.ResumeGame();
-            FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = true;
+            activePowerUp.useButton.enabled = true;
             pausedGroup.SetActive(false);
         }
         else{
             //oyunu duraklat
             survivalManager.StopGame();
-            FindObjectOfType<ActivePowerUpGameUI>().useButton.enabled = false;
+            activePowerUp.useButton.enabled = false;
             pausedGroup.SetActive(true);
         }
     }

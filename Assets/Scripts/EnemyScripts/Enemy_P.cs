@@ -14,7 +14,7 @@ public class Enemy_P : MonoBehaviour
         enemyManager = FindObjectOfType<SurvivalEnemyManager>();
         waveIndex = survivalManager.waveIndex;
     }
-    void OnDestroy()
+    public void OnHealthZero()
     {
         if(waveIndex !=survivalManager.waveIndex 
             || survivalManager == null 

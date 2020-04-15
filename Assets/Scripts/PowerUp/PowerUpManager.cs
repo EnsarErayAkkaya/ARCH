@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using System;
-
+using UnityEngine.SceneManagement;
 public class PowerUpManager : MonoBehaviour
 {
     public static PowerUpManager powerUpManager;
@@ -14,6 +12,8 @@ public class PowerUpManager : MonoBehaviour
     ///five power up player selected 3 active 2 passive
     public List<PowerUpType> selectedActivePowerUps;
     public int activePowerUplimit;
+    Player p;
+    Player_Shoot pShoot;
     void Awake()
     {
         if (PowerUpManager.powerUpManager == null)
@@ -27,7 +27,6 @@ public class PowerUpManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
     }
-
     void Start()
     {
         playerPowerUps = SaveAndLoadGameData.instance.savedData.playerPowerUps;
@@ -38,8 +37,8 @@ public class PowerUpManager : MonoBehaviour
     ////Oyuncu yeteneği aktif hale getirince çağıralacak
     public void GivePower( PowerUp powerUp)
     {
-        Player p = FindObjectOfType<Player>();
-        Player_Shoot pShoot = p.GetComponent<Player_Shoot>();
+        p = FindObjectOfType<Player>();
+        pShoot = p.GetComponent<Player_Shoot>();
         
         ///Eğer aktif bir power up varsa geri dön
         ///Bunu şimdilik geçici bir çözüm olarak koyuyorum belki power uplar stacklenebilir bilmiyorum.
@@ -64,6 +63,8 @@ public class PowerUpManager : MonoBehaviour
                 pShoot.canShoot = false;
                 GameObject a = Instantiate(powerUp.neededPrefab,p.transform.position,Quaternion.identity);
                 a.transform.SetParent(p.transform);
+                //hasar almasını engelle
+                p.dontGetDamage = true;
                 p.isThereActivePowerUp = true;
                 StartCoroutine( GetPowerBack(powerUp) );
             break;
@@ -74,8 +75,7 @@ public class PowerUpManager : MonoBehaviour
     }
     public IEnumerator GetPowerBack( PowerUp powerUp)
     {
-        Player p = FindObjectOfType<Player>();
-        Player_Shoot pShoot = p.GetComponent<Player_Shoot>();
+       
         if(PowerUpType.MachineGun == powerUp.powerUpType)
         {
             Debug.Log("machine gun 1");
@@ -84,10 +84,11 @@ public class PowerUpManager : MonoBehaviour
             pShoot.canRecoil = true;
             p.isThereActivePowerUp = false;
         }
-        else if(powerUp.usageType == UsageType.Temporary)
+        else if(powerUp.powerUpType == PowerUpType.UnPerfectShield)
         {
             Debug.Log("UnPerfect Shield 1");
             yield return new WaitForSeconds(powerUp.usingTime);
+            p.dontGetDamage = false;
             pShoot.canShoot = true;
             p.isThereActivePowerUp = false;
         }
@@ -95,12 +96,7 @@ public class PowerUpManager : MonoBehaviour
     public void ObtainPower(PowerUpType powerUpType)
     {
         playerPowerUps.Add(powerUpType);
-        //SelectPowerUp(powerUp);
-    }
-    public void ObtainPower(PowerUp powerUp)
-    {
-        playerPowerUps.Add(powerUp.powerUpType);
-        //SelectPowerUp(powerUp);
+        SavePlayersPowerUp();
     }
     void SavePlayersPowerUp()
     {

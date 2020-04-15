@@ -7,7 +7,8 @@ public class GlassScript : MonoBehaviour
     public int glassHealth = 3;
     public GameObject brokenGlass,brokenGlass2,glassPiece;
     public bool hasBomb, canEffectFromBomb, dontTakeDamageFromProjectiles;
-  
+    [SerializeField]SpriteRenderer spriteRenderer;
+    [SerializeField]BoxCollider2D boxCollider;
     void Start()
     {
         //If canEffectFromBomb == true then it cant move 
@@ -27,8 +28,10 @@ public class GlassScript : MonoBehaviour
 		{
             if(other.gameObject.GetComponent<Projectile>() != null)
             {
-                other.gameObject.GetComponent<Projectile>().life = 0;
-                other.gameObject.GetComponent<Projectile>().CollisionInterract(gameObject);
+                Projectile p = other.gameObject.GetComponent<Projectile>();
+                p.life = 0;
+                p.CollisionInterract(gameObject);
+                
                 glassHealth--;
                 CrackTheGlass();
             }
@@ -50,25 +53,25 @@ public class GlassScript : MonoBehaviour
     {
         if( glassHealth == 2 )
         {
-            FindObjectOfType<AudioManager>().Play( "GlassCrack" );
+            AudioManager.instance.Play( "GlassCrack" );
             brokenGlass.SetActive(true);
         }
         if( glassHealth == 1 )
         {
-            FindObjectOfType<AudioManager>().Play( "GlassCrack" );
+            AudioManager.instance.Play( "GlassCrack" );
             brokenGlass2.SetActive(true);
         }
         else if( glassHealth == 0 )
         {
-            FindObjectOfType<AudioManager>().Play( "GlassBreak" );
+            AudioManager.instance.Play( "GlassBreak" );
 
             CreateGlassPieces();
 
             brokenGlass.SetActive(false);
             brokenGlass2.SetActive(false);
 
-            GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = false;
+            spriteRenderer.enabled = false;
+            boxCollider.GetComponent<BoxCollider2D>().enabled = false;
             if(hasBomb)
             {
                 foreach (Transform item in transform)
@@ -87,7 +90,7 @@ public class GlassScript : MonoBehaviour
             GameObject glass = Instantiate(glassPiece, (Vector2)transform.position + pos, Quaternion.identity);
             glass.transform.SetParent(FindObjectOfType<CreateRandomWalls>().wallsParent.transform);
             if( !hasBomb )
-                glass.GetComponent<AddForceToWall>().AddForce = true;
+                glass.GetComponent<AddForceToWall>().StartForce();
         }
     }
 }

@@ -8,28 +8,9 @@ public class ReflectorWall : MonoBehaviour
     public bool damagePassanger;
     void OnCollisionEnter2D(Collision2D other)
     {
-         if(other.gameObject.CompareTag("Player"))
-		{
-            //give DamageTo Passangers
-           /*  if(damagePassanger == true)
-            {
-                FindObjectOfType<PassangerManager>().GetDamage();
-            }  */           ///Stop the player
-            other.gameObject.GetComponent<Player_Shoot>().canRecoil = false;
-        }
          if(other.gameObject.CompareTag("Projectile"))
 		{
             other.gameObject.GetComponent<Rigidbody2D>().velocity = Reflect_Projectile( other.gameObject.GetComponent<Rigidbody2D>().velocity );
-        }
-    }
-    
-
-    void OnCollisionExit2D(Collision2D other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-		{
-            ///Stop the player
-            other.gameObject.GetComponent<Player_Shoot>().canRecoil = true;
         }
     }
 

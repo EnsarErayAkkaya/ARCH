@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7808183839675486519}
   - component: {fileID: 5867379486432281862}
   - component: {fileID: 4880918130050060598}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: rightCollider
   m_TagString: rightCollider
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 5280375892609352785}
   - component: {fileID: 1851619795773081236}
   - component: {fileID: 7489038171683513069}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CheckPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,8 +124,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 2470490372295497329}
-  leftParticle: {fileID: 5250693537051082090}
   rightCollider: {fileID: 5867379486432281862}
+  leftParticle: {fileID: 7324777507918205606}
+  rightParticle: {fileID: 4896604775228652080}
+  up: {fileID: 5385298831642302590}
+  down: {fileID: 6197357995195701924}
   isOneSided: 0
 --- !u!95 &7489038171683513069
 Animator:
@@ -157,7 +160,7 @@ GameObject:
   - component: {fileID: 2321864601779947477}
   - component: {fileID: 5731695367723712716}
   - component: {fileID: 2649037242353629133}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: leftCollider
   m_TagString: leftCollider
   m_Icon: {fileID: 0}
@@ -228,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3290813800416903401}
   - component: {fileID: 3382071098445860236}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: whiteArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8138843413726994037}
   - component: {fileID: 5385298831642302590}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CircleUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +390,7 @@ GameObject:
   - component: {fileID: 435349916876669318}
   - component: {fileID: 7324777507918205606}
   - component: {fileID: 1803136074013754915}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ParticleEffectLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5085,7 +5088,7 @@ GameObject:
   - component: {fileID: 6332041309046980850}
   - component: {fileID: 4896604775228652080}
   - component: {fileID: 2376566810859686353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ParticleEffectRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9782,7 +9785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2483516032836754164}
   - component: {fileID: 6197357995195701924}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CircleDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}

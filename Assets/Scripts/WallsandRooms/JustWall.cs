@@ -15,8 +15,9 @@ public class JustWall : MonoBehaviour
 		{
             if(other.gameObject.GetComponent<Projectile>() != null)
             {
-                other.gameObject.GetComponent<Projectile>().life = 0;
-            other.gameObject.GetComponent<Projectile>().CollisionInterract(gameObject);
+                Projectile p = other.gameObject.GetComponent<Projectile>();
+                p.life = 0;
+                p.CollisionInterract(gameObject);
             }
             if(other.gameObject.GetComponent<Enemy_Projectile>() != null)
             {

@@ -11,11 +11,11 @@ public class EnemyY_Controller : MonoBehaviour
     private bool attack,attackStarted;
     private Vector3 attackPos;
     public Animator animator;
-    
+    Rigidbody2D rb;
     void Start()
     {
         target = FindObjectOfType<Player>().transform;
-        //InvokeRepeating("Attack",2,2);
+        rb =  GetComponent<Rigidbody2D>();        
     }
    
     void Update()
@@ -38,7 +38,7 @@ public class EnemyY_Controller : MonoBehaviour
     {
         if(attack)
         {
-            GetComponent<Rigidbody2D>().AddForce(attackPos * attackForce,ForceMode2D.Impulse);
+            rb.AddForce(attackPos * attackForce,ForceMode2D.Impulse);
             //animator.SetBool("Attacking",false);
             attack = false;
         }
