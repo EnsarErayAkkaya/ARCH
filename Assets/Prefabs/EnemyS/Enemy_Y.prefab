@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectDistance: 18
-  attackForce: 15
+  attackForce: 18
   animator: {fileID: 1751675905457979922}
 --- !u!50 &2744209982455082138
 Rigidbody2D:
