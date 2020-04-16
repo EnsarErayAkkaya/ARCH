@@ -38,7 +38,10 @@ public class UnityAdsManager : MonoBehaviour, IUnityAdsListener
         if (myButton) myButton.onClick.AddListener (ShowRewardedVideo);
         // Initialize the Ads listener and service:
         Advertisement.AddListener (this);
-        Advertisement.Initialize (gameId, true);
+        if(Application.internetReachability  != NetworkReachability.NotReachable)
+        {
+            Advertisement.Initialize (gameId, true);
+        }
     }
     // Implement a function for showing a rewarded video ad:
     void ShowRewardedVideo () {
