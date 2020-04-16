@@ -71,7 +71,7 @@ public class CheckPointManager : MonoBehaviour
     }
     int ChooseCheckpointType()
     {
-        if(survivalManager.waveIndex < 8)
+        if(survivalManager.waveIndex < checkPointWithGlass_StartLevel)
             return 0;
         else
         {
