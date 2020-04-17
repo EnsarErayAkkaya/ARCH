@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4266690820675905198}
-  - component: {fileID: 4266690820675905197}
+  - component: {fileID: 832612812424487052}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4266690820675905197
+--- !u!114 &832612812424487052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,14 +40,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4266690820675905196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d106d125ce6554fbad7e253d942581, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fefe2ad6a33fcf40b435ba8d0e22716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameId: 3556348
-  videoId: video
-  rewardedVideoId: rewardedVideo
-  testMode: 1
-  gameManager: {fileID: 0}
-  gameUI: {fileID: 0}
-  myButton: {fileID: 0}
-  x2Text: {fileID: 0}
+  App_ID: ca-app-pub-5176018929650163~8582334198
+  rewardedAd_ID: ca-app-pub-3940256099942544/5224354917
+  InterstitialAd_Id: ca-app-pub-3940256099942544/1033173712

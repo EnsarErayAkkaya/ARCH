@@ -12,7 +12,6 @@ public class SurvivalGameUI : GameUI
     public Button nextButton,restartButton,pauseButton;
     SurvivalGameManager survivalManager;
     ActivePowerUpGameUI activePowerUp;
-    public bool canShowAd = false;
     bool stopCoroutines = false;
     void Start()
     {
@@ -68,9 +67,9 @@ public class SurvivalGameUI : GameUI
     }
     public void EndGameUI()
     {
-        if(canShowAd && SaveAndLoadGameData.instance.savedData.playedGameCount%2 == 0)
+        if(SaveAndLoadGameData.instance.savedData.playedGameCount%2 == 0)
         {
-            FindObjectOfType<UnityAdsManager>().ShowRegularAd();
+            FindObjectOfType<AdmobManager>().ShowInterstitialAd();
         }
         pauseButton.gameObject.SetActive(false);
         gameEndedGroup.SetActive(true);

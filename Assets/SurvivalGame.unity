@@ -2081,8 +2081,35 @@ PrefabInstance:
       propertyPath: x2Text
       value: 
       objectReference: {fileID: 1057802322}
+    - target: {fileID: 832612812424487052, guid: 088d11fbfd001c84abf70753e970a166,
+        type: 3}
+      propertyPath: rewardedVideoButton
+      value: 
+      objectReference: {fileID: 1729646836}
+    - target: {fileID: 832612812424487052, guid: 088d11fbfd001c84abf70753e970a166,
+        type: 3}
+      propertyPath: x2Text
+      value: 
+      objectReference: {fileID: 1057802322}
+    - target: {fileID: 832612812424487052, guid: 088d11fbfd001c84abf70753e970a166,
+        type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1410600285}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 088d11fbfd001c84abf70753e970a166, type: 3}
+--- !u!114 &536717699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 832612812424487052, guid: 088d11fbfd001c84abf70753e970a166,
+    type: 3}
+  m_PrefabInstance: {fileID: 536717698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fefe2ad6a33fcf40b435ba8d0e22716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &590388696
 GameObject:
   m_ObjectHideFlags: 0
@@ -10223,7 +10250,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1729646837}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 536717699}
+        m_MethodName: ShowRewardedVideoAd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1729646837
 MonoBehaviour:
   m_ObjectHideFlags: 0
