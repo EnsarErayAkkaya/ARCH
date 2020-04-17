@@ -31,6 +31,7 @@ public class EntranceUI : MonoBehaviour
     public void PlaySurvival()
     {
         MyPowerUpsAutoChooser();
+        ProjectileManager.instance.SelectAuto();
         SceneManager.LoadScene(1);
     }
     void MyPowerUpsAutoChooser()

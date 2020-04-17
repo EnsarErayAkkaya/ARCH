@@ -9,6 +9,15 @@ public class MusicUIManager : MonoBehaviour
     [SerializeField] string musicName;
     void Start()
     {
+        if(SaveAndLoadGameData.instance.savedData.isMusicPlaying)
+        {
+            UnmuteMusic();
+        }
+        else
+        {
+            MuteMusic();
+        }
+
         if(AudioManager.instance.IsMuted(musicName) == true)
         {
             off.gameObject.SetActive(true);
@@ -23,9 +32,16 @@ public class MusicUIManager : MonoBehaviour
     public void MuteMusic( )
     {
         AudioManager.instance.Mute(musicName);
+        SaveMusicSetting(false);
     }
     public void UnmuteMusic()
     {
         AudioManager.instance.Unmute(musicName);
+        SaveMusicSetting(true);
+    }
+    void SaveMusicSetting(bool m)
+    {
+        SaveAndLoadGameData.instance.savedData.isMusicPlaying = m;
+        SaveAndLoadGameData.instance.Save();
     }
 }
