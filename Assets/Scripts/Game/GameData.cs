@@ -8,7 +8,23 @@ public class GameData
     public int score,totalScore,coin,playedGameCount;
     public List<PowerUpType> playerPowerUps = new List<PowerUpType>();
     public List<PowerUpType> selectedActivePowerUps = new List<PowerUpType>();
-    public bool isGlow;
+    public bool isGlow,isMusicPlaying;
+    public List<PacketType> ownedPackets = new List<PacketType>();
+    public PacketType choosedPacketType;
+    public GameData()
+    {
+        playerPowerUps = new List<PowerUpType>();
+        selectedActivePowerUps = new List<PowerUpType>();
+        ownedPackets = new List<PacketType>();
+        ownedPackets.Add(PacketType.Default);
+        choosedPacketType = PacketType.None;
+        isGlow = true;
+        isMusicPlaying = true;
+        score= 0;
+        totalScore= 0;
+        coin= 0;
+        playedGameCount = 0;
+    }
 
     /* public int currentFloor;
     public int maxReachedFloor;

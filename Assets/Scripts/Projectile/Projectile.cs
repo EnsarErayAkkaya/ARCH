@@ -15,12 +15,15 @@ public class Projectile : MonoBehaviour
     public Vector2 shootDirection;
     public void SetProjectile(Vector2 dir)
     {
+        var angle =  (Mathf.Atan2(dir.y,dir.x)* Mathf.Rad2Deg)%360;
+        transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward);
         manager = FindObjectOfType<ProjectileManager>();
         DetectLifeTime();
         rb = GetComponent<Rigidbody2D>();
+        shootDirection = dir;
         start = true;
         SetSize();
-		shootDirection = dir;   
+		
     }
     void FixedUpdate()
     {

@@ -9,5 +9,5 @@ public class ProjectilesPacket
 }
 public enum PacketType
 {
-    Default
+    None,Default,Forest
 }
