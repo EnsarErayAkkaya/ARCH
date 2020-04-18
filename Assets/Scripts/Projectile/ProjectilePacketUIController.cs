@@ -4,19 +4,21 @@ using TMPro;
 public class ProjectilePacketUIController : MonoBehaviour
 {
     [SerializeField] GameObject marketPanel,highlightPrefab;
-    [SerializeField]PacketType type;
+    public PacketType type;
     [SerializeField] string notSoldText,chooseText,cancelText;
     [SerializeField] TextMeshProUGUI sellButtonText,nameText;
     [SerializeField] Sprite normal,middle,powerful;
     ProjectileManager manager;
     bool isSold;
+    [SerializeField] string productId;
+
     void Start()
     {
         manager = FindObjectOfType<ProjectileManager>();
         nameText.text = type.ToString() + " Packet";
         CheckIsOwned();
     }
-    void CheckIsOwned()
+    public void CheckIsOwned()
     {
         isSold = ProjectileManager.instance.ownedPackets.Any(s => s == type);
 
@@ -49,8 +51,8 @@ public class ProjectilePacketUIController : MonoBehaviour
         if(isSold == false)
         {
             //Sell with real money
-            manager.OwnPacket(type);
-            isSold = true;
+            FindObjectOfType<Purchaser>().BuyProductID(productId);
+
             ChangeText();
         }
         else
