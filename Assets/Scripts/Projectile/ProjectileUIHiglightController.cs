@@ -1,20 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class ProjectileUIHiglightController : MonoBehaviour
 {
     [SerializeField] Image background, normal,middle,powerful;
-    public void Set(Color c, Sprite n, Sprite m, Sprite p)
+    [SerializeField] TextMeshProUGUI priceText;
+    public void Set(Color c, Sprite n, Sprite m, Sprite p, int price)
     {
         background.color = c;
         normal.sprite = n;
         middle.sprite = m;
         powerful.sprite = p;
+        priceText.text = price.ToString();
     }
     public void Destroy()
     {
-        Object.Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

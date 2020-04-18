@@ -11,6 +11,7 @@ public class ProjectilePacketUIController : MonoBehaviour
     ProjectileManager manager;
     bool isSold;
     [SerializeField] string productId;
+    [SerializeField] int price;
 
     void Start()
     {
@@ -74,7 +75,7 @@ public class ProjectilePacketUIController : MonoBehaviour
         GameObject obj = Instantiate(highlightPrefab);
         obj.transform.SetParent(marketPanel.transform);
         obj.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        obj.GetComponent<ProjectileUIHiglightController>().Set(nameText.color,normal,middle,powerful);
+        obj.GetComponent<ProjectileUIHiglightController>().Set(nameText.color,normal,middle,powerful,price);
     }
     
 }

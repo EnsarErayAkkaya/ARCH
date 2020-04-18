@@ -60,4 +60,10 @@ public class EntranceUI : MonoBehaviour
             Debug.LogWarning(e.Message);
         }        
     }
+    public void GainCoin(int c)
+    {
+        SaveAndLoadGameData.instance.savedData.coin += c;
+        SaveAndLoadGameData.instance.Save();
+        UpdateCoin();
+    }
 }

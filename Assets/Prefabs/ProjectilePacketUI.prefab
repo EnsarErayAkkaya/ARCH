@@ -151,6 +151,8 @@ MonoBehaviour:
   normal: {fileID: 21300000, guid: b8ceb2bbdc197f94fb82dbeeea08cb6e, type: 3}
   middle: {fileID: 21300000, guid: 1d41d980062ad8e498e83782d02978c1, type: 3}
   powerful: {fileID: 21300000, guid: b84b66614ef739c4ba7820e2b653df28, type: 3}
+  productId: 
+  price: 2
 --- !u!1 &3565940935553798085
 GameObject:
   m_ObjectHideFlags: 0
