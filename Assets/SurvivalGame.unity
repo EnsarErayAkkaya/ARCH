@@ -1927,7 +1927,6 @@ MonoBehaviour:
   nextButton: {fileID: 2098014753}
   restartButton: {fileID: 1947672305}
   pauseButton: {fileID: 189498499}
-  canShowAd: 0
 --- !u!114 &469211334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2096,6 +2095,16 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1410600285}
+    - target: {fileID: 832612812424487052, guid: 088d11fbfd001c84abf70753e970a166,
+        type: 3}
+      propertyPath: InterstitialAd_Id
+      value: ca-app-pub-5176018929650163/6705165803
+      objectReference: {fileID: 0}
+    - target: {fileID: 832612812424487052, guid: 088d11fbfd001c84abf70753e970a166,
+        type: 3}
+      propertyPath: rewardedAd_ID
+      value: ca-app-pub-5176018929650163/7976765318
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 088d11fbfd001c84abf70753e970a166, type: 3}
 --- !u!114 &536717699 stripped
