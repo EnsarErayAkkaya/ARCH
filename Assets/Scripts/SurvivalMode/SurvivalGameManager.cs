@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SurvivalGameManager : MonoBehaviour
 {
     public GameObject room;
-    public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f,maxRoomScale,minRoomScale;
+    public float gameRadius,gameTime,scaleDownStartTime,roomScaleDownChance=0.2f,maxRoomScale,minRoomScale,roomRadiusPrecentage;
     private int score,coinGained;
     SurvivalGameUI gameUI;
     public bool gameStopped,isGameStarted = false,gameEnded,roomClosing,willRoomScale = false,waweEnded;
@@ -38,10 +38,14 @@ public class SurvivalGameManager : MonoBehaviour
             }
         }
     }
+    void OnDrawGizmos()
+   {
+       Gizmos.DrawWireSphere(transform.position,gameRadius);
+   }
     public void SetRoom()
     {
         gameRadius = Random.Range(minRoomScale,maxRoomScale);
-        room.transform.localScale = new Vector3(gameRadius/3,gameRadius/3,1);
+        room.transform.localScale = new Vector3(gameRadius/roomRadiusPrecentage,gameRadius/roomRadiusPrecentage,1);
         willRoomScale = ChooseWillRoomScale();
         roomClosing = false;
         gameStopped = false;

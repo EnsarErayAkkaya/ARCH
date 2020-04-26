@@ -6,7 +6,7 @@ public class CheckPointManager : MonoBehaviour
 {
     public List<GameObject> checkPointsPrefabList = new List<GameObject>();
     private float radius;
-    public int checkPointCount;
+    public int checkPointCount,passedCheckpointCount=0;
     public List<CheckpointController> checkPoints = new List<CheckpointController>();
     SurvivalGameManager survivalManager;
     SurvivalGameUI survivalUI;
@@ -76,11 +76,11 @@ public class CheckPointManager : MonoBehaviour
         else
         {
             float val = Random.Range(0f,1f);
-            if(val <= .7f)
+            if(val <= .65f)
             {
                 return 0;
             }
-            else if( val > .7f && val <= 1f)
+            else if( val > .65f && val <= 1f)
             {
                 return 1; 
             }
@@ -92,29 +92,29 @@ public class CheckPointManager : MonoBehaviour
     
     public void ChoosecheckPointCount()
     {
-        if( survivalManager.waveIndex < 5 && radius <= 60 )
+        if( survivalManager.waveIndex < 5 && radius <= 55 )
         {
-            checkPointCount = UnityEngine.Random.Range(2,5);
+            checkPointCount = UnityEngine.Random.Range(2,6);
         }
-        else if( survivalManager.waveIndex < 5 && radius > 60 )
+        else if( survivalManager.waveIndex < 5 && radius > 55 )
         {
             checkPointCount = UnityEngine.Random.Range(3,7);
         }
-        else if( survivalManager.waveIndex > 5 && survivalManager.waveIndex <10 && radius <= 60 )
+        else if( survivalManager.waveIndex > 5 && survivalManager.waveIndex <10 && radius <= 55 )
         {
             checkPointCount = UnityEngine.Random.Range(3,7);
         }
-        else if( survivalManager.waveIndex > 5 && survivalManager.waveIndex <10 && radius > 60 )
+        else if( survivalManager.waveIndex > 5 && survivalManager.waveIndex <10 && radius > 55 )
         {
-            checkPointCount = UnityEngine.Random.Range(6,10);
+            checkPointCount = UnityEngine.Random.Range(5,9);
         }
-        else if( survivalManager.waveIndex > 15 && radius <= 60 )
+        else if( survivalManager.waveIndex > 15 && radius <= 55 )
         {
-            checkPointCount = UnityEngine.Random.Range(9,13);
+            checkPointCount = UnityEngine.Random.Range(8,12);
         }
-        else if( survivalManager.waveIndex > 15 && radius > 60 )
+        else if( survivalManager.waveIndex > 15 && radius > 55 )
         {
-            checkPointCount = UnityEngine.Random.Range(12,16);
+            checkPointCount = UnityEngine.Random.Range(10,15);
         }
     }
     Vector2 ChooseRandomLocation()
@@ -124,14 +124,28 @@ public class CheckPointManager : MonoBehaviour
     }
     public void RemovePointFromlist(CheckpointController point)
     {
+        passedCheckpointCount++;
+
         checkPoints.Remove(point);
         survivalManager.GetEnemyScore();
         if(checkPoints.Count == 0)
         {
             Debug.Log("All checkPoint Passed");
-            survivalManager.StopGame();
-            survivalUI.SetUIOnGamePassed();
+            survivalManager.CleanGame();
+            survivalManager.SetRoom();
             survivalManager.CalculateScore();
+            passedCheckpointCount = 0;
+        }
+        else
+        {
+            AddRingToAllCheckpoints();
+        }
+    }
+    void AddRingToAllCheckpoints()
+    {
+        foreach (CheckpointController item in checkPoints)
+        {
+            item.AddRing(passedCheckpointCount);
         }
     }
 }

@@ -13,6 +13,8 @@ public class CheckpointController : MonoBehaviour
     public SpriteRenderer up,down;
     //sadece önce sağdan geçildiğinde kabul et demek
     public bool isOneSided;
+    [SerializeField] float ringAnimDist;
+    [SerializeField] GameObject ringAnimPrefab;
     void Start()
     {
         //Random belirle tek taraflı mı değil mi
@@ -116,5 +118,35 @@ public class CheckpointController : MonoBehaviour
 
         FindObjectOfType<CheckPointManager>().RemovePointFromlist(this);
         Destroy(gameObject);
+    }
+    public void AddRing(int i)
+    {
+        Vector3 pos;
+        GameObject obj;
+        // çiftse sola
+        if(i % 2 == 0)
+        {
+            int bolum = i / 2;
+            pos = new Vector3(-ringAnimDist *(bolum), 0, 0);
+            obj = Instantiate(ringAnimPrefab);
+        }
+        // tekse sağa
+        else
+        {
+            int bolum = i / 2;
+            int kalan = i % 2;
+            pos = new Vector3(ringAnimDist *(bolum+ kalan), 0, 0);
+            obj = Instantiate(ringAnimPrefab);
+        }
+        obj.transform.SetParent(this.transform);
+
+        obj.transform.localPosition = pos;
+
+        obj.transform.rotation = this.transform.rotation;
+
+        obj.transform.localScale = new Vector3(1,1,1);
+
+        obj.GetComponent<SpriteRenderer>().material.SetColor("_EmissionColor"
+            , up.material.GetColor("_EmissionColor"));
     }
 }
