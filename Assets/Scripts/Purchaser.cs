@@ -24,6 +24,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
         public static string thousandCoins = "thousandcoins";
         public static string fiveThousandCoins = "fivethousandcoins";
         public static string tenThousandCoins = "tenthousandcoins";
+        public static string removeAds = "removeads";
 
         void Start()
         {
@@ -53,7 +54,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
             builder.AddProduct(thousandCoins, ProductType.Consumable);
             builder.AddProduct(fiveThousandCoins, ProductType.Consumable);
             builder.AddProduct(tenThousandCoins, ProductType.Consumable);
-
+            builder.AddProduct(removeAds, ProductType.NonConsumable);
 
             // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
             // and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
@@ -156,6 +157,14 @@ public class Purchaser : MonoBehaviour, IStoreListener
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
                 FindObjectOfType<EntranceUI>().GainCoin(10000);
+            }
+            /// REMOVE ADS
+            else  if (String.Equals(args.purchasedProduct.definition.id, removeAds, StringComparison.Ordinal))
+            {
+                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
+                SaveAndLoadGameData.instance.savedData.isAdsRemoved = true;
+                SaveAndLoadGameData.instance.Save();
             }
             else 
             {

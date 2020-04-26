@@ -67,7 +67,8 @@ public class SurvivalGameUI : GameUI
     }
     public void EndGameUI()
     {
-        if(SaveAndLoadGameData.instance.savedData.playedGameCount%2 == 0)
+        if(SaveAndLoadGameData.instance.savedData.playedGameCount%2 == 0
+            && SaveAndLoadGameData.instance.savedData.isAdsRemoved == false)
         {
             FindObjectOfType<AdmobManager>().ShowInterstitialAd();
         }

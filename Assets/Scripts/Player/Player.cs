@@ -58,5 +58,24 @@ public class Player : MonoBehaviour {
 
 		gameUI.UpdateHealthBar(currentHealth);
 	}
-	
+	public void CallExplosivePowerUpEnumerator()
+	{
+		StartCoroutine(ExplosivePowerUpEnumerator());
+	}
+	IEnumerator ExplosivePowerUpEnumerator()
+	{
+		int i = player_Shoot.shootCount;
+		while(true)
+		{
+			if(i+3 != player_Shoot.shootCount && i+3 > player_Shoot.shootCount)
+			{
+			}
+			else
+			{
+				StartCoroutine( PowerUpManager.powerUpManager.GetPowerBack(PowerUpType.ExplosivePower) );
+				break;
+			}
+			yield return 0;
+		}
+	}
 }

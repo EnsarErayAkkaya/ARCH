@@ -433,11 +433,11 @@ MonoBehaviour:
   startTimeBetweenShots: 1
   damage: 10
   projectileExtraDistanceToCenter: 0
-  enemyParticle: {fileID: 8979659252381689548, guid: 91ffc5a526868e44eb1b8822037dc381,
+  enemyParticle: {fileID: 1179132484101173915, guid: 0d77a7a6b08a5a441bbc0dba43ecb3bf,
     type: 3}
   projectile: {fileID: 405509334939425670, guid: e1c8dd06bc2942d4e8f0d0d8b13eba24,
     type: 3}
-  spawnParticle: {fileID: 3978161751462951069, guid: c9363464fa361bb40846623009c52fa7,
+  spawnParticle: {fileID: 1179132484101173915, guid: 0d77a7a6b08a5a441bbc0dba43ecb3bf,
     type: 3}
   canShoot: 0
   dontDieFromCollision: 1

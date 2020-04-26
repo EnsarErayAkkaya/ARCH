@@ -130,6 +130,9 @@ MonoBehaviour:
   up: {fileID: 5385298831642302590}
   down: {fileID: 6197357995195701924}
   isOneSided: 0
+  ringAnimDist: 1.5
+  ringAnimPrefab: {fileID: 3946510584906136750, guid: fb697a1b08637ce41b04a4e81cddcb6b,
+    type: 3}
 --- !u!95 &7489038171683513069
 Animator:
   serializedVersion: 3

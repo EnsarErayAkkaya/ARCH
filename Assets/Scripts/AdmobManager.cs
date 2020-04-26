@@ -19,7 +19,8 @@ public class AdmobManager : MonoBehaviour
     {
         MobileAds.Initialize(App_ID);
         RequestRewardBasedVideo();
-        if(SaveAndLoadGameData.instance.savedData.playedGameCount%2 != 0)
+        if(SaveAndLoadGameData.instance.savedData.playedGameCount%2 != 0 
+            && SaveAndLoadGameData.instance.savedData.isAdsRemoved == false)
         {
             FindObjectOfType<AdmobManager>().RequestInterstitial();
         }
@@ -56,7 +57,7 @@ public class AdmobManager : MonoBehaviour
             {
                 manager.GainCoin(manager.GetCoinGained());
                 x2Text.gameObject.SetActive(true);
-                rewardedVideoButton.interactable = false;
+                rewardedVideoButton.gameObject.SetActive(false);
                 Debug.Log("rewarded");
                 // do all the actions
                 // reward the player

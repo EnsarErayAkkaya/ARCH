@@ -21,6 +21,7 @@ public class Player_Shoot : MonoBehaviour {
 	public bool recoilCall;
 	Player_Gfxs gfxs;
 	ProjectileManager projectileManager;
+	public int shootCount;
 	void Start()
 	{
 		projectileManager = FindObjectOfType<ProjectileManager>();
@@ -70,12 +71,12 @@ public class Player_Shoot : MonoBehaviour {
 		}
 	}
 	void ShootAndroid()
-	{
-		Touch touch= Input.GetTouch(0);;
-	
+	{	
 		if(Input.touchCount < 1)
 			return;
-        
+			
+		Touch touch= Input.GetTouch(0);;
+
 		if( touch.phase == TouchPhase.Began )
 		{	
 			chargedTime = Time.time;
@@ -103,7 +104,7 @@ public class Player_Shoot : MonoBehaviour {
 			//Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 			Vector2 Direction = target - transform.position;
-
+			shootCount++;
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
 				AudioManager.instance.Play( "NormalShot" );
@@ -183,7 +184,7 @@ public class Player_Shoot : MonoBehaviour {
 			//Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 			Vector2 Direction = target - transform.position;
-
+			shootCount++;
 			if( Time.time - chargedTime < MiddleShootTimeLimit )
 			{
 				AudioManager.instance.Play( "NormalShot" );

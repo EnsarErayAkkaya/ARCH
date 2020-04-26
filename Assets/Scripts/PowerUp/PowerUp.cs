@@ -17,7 +17,7 @@ public class PowerUp
 }
 public enum PowerUpType
 {
-    MachineGun,LifeStealing,FreezingShot,UnPerfectShield
+    MachineGun,LifeStealing,FreezingShot,UnPerfectShield,ExplosivePower
 }
 public enum UsageType
 {

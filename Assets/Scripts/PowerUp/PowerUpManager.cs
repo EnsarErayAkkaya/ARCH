@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PowerUpManager : MonoBehaviour
@@ -51,6 +52,7 @@ public class PowerUpManager : MonoBehaviour
         switch (powerUp.powerUpType)
         {
             case PowerUpType.MachineGun:
+                powerUp.tempData.Clear();
                 Debug.Log("machine gun 0");
                 pShoot.canRecoil = false;
                 powerUp.tempData.Add(pShoot.NormalShootTimeLimit);
@@ -67,6 +69,24 @@ public class PowerUpManager : MonoBehaviour
                 p.dontGetDamage = true;
                 p.isThereActivePowerUp = true;
                 StartCoroutine( GetPowerBack(powerUp) );
+            break;
+            case PowerUpType.ExplosivePower:
+                powerUp.tempData.Clear();
+                ProjectileManager manager =  FindObjectOfType<ProjectileManager>();
+                Debug.Log("Explosive power");
+/*                 // tempdata 0 normal
+                powerUp.tempData.Add(manager.NormalRecoilForce);
+                // tempdata 1 middle
+                powerUp.tempData.Add(manager.MiddleRecoilForce);
+                // tempdata 2 powerdul
+                powerUp.tempData.Add(manager.PowerfulRecoilForce); */
+
+                manager.NormalRecoilForce *= 2;
+                manager.MiddleRecoilForce *= 2;
+                manager.PowerfulRecoilForce *= 2;
+
+                p.isThereActivePowerUp = true;
+                p.CallExplosivePowerUpEnumerator();
             break;
 
             default:
@@ -90,6 +110,50 @@ public class PowerUpManager : MonoBehaviour
             yield return new WaitForSeconds(powerUp.usingTime);
             p.dontGetDamage = false;
             pShoot.canShoot = true;
+            p.isThereActivePowerUp = false;
+        }
+        else if(powerUp.powerUpType == PowerUpType.ExplosivePower)
+        {
+            Debug.Log("Explosve Power 1");
+            yield return new WaitForSeconds(powerUp.usingTime);
+            ProjectileManager manager =  FindObjectOfType<ProjectileManager>(); 
+
+            manager.NormalRecoilForce /= 2;
+            manager.MiddleRecoilForce /= 2;
+            manager.PowerfulRecoilForce /= 2;
+            p.isThereActivePowerUp = false;
+        }
+    }
+     public IEnumerator GetPowerBack( PowerUpType powerUpType)
+    {
+        PowerUp powerUp = PowerUpManager.powerUpManager.powerUps
+            .FirstOrDefault(s => s.powerUpType == powerUpType);
+            
+        if(PowerUpType.MachineGun == powerUp.powerUpType)
+        {
+            Debug.Log("machine gun 1");
+            yield return new WaitForSeconds(powerUp.usingTime);
+            pShoot.NormalShootTimeLimit =powerUp.tempData[0];
+            pShoot.canRecoil = true;
+            p.isThereActivePowerUp = false;
+        }
+        else if(powerUp.powerUpType == PowerUpType.UnPerfectShield)
+        {
+            Debug.Log("UnPerfect Shield 1");
+            yield return new WaitForSeconds(powerUp.usingTime);
+            p.dontGetDamage = false;
+            pShoot.canShoot = true;
+            p.isThereActivePowerUp = false;
+        }
+        else if(powerUp.powerUpType == PowerUpType.ExplosivePower)
+        {
+            Debug.Log("Explosve Power 1");
+
+            ProjectileManager manager =  FindObjectOfType<ProjectileManager>(); 
+            manager.NormalRecoilForce /= 2;
+            manager.MiddleRecoilForce /= 2;
+            manager.PowerfulRecoilForce /= 2;
+
             p.isThereActivePowerUp = false;
         }
     }
